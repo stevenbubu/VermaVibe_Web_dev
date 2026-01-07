@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Ver 0.0.4</title>
+    <title>Ver 0.0.5</title>
 
     <style>
       :root {
@@ -132,7 +132,7 @@
         background: rgba(0, 212, 255, 0.14);
       }
 
-      @media (max-width: 380px) {
+      @media (max-width: 420px) {
         .tool-btn {
           font-size: 12px;
           padding: 0 8px;
@@ -193,10 +193,12 @@
             </svg>
           </span>
           <span>VermaVibe</span>
-          <span class="muted">｜<span id="albumName">關於</span></span>
+          <span class="muted">｜<span id="albumName">About</span></span>
         </div>
 
+        <!-- ✅ Top bar 變更：About、Tech、Case、Collab、Contact -->
         <nav class="actions" id="toolbar" aria-label="Albums">
+          <!-- About -->
           <button class="tool-btn active" type="button" data-album="about">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -217,9 +219,10 @@
                 stroke-linecap="round"
               />
             </svg>
-            <span>關於</span>
+            <span>About</span>
           </button>
 
+          <!-- Tech -->
           <button class="tool-btn" type="button" data-album="tech">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -243,9 +246,10 @@
                 stroke-linecap="round"
               />
             </svg>
-            <span>技術</span>
+            <span>Tech</span>
           </button>
 
+          <!-- Case -->
           <button class="tool-btn" type="button" data-album="cases">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -265,9 +269,46 @@
                 stroke-linecap="round"
               />
             </svg>
-            <span>案例</span>
+            <span>Case</span>
           </button>
 
+          <!-- ✅ Collab（新增） -->
+          <button class="tool-btn" type="button" data-album="collab">
+            <!-- handshake-like icon -->
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M8.2 13.2 6 11l-3 3 3.2 3.2c.7.7 1.8.7 2.5 0l1.2-1.2"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.8 13.2 18 11l3 3-3.2 3.2c-.7.7-1.8.7-2.5 0l-1.2-1.2"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 14.5l2 2c.6.6 1.4.6 2 0l2-2"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9.2 10.5 11 8.7c.6-.6 1.4-.6 2 0l1.8 1.8"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Collab</span>
+          </button>
+
+          <!-- Contact -->
           <button class="tool-btn" type="button" data-album="contact">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -283,7 +324,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span>聯絡</span>
+            <span>Contact</span>
           </button>
         </nav>
       </div>
@@ -295,14 +336,13 @@
 
     <script>
       // ======================
-      // ✅ 你只要改這裡：每個 icon 對應的資料夾
-      //  - folder: 資料夾路徑
-      //  - manifest: (可選) folder/manifest.json（內含順序檔名陣列）
+      // ✅ 每個 icon 對應資料夾（新增 collab）
+      //  - manifest: (可選) folder/manifest.json（內含順序檔名陣列 / {files:[...]}）
       //  - count/ext/pad: 沒 manifest 時 fallback 用 1..N 檔名
       // ======================
       const ALBUMS = {
         about: {
-          label: "關於",
+          label: "About",
           folder: "images/About",
           manifest: "manifest.json",
           count: 12,
@@ -310,7 +350,7 @@
           pad: 0,
         },
         tech: {
-          label: "技術",
+          label: "Tech",
           folder: "images/Tech",
           manifest: "manifest.json",
           count: 18,
@@ -318,15 +358,23 @@
           pad: 0,
         },
         cases: {
-          label: "案例",
+          label: "Case",
           folder: "images/Cases",
           manifest: "manifest.json",
           count: 20,
           ext: "PNG",
           pad: 0,
         },
+        collab: {
+          label: "Collab",
+          folder: "images/Collab",
+          manifest: "manifest.json",
+          count: 10,
+          ext: "PNG",
+          pad: 0,
+        }, // ✅ 新增
         contact: {
-          label: "聯絡",
+          label: "Contact",
           folder: "images/Contact",
           manifest: "manifest.json",
           count: 6,
@@ -372,7 +420,7 @@
       // State
       // ======================
       let currentAlbumKey = "about";
-      let images = []; // current album image list (ordered)
+      let images = [];
 
       let idx = 0;
       let scale = 1;
@@ -560,7 +608,7 @@
       }
 
       // ======================
-      // ✅ Album loading
+      // Album loading
       // ======================
       function padNumber(n, pad) {
         if (!pad) return String(n);
@@ -579,33 +627,27 @@
         const album = ALBUMS[key];
         if (!album) throw new Error("Unknown album: " + key);
 
-        // 先嘗試讀 manifest.json（有就用）
         if (album.manifest) {
           const url = `${album.folder}/${album.manifest}`;
           try {
             const res = await fetch(url, { cache: "no-store" });
             if (res.ok) {
               const data = await res.json();
-              if (Array.isArray(data)) {
+              if (Array.isArray(data))
                 return data.map((name) => `${album.folder}/${name}`);
-              }
-              if (data && Array.isArray(data.files)) {
+              if (data && Array.isArray(data.files))
                 return data.files.map((name) => `${album.folder}/${name}`);
-              }
             }
           } catch {
             // ignore -> fallback
           }
         }
-
-        // 沒 manifest 就 fallback：1..count
         return buildFallbackList(album);
       }
 
       async function setAlbum(key) {
         if (!ALBUMS[key]) return;
 
-        // UI active
         toolbar.querySelectorAll(".tool-btn").forEach((btn) => {
           btn.classList.toggle("active", btn.dataset.album === key);
         });
@@ -613,7 +655,6 @@
         currentAlbumKey = key;
         albumName.textContent = ALBUMS[key].label;
 
-        // reset transforms
         stopPanInertia();
         stopZoomAnim();
         cancelSingleTap();
@@ -622,10 +663,7 @@
         ty = 0;
         commit(true);
 
-        // load list
         images = await loadAlbumList(key);
-
-        // show first slide
         show(0);
       }
 
@@ -659,11 +697,8 @@
           waitNatural();
         };
 
-        viewer.onerror = () => {
-          console.warn("Load failed:", url);
-        };
+        viewer.onerror = () => console.warn("Load failed:", url);
 
-        // preload next
         const pre = new Image();
         pre.decoding = "async";
         pre.src = images[(idx + 1) % images.length];
@@ -794,7 +829,6 @@
 
           panAnimId = requestAnimationFrame(step);
         };
-
         panAnimId = requestAnimationFrame(step);
       }
 
@@ -809,7 +843,7 @@
       });
 
       // ======================
-      // Pointer interactions (keep your behavior)
+      // Pointer interactions
       // ======================
       viewer.addEventListener(
         "pointerdown",
@@ -1080,13 +1114,10 @@
       if (window.visualViewport)
         window.visualViewport.addEventListener("resize", onViewportChange);
 
-      // ======================
       // init
-      // ======================
       (async function init() {
         await setAlbum(currentAlbumKey);
       })();
     </script>
   </body>
 </html>
-``
