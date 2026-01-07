@@ -6,11 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Ver 0.0.2</title>
+    <title>Ver 0.0.3</title>
 
     <style>
       :root {
-        --bar-h: 56px; /* top bar 高度（不含 safe-area） */
+        --bar-h: 56px;
         --bar-bg: rgba(0, 0, 0, 0.55);
         --bar-border: rgba(255, 255, 255, 0.12);
         --bar-text: rgba(255, 255, 255, 0.94);
@@ -18,10 +18,6 @@
         --btn-bg: rgba(255, 255, 255, 0.06);
         --btn-bg-hover: rgba(255, 255, 255, 0.1);
         --btn-border: rgba(255, 255, 255, 0.12);
-
-        --panel-bg: rgba(0, 0, 0, 0.78);
-        --panel-card: rgba(18, 18, 18, 0.92);
-        --panel-border: rgba(255, 255, 255, 0.12);
 
         --accent: #00d4ff;
       }
@@ -68,7 +64,7 @@
         letter-spacing: 0.3px;
         user-select: none;
         white-space: nowrap;
-        min-width: 120px;
+        min-width: 150px;
       }
 
       .brand-badge {
@@ -82,7 +78,6 @@
         justify-content: center;
         box-shadow: 0 0 18px rgba(0, 212, 255, 0.18);
       }
-
       .brand-badge svg {
         width: 16px;
         height: 16px;
@@ -101,7 +96,6 @@
         flex-wrap: nowrap;
       }
 
-      /* icon + 文字按鈕（同一顆） */
       .tool-btn {
         height: 38px;
         display: inline-flex;
@@ -120,15 +114,12 @@
         letter-spacing: 0.2px;
         white-space: nowrap;
       }
-
       .tool-btn:hover {
         background: var(--btn-bg-hover);
       }
-
       .tool-btn:active {
         transform: scale(0.985);
       }
-
       .tool-btn svg {
         width: 18px;
         height: 18px;
@@ -136,26 +127,30 @@
         opacity: 0.95;
       }
 
-      /* 螢幕很窄時文字縮小但仍保留 */
+      .tool-btn.active {
+        border-color: rgba(0, 212, 255, 0.55);
+        background: rgba(0, 212, 255, 0.14);
+      }
+
       @media (max-width: 380px) {
         .tool-btn {
           font-size: 12px;
           padding: 0 8px;
           gap: 6px;
         }
+        .brand {
+          min-width: 120px;
+        }
       }
 
-      /* ===== Stage (下移，避免被 Top Bar 遮住) ===== */
+      /* ===== Stage ===== */
       .stage {
         position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
-
-        /* topbar + safe-area */
         top: calc(var(--bar-h) + env(safe-area-inset-top));
         height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top));
-
         display: flex;
         align-items: center;
         justify-content: center;
@@ -178,94 +173,15 @@
         touch-action: pan-y;
         backface-visibility: hidden;
       }
-
-      /* ===== Overlay Panel ===== */
-      .overlay {
-        position: fixed;
-        inset: 0;
-        background: var(--panel-bg);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 40;
-        padding: 18px;
-        padding-top: calc(18px + env(safe-area-inset-top));
-        padding-bottom: calc(18px + env(safe-area-inset-bottom));
-        box-sizing: border-box;
-      }
-      .overlay.show {
-        display: flex;
-      }
-
-      .panel {
-        width: min(560px, 100%);
-        background: var(--panel-card);
-        border: 1px solid var(--panel-border);
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
-
-      .panel-hd {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 14px 14px 12px;
-        border-bottom: 1px solid var(--panel-border);
-        gap: 12px;
-      }
-
-      .panel-title {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #fff;
-        font: 750 15px/1.2 system-ui, "Microsoft JhengHei", sans-serif;
-      }
-
-      .panel-title svg {
-        width: 18px;
-        height: 18px;
-        opacity: 0.95;
-      }
-
-      .close-btn {
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.06);
-        color: #fff;
-        cursor: pointer;
-      }
-
-      .panel-bd {
-        padding: 14px;
-        color: rgba(255, 255, 255, 0.86);
-        font: 14px/1.7 system-ui, "Microsoft JhengHei", sans-serif;
-      }
-
-      .panel-bd a {
-        color: #7fe7ff;
-        text-decoration: none;
-      }
-      .panel-bd a:hover {
-        text-decoration: underline;
-      }
-
-      .muted {
-        color: rgba(255, 255, 255, 0.68);
-      }
     </style>
   </head>
 
   <body>
-    <!-- ===== Top Bar ===== -->
-    <header class="topbar" id="topbar">
+    <header class="topbar">
       <div class="topbar-inner">
         <div class="brand" title="VermaVibe Viewer">
           <span class="brand-badge" aria-hidden="true">
-            <!-- Brand icon (wave/vibe) -->
+            <!-- Brand icon -->
             <svg viewBox="0 0 24 24" fill="none">
               <path
                 d="M4 13c2-6 4 6 6 0s4-6 6 0 4-6 4-6"
@@ -277,17 +193,11 @@
             </svg>
           </span>
           <span>VermaVibe</span>
-          <span class="muted">｜Viewer</span>
+          <span class="muted">｜<span id="albumName">關於</span></span>
         </div>
 
-        <nav class="actions" aria-label="Top actions" id="toolbar">
-          <!-- 關於 -->
-          <button
-            class="tool-btn"
-            type="button"
-            data-panel="about"
-            aria-label="關於"
-          >
+        <nav class="actions" id="toolbar" aria-label="Albums">
+          <button class="tool-btn active" type="button" data-album="about">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"
@@ -310,13 +220,7 @@
             <span>關於</span>
           </button>
 
-          <!-- 技術 -->
-          <button
-            class="tool-btn"
-            type="button"
-            data-panel="tech"
-            aria-label="技術"
-          >
+          <button class="tool-btn" type="button" data-album="tech">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M9 18 3 12l6-6"
@@ -342,13 +246,7 @@
             <span>技術</span>
           </button>
 
-          <!-- 案例 -->
-          <button
-            class="tool-btn"
-            type="button"
-            data-panel="cases"
-            aria-label="案例"
-          >
+          <button class="tool-btn" type="button" data-album="cases">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M7 7.5A2.5 2.5 0 0 1 9.5 5h9A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-9A2.5 2.5 0 0 1 7 16.5v-9Z"
@@ -370,13 +268,7 @@
             <span>案例</span>
           </button>
 
-          <!-- 聯絡 -->
-          <button
-            class="tool-btn"
-            type="button"
-            data-panel="contact"
-            aria-label="聯絡"
-          >
+          <button class="tool-btn" type="button" data-album="contact">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"
@@ -397,49 +289,55 @@
       </div>
     </header>
 
-    <!-- ===== Stage ===== -->
     <div class="stage" id="stage">
       <img id="viewer" class="slide" src="" alt="slide" draggable="false" />
     </div>
 
-    <!-- ===== Overlay Panel ===== -->
-    <div
-      class="overlay"
-      id="overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-hidden="true"
-    >
-      <div class="panel" role="document">
-        <div class="panel-hd">
-          <div class="panel-title">
-            <span id="panelIcon" aria-hidden="true"></span>
-            <span id="panelText">標題</span>
-          </div>
-          <button
-            class="close-btn"
-            id="btnClose"
-            type="button"
-            aria-label="關閉"
-          >
-            ✕
-          </button>
-        </div>
-        <div class="panel-bd" id="panelBody">內容</div>
-      </div>
-    </div>
-
     <script>
       // ======================
-      //  Config
+      // ✅ 你只要改這裡：每個 icon 對應的資料夾
+      //  - folder: 資料夾路徑
+      //  - manifest: (可選) folder/manifest.json（內含順序檔名陣列）
+      //  - count/ext/pad: 沒 manifest 時 fallback 用 1..N 檔名
       // ======================
-      const COUNT = 12;
-      const FOLDER = "images/VermaVibe_20251217";
-      const images = Array.from(
-        { length: COUNT },
-        (_, i) => `${FOLDER}/${i + 1}.PNG`
-      );
+      const ALBUMS = {
+        about: {
+          label: "關於",
+          folder: "images/About",
+          manifest: "manifest.json",
+          count: 12,
+          ext: "PNG",
+          pad: 0,
+        },
+        tech: {
+          label: "技術",
+          folder: "images/Tech",
+          manifest: "manifest.json",
+          count: 18,
+          ext: "PNG",
+          pad: 0,
+        },
+        cases: {
+          label: "案例",
+          folder: "images/Cases",
+          manifest: "manifest.json",
+          count: 20,
+          ext: "PNG",
+          pad: 0,
+        },
+        contact: {
+          label: "聯絡",
+          folder: "images/Contact",
+          manifest: "manifest.json",
+          count: 6,
+          ext: "PNG",
+          pad: 0,
+        },
+      };
 
+      // ======================
+      // Config / constants
+      // ======================
       const MIN_SCALE = 1,
         MAX_SCALE = 6;
       const DOUBLE_TAP_MS = 300;
@@ -463,44 +361,36 @@
       const PAN_HISTORY_MS = 120;
 
       // ======================
-      //  DOM
+      // DOM
       // ======================
       const viewer = document.getElementById("viewer");
       const stage = document.getElementById("stage");
-
-      // overlay
-      const overlay = document.getElementById("overlay");
-      const panelIcon = document.getElementById("panelIcon");
-      const panelText = document.getElementById("panelText");
-      const panelBody = document.getElementById("panelBody");
-      const btnClose = document.getElementById("btnClose");
       const toolbar = document.getElementById("toolbar");
+      const albumName = document.getElementById("albumName");
 
       // ======================
-      //  State
+      // State
       // ======================
+      let currentAlbumKey = "about";
+      let images = []; // current album image list (ordered)
+
       let idx = 0;
       let scale = 1;
       let tx = 0,
         ty = 0;
       let rafId = null;
 
-      // viewport
       let viewportW = 0,
         viewportH = 0;
-
-      // base contain size & center offset
       let baseW = 0,
         baseH = 0;
       let baseLx = 0,
         baseLy = 0;
 
-      // pointers
       const pointers = new Map();
       let dragStart = null;
       let stageDragStart = null;
 
-      // tap/swipe tracking
       let tapStartX = null,
         tapStartY = null,
         tapStartTime = 0;
@@ -508,30 +398,22 @@
         lastMoveY = null,
         lastMoveTime = 0;
 
-      // anti-jump recompute
       let recomputeTimer = null;
       let viewportDirty = false;
 
-      // inertia
       let panAnimId = null;
       let panHistory = [];
 
-      // zoom animation
       let zoomAnimId = null;
-
-      // double tap time
       let lastTap = 0;
 
-      // ✅ single tap delayed (avoid double tap switching)
       let tapTimer = null;
 
       // ======================
-      //  Utils
+      // Utils
       // ======================
       const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
       const nowMs = () => performance.now();
-
-      const isOverlayOpen = () => overlay.classList.contains("show");
 
       function cancelSingleTap() {
         if (tapTimer) {
@@ -587,7 +469,6 @@
         return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) };
       }
 
-      // ✅ zoomed-content bounds (and lock-to-center if content <= viewport)
       function getPanBounds() {
         const contentW = baseW * scale;
         const contentH = baseH * scale;
@@ -647,7 +528,6 @@
         baseW = s.w;
         baseH = s.h;
 
-        // make rendering consistent for math
         viewer.style.width = `${baseW}px`;
         viewer.style.height = `${baseH}px`;
 
@@ -680,12 +560,84 @@
       }
 
       // ======================
-      //  Slides
+      // ✅ Album loading
+      // ======================
+      function padNumber(n, pad) {
+        if (!pad) return String(n);
+        return String(n).padStart(pad, "0");
+      }
+
+      function buildFallbackList(album) {
+        const { folder, count, ext, pad = 0 } = album;
+        return Array.from(
+          { length: count },
+          (_, i) => `${folder}/${padNumber(i + 1, pad)}.${ext}`
+        );
+      }
+
+      async function loadAlbumList(key) {
+        const album = ALBUMS[key];
+        if (!album) throw new Error("Unknown album: " + key);
+
+        // 先嘗試讀 manifest.json（有就用）
+        if (album.manifest) {
+          const url = `${album.folder}/${album.manifest}`;
+          try {
+            const res = await fetch(url, { cache: "no-store" });
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data)) {
+                return data.map((name) => `${album.folder}/${name}`);
+              }
+              if (data && Array.isArray(data.files)) {
+                return data.files.map((name) => `${album.folder}/${name}`);
+              }
+            }
+          } catch {
+            // ignore -> fallback
+          }
+        }
+
+        // 沒 manifest 就 fallback：1..count
+        return buildFallbackList(album);
+      }
+
+      async function setAlbum(key) {
+        if (!ALBUMS[key]) return;
+
+        // UI active
+        toolbar.querySelectorAll(".tool-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.album === key);
+        });
+
+        currentAlbumKey = key;
+        albumName.textContent = ALBUMS[key].label;
+
+        // reset transforms
+        stopPanInertia();
+        stopZoomAnim();
+        cancelSingleTap();
+        scale = 1;
+        tx = 0;
+        ty = 0;
+        commit(true);
+
+        // load list
+        images = await loadAlbumList(key);
+
+        // show first slide
+        show(0);
+      }
+
+      // ======================
+      // Slides
       // ======================
       function show(i) {
         stopPanInertia();
         stopZoomAnim();
         cancelSingleTap();
+
+        if (!images.length) return;
 
         idx = (i + images.length) % images.length;
         scale = 1;
@@ -708,7 +660,6 @@
         };
 
         viewer.onerror = () => {
-          // 你也可在這裡做 toast
           console.warn("Load failed:", url);
         };
 
@@ -725,7 +676,7 @@
       }
 
       // ======================
-      //  Zoom (centered)
+      // Zoom (center)
       // ======================
       function zoomAtPoint(targetScale, clientX, clientY) {
         const s1 = clamp(targetScale, MIN_SCALE, MAX_SCALE);
@@ -776,7 +727,7 @@
       }
 
       // ======================
-      //  Inertia
+      // Inertia
       // ======================
       function recordPanHistory(px, py) {
         const t = nowMs();
@@ -803,16 +754,13 @@
           const dt = Math.max(1, ts - lastTs);
           lastTs = ts;
 
-          // decay
           const decay = Math.pow(INERTIA_FRICTION, dt / 16);
           vx *= decay;
           vy *= decay;
 
-          // update
           tx += vx * dt;
           ty += vy * dt;
 
-          // bounce
           const { minTx, maxTx, minTy, maxTy } = getPanBounds();
           if (tx < minTx && vx < 0) {
             tx = minTx;
@@ -838,12 +786,12 @@
             Math.abs(vy) < INERTIA_MIN_SPEED;
           const inside =
             tx >= minTx && tx <= maxTx && ty >= minTy && ty <= maxTy;
-
           if (small && inside) {
             stopPanInertia();
             commit(true);
             return;
           }
+
           panAnimId = requestAnimationFrame(step);
         };
 
@@ -851,109 +799,21 @@
       }
 
       // ======================
-      //  Overlay (Panels)
+      // Toolbar click -> switch folder
       // ======================
-      // Extract icons from toolbar buttons so panel title can reuse
-      function getButtonIconHTML(type) {
-        const btn = toolbar.querySelector(`[data-panel="${type}"]`);
-        return btn ? btn.querySelector("svg")?.outerHTML || "" : "";
-      }
-
-      const PANEL_CONTENT = {
-        about: {
-          title: "關於",
-          body: `
-            <div>這是一個圖片簡報 Viewer（手機單擊換頁、雙擊放大、縮放後拖曳與慣性）。</div>
-            <div class="muted" style="margin-top:8px;">可在此放專案介紹、作者資訊或版本說明。</div>
-          `,
-        },
-        tech: {
-          title: "技術",
-          body: `
-            <div>目前支援：</div>
-            <ul style="margin:8px 0 0 18px;">
-              <li>Contain 置中顯示 + 100dvh + safe-area</li>
-              <li>手機：單擊換頁（延遲判斷）、雙擊只縮放</li>
-              <li>縮放後拖曳、慣性滑動、邊界反彈</li>
-              <li>桌機：← → / Space / Home / End；Ctrl+滾輪縮放</li>
-            </ul>
-          `,
-        },
-        cases: {
-          title: "案例",
-          body: `
-            <div>你可以在此放案例列表（例如連到不同資料夾或專案頁）：</div>
-            <ul style="margin:8px 0 0 18px;">
-              <li>#案例 A：品牌視覺</a></li>
-              <li>#案例 B：UI Mock</a></li>
-              <li>#案例 C：海報系列</a></li>
-            </ul>
-            <div class="muted" style="margin-top:8px;">（之後可把點擊改成切換不同 FOLDER 或開新頁）</div>
-          `,
-        },
-        contact: {
-          title: "聯絡",
-          body: `
-            <div>聯絡方式：</div>
-            <ul style="margin:8px 0 0 18px;">
-              <li>Email：mailto:someone@example.comsomeone@example.com</a></li>
-              <li>網站：https://example.comhttps://example.com</a></li>
-              <li>社群：IG / FB / LinkedIn</li>
-            </ul>
-            <div class="muted" style="margin-top:8px;">（請把資料換成你的實際資訊）</div>
-          `,
-        },
-      };
-
-      function openPanel(type) {
-        cancelSingleTap();
-        stopPanInertia();
-
-        const cfg = PANEL_CONTENT[type];
-        if (!cfg) return;
-
-        panelIcon.innerHTML = getButtonIconHTML(type);
-        panelText.textContent = cfg.title;
-        panelBody.innerHTML = cfg.body;
-
-        overlay.classList.add("show");
-        overlay.setAttribute("aria-hidden", "false");
-        setTimeout(() => btnClose.focus?.(), 0);
-      }
-
-      function closePanel() {
-        overlay.classList.remove("show");
-        overlay.setAttribute("aria-hidden", "true");
-      }
-
-      // toolbar event delegation
-      toolbar.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-panel]");
+      toolbar.addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-album]");
         if (!btn) return;
         e.stopPropagation();
-        openPanel(btn.dataset.panel);
-      });
-
-      btnClose.addEventListener("click", closePanel);
-      overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) closePanel();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && isOverlayOpen()) {
-          e.preventDefault();
-          closePanel();
-        }
+        await setAlbum(btn.dataset.album);
       });
 
       // ======================
-      //  Pointer interactions
+      // Pointer interactions (keep your behavior)
       // ======================
       viewer.addEventListener(
         "pointerdown",
         (e) => {
-          if (isOverlayOpen()) return;
-
           stopPanInertia();
           pointers.set(e.pointerId, {
             x: e.clientX,
@@ -961,12 +821,11 @@
             type: e.pointerType,
           });
 
-          // capture (more stable drag)
           try {
             viewer.setPointerCapture(e.pointerId);
           } catch {}
 
-          // ✅ touch double tap: zoom only (cancel single-tap switch)
+          // ✅ touch double tap => zoom only
           const tNow = nowMs();
           if (e.pointerType === "touch" && tNow - lastTap < DOUBLE_TAP_MS) {
             cancelSingleTap();
@@ -978,7 +837,6 @@
           }
           lastTap = e.pointerType === "touch" ? tNow : 0;
 
-          // start drag only when zoomed
           if (scale > 1) {
             dragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
             panHistory.length = 0;
@@ -991,10 +849,9 @@
       viewer.addEventListener(
         "pointermove",
         (e) => {
-          if (isOverlayOpen()) return;
           if (!pointers.has(e.pointerId)) return;
-
           preventNativeIfZooming(e);
+
           pointers.set(e.pointerId, {
             x: e.clientX,
             y: e.clientY,
@@ -1017,7 +874,6 @@
           viewer.releasePointerCapture(e.pointerId);
         } catch {}
 
-        // inertia if zoomed & dragged
         if (scale > 1 && dragStart) {
           const { vx, vy } = computePanVelocity();
           if (
@@ -1042,12 +898,9 @@
         tryRecomputeAfterInteraction();
       });
 
-      // stage: tap/swipe when scale===1; drag when scale>1
       stage.addEventListener(
         "pointerdown",
         (e) => {
-          if (isOverlayOpen()) return;
-
           stopPanInertia();
           pointers.set(e.pointerId, {
             x: e.clientX,
@@ -1080,8 +933,6 @@
       stage.addEventListener(
         "pointermove",
         (e) => {
-          if (isOverlayOpen()) return;
-
           preventNativeIfZooming(e);
 
           if (scale > 1 && stageDragStart) {
@@ -1100,8 +951,6 @@
       );
 
       stage.addEventListener("pointerup", (e) => {
-        if (isOverlayOpen()) return;
-
         pointers.delete(e.pointerId);
 
         if (scale > 1) {
@@ -1121,7 +970,6 @@
           return;
         }
 
-        // scale===1: tap or swipe
         const endX = e.clientX,
           endY = e.clientY;
         const endTime = nowMs();
@@ -1151,7 +999,6 @@
             dt <= TAP_DURATION_MS;
 
           if (isTap) {
-            // ✅ touch: delayed to see if it becomes double tap
             if (e.pointerType === "touch") scheduleSingleTap(endX);
             else handlePositionalClick(endX);
           }
@@ -1177,11 +1024,9 @@
 
       stage.addEventListener("contextmenu", (e) => e.preventDefault());
 
-      // wheel: ctrl+wheel zoom only
       stage.addEventListener(
         "wheel",
         (e) => {
-          if (isOverlayOpen()) return;
           if (e.ctrlKey) {
             e.preventDefault();
             const factor =
@@ -1194,10 +1039,7 @@
         { passive: false }
       );
 
-      // keyboard
       document.addEventListener("keydown", (e) => {
-        if (isOverlayOpen()) return;
-
         const k = e.key;
         if (k === "ArrowLeft") {
           e.preventDefault();
@@ -1229,7 +1071,6 @@
         }
       });
 
-      // viewport changes
       function onViewportChange() {
         viewportDirty = true;
         scheduleRecompute();
@@ -1239,8 +1080,12 @@
       if (window.visualViewport)
         window.visualViewport.addEventListener("resize", onViewportChange);
 
+      // ======================
       // init
-      show(0);
+      // ======================
+      (async function init() {
+        await setAlbum(currentAlbumKey);
+      })();
     </script>
   </body>
 </html>
