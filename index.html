@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>ver 0.0.9</title>
+    <title>ver 0.0.10</title>
 
     <style>
       :root {
@@ -67,6 +67,7 @@
         min-width: 150px;
       }
 
+      /* 發光 badge 框保留 */
       .brand-badge {
         width: 28px;
         height: 28px;
@@ -77,14 +78,14 @@
         align-items: center;
         justify-content: center;
         box-shadow: 0 0 18px rgba(0, 212, 255, 0.18);
+        overflow: hidden; /* 防止 logo 超出 */
       }
-      .brand-badge svg {
-        /* width: 16px;
-        height: 16px; */
-        height: 28px;
+
+      /* ✅ 外部 SVG 用 <img> 載入，所以用 .brand-logo */
+      .brand-logo {
+        height: 18px; /* 放進 28x28 badge 比較不擠 */
         width: auto;
         display: block;
-        color: var(--accent);
       }
 
       .brand .muted {
@@ -176,6 +177,30 @@
         touch-action: pan-y;
         backface-visibility: hidden;
       }
+
+      /* ===== 小型狀態列（防呆：顯示載入/錯誤，不用看 console） ===== */
+      .status {
+        position: fixed;
+        left: 10px;
+        bottom: 10px;
+        z-index: 50;
+        padding: 8px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(0, 0, 0, 0.55);
+        color: rgba(255, 255, 255, 0.88);
+        font: 12px/1.4 system-ui, "Microsoft JhengHei", sans-serif;
+        max-width: min(560px, calc(100vw - 20px));
+        display: none;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .status.show {
+        display: block;
+      }
+      .status .muted {
+        color: rgba(255, 255, 255, 0.68);
+      }
     </style>
   </head>
 
@@ -184,15 +209,15 @@
       <div class="topbar-inner">
         <div class="brand" title="VermaVibe Viewer">
           <span class="brand-badge" aria-hidden="true">
+            <!-- ✅ 外部 SVG 檔案 -->
             images/brand/logo.svg
           </span>
           <span>VermaVibe</span>
           <span class="muted">｜<span id="albumName">About</span></span>
         </div>
 
-        <!-- ✅ Top bar 變更：About、Tech、Case、Collab、Contact -->
+        <!-- Top bar：About、Tech、Case、Collab、Contact -->
         <nav class="actions" id="toolbar" aria-label="Albums">
-          <!-- About -->
           <button class="tool-btn active" type="button" data-album="about">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -216,7 +241,6 @@
             <span>About</span>
           </button>
 
-          <!-- Tech -->
           <button class="tool-btn" type="button" data-album="tech">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -243,7 +267,6 @@
             <span>Tech</span>
           </button>
 
-          <!-- Case -->
           <button class="tool-btn" type="button" data-album="cases">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -266,9 +289,7 @@
             <span>Case</span>
           </button>
 
-          <!-- ✅ Collab（新增） -->
           <button class="tool-btn" type="button" data-album="collab">
-            <!-- handshake-like icon -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M8.2 13.2 6 11l-3 3 3.2 3.2c.7.7 1.8.7 2.5 0l1.2-1.2"
@@ -302,7 +323,6 @@
             <span>Collab</span>
           </button>
 
-          <!-- Contact -->
           <button class="tool-btn" type="button" data-album="contact">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
@@ -328,11 +348,13 @@
       <img id="viewer" class="slide" src="" alt="slide" draggable="false" />
     </div>
 
+    <div class="status" id="status"></div>
+
     <script>
       // ======================
-      // ✅ 每個 icon 對應資料夾（新增 collab）
-      //  - manifest: (可選) folder/manifest.json（內含順序檔名陣列 / {files:[...]}）
-      //  - count/ext/pad: 沒 manifest 時 fallback 用 1..N 檔名
+      // ✅ 每個 icon 對應資料夾
+      // 1) 先嘗試讀 folder/manifest.json（可選）
+      // 2) fetch 不可用 / manifest 不存在 => fallback 用 count 產生 1..N
       // ======================
       const ALBUMS = {
         about: {
@@ -366,7 +388,7 @@
           count: 10,
           ext: "PNG",
           pad: 0,
-        }, // ✅ 新增
+        },
         contact: {
           label: "Contact",
           folder: "images/Contact",
@@ -409,6 +431,7 @@
       const stage = document.getElementById("stage");
       const toolbar = document.getElementById("toolbar");
       const albumName = document.getElementById("albumName");
+      const statusEl = document.getElementById("status");
 
       // ======================
       // State
@@ -449,7 +472,25 @@
       let zoomAnimId = null;
       let lastTap = 0;
 
+      // 單擊延遲避免雙擊時先換頁
       let tapTimer = null;
+
+      // ======================
+      // Status helper（顯示在畫面左下角）
+      // ======================
+      function setStatus(msg, keep = false) {
+        if (!msg) {
+          statusEl.classList.remove("show");
+          statusEl.textContent = "";
+          return;
+        }
+        statusEl.innerHTML = msg;
+        statusEl.classList.add("show");
+        if (!keep) {
+          clearTimeout(setStatus._t);
+          setStatus._t = setTimeout(() => setStatus(""), 2200);
+        }
+      }
 
       // ======================
       // Utils
@@ -511,6 +552,7 @@
         return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) };
       }
 
+      // ✅ 修正：縮放後若內容仍 <= viewport，固定置中而不是 tx/ty=0
       function getPanBounds() {
         const contentW = baseW * scale;
         const contentH = baseH * scale;
@@ -586,7 +628,6 @@
           !!zoomAnimId
         );
       }
-
       function scheduleRecompute(delay = 320) {
         clearTimeout(recomputeTimer);
         if (isInteracting()) {
@@ -596,13 +637,12 @@
         viewportDirty = false;
         recomputeTimer = setTimeout(recomputeBaseSize, delay);
       }
-
       function tryRecomputeAfterInteraction() {
         if (viewportDirty && !isInteracting()) scheduleRecompute(160);
       }
 
       // ======================
-      // Album loading
+      // Album loading（防呆版）
       // ======================
       function padNumber(n, pad) {
         if (!pad) return String(n);
@@ -617,31 +657,53 @@
         );
       }
 
+      // ✅ file:// 時很多瀏覽器會擋 fetch，本版直接偵測 protocol，自動 fallback
+      function canFetchManifest() {
+        return location.protocol === "http:" || location.protocol === "https:";
+      }
+
       async function loadAlbumList(key) {
         const album = ALBUMS[key];
         if (!album) throw new Error("Unknown album: " + key);
 
-        if (album.manifest) {
-          const url = `${album.folder}/${album.manifest}`;
+        // 如果可 fetch 且有 manifest 就試試看
+        if (album.manifest && canFetchManifest()) {
+          const url = `${album.folder}/${album.manifest}?v=${Date.now()}`; // cache bust
           try {
             const res = await fetch(url, { cache: "no-store" });
             if (res.ok) {
               const data = await res.json();
-              if (Array.isArray(data))
-                return data.map((name) => `${album.folder}/${name}`);
-              if (data && Array.isArray(data.files))
-                return data.files.map((name) => `${album.folder}/${name}`);
+              const files = Array.isArray(data)
+                ? data
+                : data && Array.isArray(data.files)
+                ? data.files
+                : null;
+              if (files && files.length)
+                return files.map((name) => `${album.folder}/${name}`);
+            } else {
+              setStatus(
+                `manifest 讀取失敗（HTTP ${res.status}），改用 fallback`,
+                false
+              );
             }
-          } catch {
-            // ignore -> fallback
+          } catch (err) {
+            setStatus(`manifest fetch 失敗，改用 fallback`, false);
           }
+        } else if (album.manifest && !canFetchManifest()) {
+          setStatus(
+            `目前是 file:// 開啟，跳過 manifest，使用 count fallback（建議用本機伺服器）`,
+            false
+          );
         }
+
+        // fallback：1..count
         return buildFallbackList(album);
       }
 
       async function setAlbum(key) {
         if (!ALBUMS[key]) return;
 
+        // UI active
         toolbar.querySelectorAll(".tool-btn").forEach((btn) => {
           btn.classList.toggle("active", btn.dataset.album === key);
         });
@@ -649,6 +711,7 @@
         currentAlbumKey = key;
         albumName.textContent = ALBUMS[key].label;
 
+        // reset view
         stopPanInertia();
         stopZoomAnim();
         cancelSingleTap();
@@ -657,7 +720,15 @@
         ty = 0;
         commit(true);
 
+        setStatus(`載入 ${ALBUMS[key].label}...`, true);
         images = await loadAlbumList(key);
+
+        if (!images.length) {
+          setStatus(`找不到任何圖片：${ALBUMS[key].folder}`, true);
+          return;
+        }
+
+        setStatus(`OK：${ALBUMS[key].label}（${images.length} 張）`, false);
         show(0);
       }
 
@@ -691,7 +762,9 @@
           waitNatural();
         };
 
-        viewer.onerror = () => console.warn("Load failed:", url);
+        viewer.onerror = () => {
+          setStatus(`圖片載入失敗：<span class="muted">${url}</span>`, true);
+        };
 
         const pre = new Image();
         pre.decoding = "async";
@@ -745,7 +818,6 @@
           scale = s;
 
           commit(true);
-
           if (dt < 1) zoomAnimId = requestAnimationFrame(step);
           else {
             stopZoomAnim();
@@ -827,7 +899,7 @@
       }
 
       // ======================
-      // Toolbar click -> switch folder
+      // Toolbar click -> switch album
       // ======================
       toolbar.addEventListener("click", async (e) => {
         const btn = e.target.closest("[data-album]");
@@ -853,7 +925,7 @@
             viewer.setPointerCapture(e.pointerId);
           } catch {}
 
-          // ✅ touch double tap => zoom only
+          // ✅ touch double tap => zoom only (and cancel pending single tap)
           const tNow = nowMs();
           if (e.pointerType === "touch" && tNow - lastTap < DOUBLE_TAP_MS) {
             cancelSingleTap();
@@ -1110,6 +1182,15 @@
 
       // init
       (async function init() {
+        // logo 防呆：如果載不到，直接提示你路徑/大小寫問題
+        const logo = document.querySelector(".brand-logo");
+        logo?.addEventListener("error", () => {
+          setStatus(
+            `logo.svg 載入失敗：<span class="muted">images/brand/logo.svg</span><br/>請確認路徑與大小寫`,
+            true
+          );
+        });
+
         await setAlbum(currentAlbumKey);
       })();
     </script>
