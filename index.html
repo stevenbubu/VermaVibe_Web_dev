@@ -6,17 +6,24 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Ver 0.0.1</title>
+    <title>Ver 0.0.2</title>
+
     <style>
       :root {
-        --bar-h: 52px; /* top bar 高度（不含 safe-area） */
+        --bar-h: 56px; /* top bar 高度（不含 safe-area） */
         --bar-bg: rgba(0, 0, 0, 0.55);
         --bar-border: rgba(255, 255, 255, 0.12);
-        --bar-icon: rgba(255, 255, 255, 0.92);
-        --bar-icon-dim: rgba(255, 255, 255, 0.72);
+        --bar-text: rgba(255, 255, 255, 0.94);
+
+        --btn-bg: rgba(255, 255, 255, 0.06);
+        --btn-bg-hover: rgba(255, 255, 255, 0.1);
+        --btn-border: rgba(255, 255, 255, 0.12);
+
         --panel-bg: rgba(0, 0, 0, 0.78);
         --panel-card: rgba(18, 18, 18, 0.92);
         --panel-border: rgba(255, 255, 255, 0.12);
+
+        --accent: #00d4ff;
       }
 
       html,
@@ -41,6 +48,7 @@
         border-bottom: 1px solid var(--bar-border);
         box-sizing: border-box;
       }
+
       .topbar-inner {
         height: var(--bar-h);
         display: flex;
@@ -48,64 +56,93 @@
         justify-content: space-between;
         padding: 0 10px;
         box-sizing: border-box;
+        gap: 10px;
       }
+
       .brand {
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 10px;
-        color: #fff;
-        font: 600 14px/1 system-ui, "Microsoft JhengHei", sans-serif;
+        color: var(--bar-text);
+        font: 650 14px/1 system-ui, "Microsoft JhengHei", sans-serif;
         letter-spacing: 0.3px;
-        opacity: 0.95;
         user-select: none;
         white-space: nowrap;
+        min-width: 120px;
       }
-      .brand .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: #00d4ff;
-        box-shadow: 0 0 14px rgba(0, 212, 255, 0.55);
-      }
-      .actions {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-      .icon-btn {
-        width: 38px;
-        height: 38px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        background: rgba(255, 255, 255, 0.06);
+
+      .brand-badge {
+        width: 28px;
+        height: 28px;
         border-radius: 12px;
+        background: rgba(0, 212, 255, 0.14);
+        border: 1px solid rgba(0, 212, 255, 0.25);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 0;
+        box-shadow: 0 0 18px rgba(0, 212, 255, 0.18);
+      }
+
+      .brand-badge svg {
+        width: 16px;
+        height: 16px;
+        color: var(--accent);
+      }
+
+      .brand .muted {
+        color: rgba(255, 255, 255, 0.68);
+        font-weight: 600;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: nowrap;
+      }
+
+      /* icon + 文字按鈕（同一顆） */
+      .tool-btn {
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 10px;
+        border-radius: 12px;
+        border: 1px solid var(--btn-border);
+        background: var(--btn-bg);
+        color: rgba(255, 255, 255, 0.92);
         cursor: pointer;
-        color: var(--bar-icon);
         transition: transform 0.08s ease, background 0.2s ease,
           border-color 0.2s ease;
-        touch-action: manipulation; /* 點擊更穩 */
-      }
-      .icon-btn:active {
-        transform: scale(0.98);
-      }
-      .icon-btn:hover {
-        background: rgba(255, 255, 255, 0.1);
-      }
-      .icon-btn svg {
-        width: 20px;
-        height: 20px;
-        display: block;
-      }
-      .icon-label {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
+        touch-action: manipulation;
+        font: 600 12.5px/1 system-ui, "Microsoft JhengHei", sans-serif;
+        letter-spacing: 0.2px;
         white-space: nowrap;
+      }
+
+      .tool-btn:hover {
+        background: var(--btn-bg-hover);
+      }
+
+      .tool-btn:active {
+        transform: scale(0.985);
+      }
+
+      .tool-btn svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        opacity: 0.95;
+      }
+
+      /* 螢幕很窄時文字縮小但仍保留 */
+      @media (max-width: 380px) {
+        .tool-btn {
+          font-size: 12px;
+          padding: 0 8px;
+          gap: 6px;
+        }
       }
 
       /* ===== Stage (下移，避免被 Top Bar 遮住) ===== */
@@ -114,8 +151,11 @@
         left: 0;
         right: 0;
         bottom: 0;
+
+        /* topbar + safe-area */
         top: calc(var(--bar-h) + env(safe-area-inset-top));
         height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top));
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -127,8 +167,8 @@
       }
 
       .slide {
-        max-width: 100vw;
-        max-height: 100dvh;
+        max-width: 100%;
+        max-height: 100%;
         width: auto;
         height: auto;
         object-fit: contain;
@@ -137,29 +177,6 @@
         transform-origin: 0 0;
         touch-action: pan-y;
         backface-visibility: hidden;
-      }
-
-      /* ===== Hint ===== */
-      .hint {
-        position: fixed;
-        left: 50%;
-        bottom: calc(16px + env(safe-area-inset-bottom));
-        transform: translateX(-50%);
-        color: #fff;
-        font: 14px/1.6 system-ui, "Microsoft JhengHei", sans-serif;
-        opacity: 0.8;
-        text-align: center;
-        transition: opacity 0.3s ease;
-        z-index: 20;
-      }
-      .hint.hidden {
-        opacity: 0;
-        pointer-events: none;
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .hint {
-          transition: none !important;
-        }
       }
 
       /* ===== Overlay Panel ===== */
@@ -181,32 +198,37 @@
       }
 
       .panel {
-        width: min(520px, 100%);
+        width: min(560px, 100%);
         background: var(--panel-card);
         border: 1px solid var(--panel-border);
         border-radius: 16px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         overflow: hidden;
       }
+
       .panel-hd {
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 14px 14px 12px;
         border-bottom: 1px solid var(--panel-border);
+        gap: 12px;
       }
+
       .panel-title {
         display: flex;
         align-items: center;
         gap: 10px;
         color: #fff;
-        font: 700 15px/1.2 system-ui, "Microsoft JhengHei", sans-serif;
+        font: 750 15px/1.2 system-ui, "Microsoft JhengHei", sans-serif;
       }
+
       .panel-title svg {
         width: 18px;
         height: 18px;
         opacity: 0.95;
       }
+
       .close-btn {
         width: 36px;
         height: 36px;
@@ -216,11 +238,13 @@
         color: #fff;
         cursor: pointer;
       }
+
       .panel-bd {
         padding: 14px;
         color: rgba(255, 255, 255, 0.86);
         font: 14px/1.7 system-ui, "Microsoft JhengHei", sans-serif;
       }
+
       .panel-bd a {
         color: #7fe7ff;
         text-decoration: none;
@@ -228,6 +252,7 @@
       .panel-bd a:hover {
         text-decoration: underline;
       }
+
       .muted {
         color: rgba(255, 255, 255, 0.68);
       }
@@ -238,22 +263,31 @@
     <!-- ===== Top Bar ===== -->
     <header class="topbar" id="topbar">
       <div class="topbar-inner">
-        <div class="brand" title="Viewer">
-          <span class="dot"></span>
-          <span>Ver 0.0.78</span>
-          <span class="muted" style="font-weight: 600">｜Viewer</span>
+        <div class="brand" title="VermaVibe Viewer">
+          <span class="brand-badge" aria-hidden="true">
+            <!-- Brand icon (wave/vibe) -->
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 13c2-6 4 6 6 0s4-6 6 0 4-6 4-6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span>VermaVibe</span>
+          <span class="muted">｜Viewer</span>
         </div>
 
-        <nav class="actions" aria-label="Top actions">
+        <nav class="actions" aria-label="Top actions" id="toolbar">
           <!-- 關於 -->
           <button
-            class="icon-btn"
-            id="btnAbout"
+            class="tool-btn"
             type="button"
+            data-panel="about"
             aria-label="關於"
           >
-            <span class="icon-label">關於</span>
-            <!-- info-circle -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"
@@ -273,12 +307,16 @@
                 stroke-linecap="round"
               />
             </svg>
+            <span>關於</span>
           </button>
 
           <!-- 技術 -->
-          <button class="icon-btn" id="btnTech" type="button" aria-label="技術">
-            <span class="icon-label">技術</span>
-            <!-- code -->
+          <button
+            class="tool-btn"
+            type="button"
+            data-panel="tech"
+            aria-label="技術"
+          >
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M9 18 3 12l6-6"
@@ -301,17 +339,44 @@
                 stroke-linecap="round"
               />
             </svg>
+            <span>技術</span>
+          </button>
+
+          <!-- 案例 -->
+          <button
+            class="tool-btn"
+            type="button"
+            data-panel="cases"
+            aria-label="案例"
+          >
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M7 7.5A2.5 2.5 0 0 1 9.5 5h9A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-9A2.5 2.5 0 0 1 7 16.5v-9Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M3 9.2A2.2 2.2 0 0 1 5.2 7H7v12H5.2A2.2 2.2 0 0 1 3 16.8V9.2Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="M10 10.2h8M10 13h8M10 15.8h5.5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>案例</span>
           </button>
 
           <!-- 聯絡 -->
           <button
-            class="icon-btn"
-            id="btnContact"
+            class="tool-btn"
             type="button"
+            data-panel="contact"
             aria-label="聯絡"
           >
-            <span class="icon-label">聯絡</span>
-            <!-- mail -->
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
                 d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"
@@ -326,20 +391,18 @@
                 stroke-linejoin="round"
               />
             </svg>
+            <span>聯絡</span>
           </button>
         </nav>
       </div>
     </header>
 
+    <!-- ===== Stage ===== -->
     <div class="stage" id="stage">
       <img id="viewer" class="slide" src="" alt="slide" draggable="false" />
     </div>
 
-    <div class="hint" id="hint">
-      電腦 ← → 鍵切換｜手機單擊可切換｜雙擊只放大
-    </div>
-
-    <!-- Overlay Panel -->
+    <!-- ===== Overlay Panel ===== -->
     <div
       class="overlay"
       id="overlay"
@@ -349,8 +412,8 @@
     >
       <div class="panel" role="document">
         <div class="panel-hd">
-          <div class="panel-title" id="panelTitle">
-            <span id="panelIcon"></span>
+          <div class="panel-title">
+            <span id="panelIcon" aria-hidden="true"></span>
             <span id="panelText">標題</span>
           </div>
           <button
@@ -367,83 +430,77 @@
     </div>
 
     <script>
-      // ===== 設定 =====
+      // ======================
+      //  Config
+      // ======================
       const COUNT = 12;
       const FOLDER = "images/VermaVibe_20251217";
       const images = Array.from(
         { length: COUNT },
-        (_, i) => `${FOLDER}/${String(i + 1)}.PNG`
+        (_, i) => `${FOLDER}/${i + 1}.PNG`
       );
 
       const MIN_SCALE = 1,
         MAX_SCALE = 6;
-      const DOUBLE_TAP_MS = 300,
-        WHEEL_ZOOM_FACTOR = 1.1;
+      const DOUBLE_TAP_MS = 300;
+      const DOUBLE_TAP_TARGET_SCALE = 2.5;
+      const ZOOM_ANIM_MS = 220;
+      const WHEEL_ZOOM_FACTOR = 1.1;
 
       const EPS = 0.2;
       const isTouchDevice = navigator.maxTouchPoints > 0;
 
-      // 中心縮放（不跟游標）
-      const DOUBLE_TAP_TARGET_SCALE = 2.5;
-      const ZOOM_ANIM_MS = 220;
-
-      // Tap 閾值
       const CLICK_THRESHOLD_PX = isTouchDevice ? 22 : 10;
       const CLICK_THRESHOLD_PY = isTouchDevice ? 22 : 10;
       const TAP_DURATION_MS = 250;
 
-      // Swipe 閾值
       const SWIPE_MIN_PX = isTouchDevice ? 48 : 36;
       const SWIPE_MIN_VELOCITY = 0.35;
 
-      // 慣性拖曳／反彈參數
       const INERTIA_MIN_SPEED = 0.02;
       const INERTIA_FRICTION = 0.5;
       const BOUNCE_COEFF = 0.1;
       const PAN_HISTORY_MS = 120;
 
-      // ===== DOM =====
+      // ======================
+      //  DOM
+      // ======================
       const viewer = document.getElementById("viewer");
       const stage = document.getElementById("stage");
-      const hint = document.getElementById("hint");
 
-      // Overlay / Topbar
+      // overlay
       const overlay = document.getElementById("overlay");
+      const panelIcon = document.getElementById("panelIcon");
       const panelText = document.getElementById("panelText");
       const panelBody = document.getElementById("panelBody");
-      const panelIcon = document.getElementById("panelIcon");
       const btnClose = document.getElementById("btnClose");
+      const toolbar = document.getElementById("toolbar");
 
-      const btnAbout = document.getElementById("btnAbout");
-      const btnTech = document.getElementById("btnTech");
-      const btnContact = document.getElementById("btnContact");
-
-      // ===== 狀態 =====
+      // ======================
+      //  State
+      // ======================
       let idx = 0;
       let scale = 1;
       let tx = 0,
         ty = 0;
-      let rafId = null,
-        lastTap = 0;
+      let rafId = null;
 
-      // 舞台尺寸
+      // viewport
       let viewportW = 0,
         viewportH = 0;
 
-      // 未縮放置中的尺寸/偏移
+      // base contain size & center offset
       let baseW = 0,
         baseH = 0;
       let baseLx = 0,
         baseLy = 0;
 
-      // viewer 拖曳
+      // pointers
       const pointers = new Map();
       let dragStart = null;
-
-      // stage 拖曳（scale>1）
       let stageDragStart = null;
 
-      // Tap / Swipe（僅 scale===1）
+      // tap/swipe tracking
       let tapStartX = null,
         tapStartY = null,
         tapStartTime = 0;
@@ -451,19 +508,37 @@
         lastMoveY = null,
         lastMoveTime = 0;
 
-      // 防跳動：互動期間延後重算
-      let recomputeTimer = null,
-        viewportDirty = false;
+      // anti-jump recompute
+      let recomputeTimer = null;
+      let viewportDirty = false;
 
-      // 慣性拖曳
+      // inertia
       let panAnimId = null;
       let panHistory = [];
 
-      // 雙擊縮放動畫
+      // zoom animation
       let zoomAnimId = null;
 
-      // ✅ 手機單擊延遲：避免雙擊時先換頁
+      // double tap time
+      let lastTap = 0;
+
+      // ✅ single tap delayed (avoid double tap switching)
       let tapTimer = null;
+
+      // ======================
+      //  Utils
+      // ======================
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+      const nowMs = () => performance.now();
+
+      const isOverlayOpen = () => overlay.classList.contains("show");
+
+      function cancelSingleTap() {
+        if (tapTimer) {
+          clearTimeout(tapTimer);
+          tapTimer = null;
+        }
+      }
       function scheduleSingleTap(clientX) {
         cancelSingleTap();
         tapTimer = setTimeout(() => {
@@ -471,16 +546,15 @@
           handlePositionalClick(clientX);
         }, DOUBLE_TAP_MS + 30);
       }
-      function cancelSingleTap() {
-        if (tapTimer) {
-          clearTimeout(tapTimer);
-          tapTimer = null;
-        }
-      }
 
-      // ===== 工具 =====
-      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-      const nowMs = () => performance.now();
+      function stopPanInertia() {
+        if (panAnimId) cancelAnimationFrame(panAnimId);
+        panAnimId = null;
+      }
+      function stopZoomAnim() {
+        if (zoomAnimId) cancelAnimationFrame(zoomAnimId);
+        zoomAnimId = null;
+      }
 
       function updateViewport() {
         const vv = window.visualViewport;
@@ -495,8 +569,8 @@
       }
 
       function computeContain(nw, nh) {
-        const imgRatio = nw / nh,
-          stageRatio = viewportW / viewportH;
+        const imgRatio = nw / nh;
+        const stageRatio = viewportW / viewportH;
         if (imgRatio > stageRatio)
           return { w: viewportW, h: viewportW / imgRatio };
         return { h: viewportH, w: viewportH * imgRatio };
@@ -513,7 +587,7 @@
         return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) };
       }
 
-      // ✅ 放大後若內容仍 <= viewport，tx/ty 固定在縮放後置中
+      // ✅ zoomed-content bounds (and lock-to-center if content <= viewport)
       function getPanBounds() {
         const contentW = baseW * scale;
         const contentH = baseH * scale;
@@ -539,30 +613,6 @@
         return { minTx, maxTx, minTy, maxTy };
       }
 
-      function preventNativeIfZooming(e) {
-        if (scale > 1) e.preventDefault?.();
-      }
-
-      // ===== 尺寸與佈局 =====
-      function recomputeBaseSize() {
-        updateViewport();
-        const nw = viewer.naturalWidth || viewer.width || viewer.offsetWidth;
-        const nh = viewer.naturalHeight || viewer.height || viewer.offsetHeight;
-        if (!nw || !nh || !viewportW || !viewportH) return;
-
-        const s = computeContain(nw, nh);
-        baseW = s.w;
-        baseH = s.h;
-
-        // 讓座標/邊界更準
-        viewer.style.width = `${baseW}px`;
-        viewer.style.height = `${baseH}px`;
-
-        computeBaseTopLeft();
-        commit(true);
-      }
-
-      // ===== 視覺更新 =====
       function commit(needsClamp = true) {
         if (needsClamp) {
           const { minTx, maxTx, minTy, maxTy } = getPanBounds();
@@ -578,47 +628,77 @@
       }
 
       function setInteractionMode() {
-        if (scale === 1) {
-          viewer.style.touchAction = "pan-y";
-          stage.style.touchAction = "pan-y";
-        } else {
-          viewer.style.touchAction = "none";
-          stage.style.touchAction = "none";
-        }
+        const ta = scale === 1 ? "pan-y" : "none";
+        viewer.style.touchAction = ta;
+        stage.style.touchAction = ta;
       }
 
-      function resetTransform() {
-        stopPanInertia();
-        stopZoomAnim();
-        cancelSingleTap();
-        scale = 1;
-        tx = 0;
-        ty = 0;
+      function preventNativeIfZooming(e) {
+        if (scale > 1) e.preventDefault?.();
+      }
+
+      function recomputeBaseSize() {
+        updateViewport();
+        const nw = viewer.naturalWidth || viewer.width || viewer.offsetWidth;
+        const nh = viewer.naturalHeight || viewer.height || viewer.offsetHeight;
+        if (!nw || !nh || !viewportW || !viewportH) return;
+
+        const s = computeContain(nw, nh);
+        baseW = s.w;
+        baseH = s.h;
+
+        // make rendering consistent for math
+        viewer.style.width = `${baseW}px`;
+        viewer.style.height = `${baseH}px`;
+
+        computeBaseTopLeft();
         commit(true);
-        scheduleRecompute();
       }
 
-      // ===== 顯示圖片 =====
+      function isInteracting() {
+        return (
+          pointers.size > 0 ||
+          !!stageDragStart ||
+          scale > 1 ||
+          !!panAnimId ||
+          !!zoomAnimId
+        );
+      }
+
+      function scheduleRecompute(delay = 320) {
+        clearTimeout(recomputeTimer);
+        if (isInteracting()) {
+          viewportDirty = true;
+          return;
+        }
+        viewportDirty = false;
+        recomputeTimer = setTimeout(recomputeBaseSize, delay);
+      }
+
+      function tryRecomputeAfterInteraction() {
+        if (viewportDirty && !isInteracting()) scheduleRecompute(160);
+      }
+
+      // ======================
+      //  Slides
+      // ======================
       function show(i) {
         stopPanInertia();
         stopZoomAnim();
         cancelSingleTap();
 
         idx = (i + images.length) % images.length;
-        const url = images[idx];
-
-        hint.classList.toggle("hidden", idx !== 0);
         scale = 1;
         tx = 0;
         ty = 0;
+
+        const url = images[idx];
         viewer.src = url;
         viewer.alt = `slide ${idx + 1}`;
 
         viewer.onload = () => {
           const waitNatural = () => {
-            const nw = viewer.naturalWidth;
-            const nh = viewer.naturalHeight;
-            if (!nw || !nh) {
+            if (!viewer.naturalWidth || !viewer.naturalHeight) {
               requestAnimationFrame(waitNatural);
               return;
             }
@@ -628,10 +708,11 @@
         };
 
         viewer.onerror = () => {
-          hint.textContent = `載入失敗：${url}（點擊可跳下一張）`;
-          hint.classList.remove("hidden");
+          // 你也可在這裡做 toast
+          console.warn("Load failed:", url);
         };
 
+        // preload next
         const pre = new Image();
         pre.decoding = "async";
         pre.src = images[(idx + 1) % images.length];
@@ -643,7 +724,9 @@
         show(leftHalf ? idx - 1 : idx + 1);
       }
 
-      // —— 縮放：中心 ——
+      // ======================
+      //  Zoom (centered)
+      // ======================
       function zoomAtPoint(targetScale, clientX, clientY) {
         const s1 = clamp(targetScale, MIN_SCALE, MAX_SCALE);
         const p = clientToImagePoint(clientX, clientY);
@@ -654,10 +737,10 @@
       }
 
       function zoomAtCenter(targetScale) {
+        updateViewport();
         zoomAtPoint(targetScale, viewportW / 2, viewportH / 2);
       }
 
-      // 雙擊平滑縮放（置中）
       function easeOutCubic(t) {
         return 1 - Math.pow(1 - t, 3);
       }
@@ -674,8 +757,7 @@
         const t0 = nowMs();
 
         const step = () => {
-          const t = nowMs();
-          const dt = Math.min(1, (t - t0) / duration);
+          const dt = Math.min(1, (nowMs() - t0) / duration);
           const s = startScale + (sTarget - startScale) * easeOutCubic(dt);
 
           tx = cX - baseLx - p.x * s;
@@ -693,12 +775,25 @@
         step();
       }
 
-      function stopZoomAnim() {
-        if (zoomAnimId) cancelAnimationFrame(zoomAnimId);
-        zoomAnimId = null;
+      // ======================
+      //  Inertia
+      // ======================
+      function recordPanHistory(px, py) {
+        const t = nowMs();
+        panHistory.push({ x: px, y: py, t });
+        const cutoff = t - PAN_HISTORY_MS;
+        while (panHistory.length && panHistory[0].t < cutoff)
+          panHistory.shift();
       }
 
-      // ===== 慣性拖曳 =====
+      function computePanVelocity() {
+        if (panHistory.length < 2) return { vx: 0, vy: 0 };
+        const a = panHistory[0],
+          b = panHistory[panHistory.length - 1];
+        const dt = Math.max(1, b.t - a.t);
+        return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt };
+      }
+
       function startPanInertia(vx, vy) {
         stopPanInertia();
         let lastTs = nowMs();
@@ -708,13 +803,16 @@
           const dt = Math.max(1, ts - lastTs);
           lastTs = ts;
 
+          // decay
           const decay = Math.pow(INERTIA_FRICTION, dt / 16);
           vx *= decay;
           vy *= decay;
 
+          // update
           tx += vx * dt;
           ty += vy * dt;
 
+          // bounce
           const { minTx, maxTx, minTy, maxTy } = getPanBounds();
           if (tx < minTx && vx < 0) {
             tx = minTx;
@@ -752,101 +850,74 @@
         panAnimId = requestAnimationFrame(step);
       }
 
-      function stopPanInertia() {
-        if (panAnimId) cancelAnimationFrame(panAnimId);
-        panAnimId = null;
+      // ======================
+      //  Overlay (Panels)
+      // ======================
+      // Extract icons from toolbar buttons so panel title can reuse
+      function getButtonIconHTML(type) {
+        const btn = toolbar.querySelector(`[data-panel="${type}"]`);
+        return btn ? btn.querySelector("svg")?.outerHTML || "" : "";
       }
 
-      function recordPanHistory(px, py) {
-        const t = nowMs();
-        panHistory.push({ x: px, y: py, t });
-        const cutoff = t - PAN_HISTORY_MS;
-        while (panHistory.length && panHistory[0].t < cutoff)
-          panHistory.shift();
-      }
-
-      function computePanVelocity() {
-        if (panHistory.length < 2) return { vx: 0, vy: 0 };
-        const a = panHistory[0],
-          b = panHistory[panHistory.length - 1];
-        const dt = Math.max(1, b.t - a.t);
-        return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt };
-      }
-
-      // ===== 防跳動：延後重算 =====
-      function isInteracting() {
-        return (
-          pointers.size > 0 ||
-          !!stageDragStart ||
-          scale > 1 ||
-          !!panAnimId ||
-          !!zoomAnimId
-        );
-      }
-
-      function scheduleRecompute(delay = 320) {
-        clearTimeout(recomputeTimer);
-        if (isInteracting()) {
-          viewportDirty = true;
-          return;
-        }
-        viewportDirty = false;
-        recomputeTimer = setTimeout(() => recomputeBaseSize(), delay);
-      }
-
-      function tryRecomputeAfterInteraction() {
-        if (viewportDirty && !isInteracting()) scheduleRecompute(160);
-      }
-
-      // ===== Overlay Panel 行為 =====
-      const ICONS = {
-        about: btnAbout.querySelector("svg").outerHTML,
-        tech: btnTech.querySelector("svg").outerHTML,
-        contact: btnContact.querySelector("svg").outerHTML,
+      const PANEL_CONTENT = {
+        about: {
+          title: "關於",
+          body: `
+            <div>這是一個圖片簡報 Viewer（手機單擊換頁、雙擊放大、縮放後拖曳與慣性）。</div>
+            <div class="muted" style="margin-top:8px;">可在此放專案介紹、作者資訊或版本說明。</div>
+          `,
+        },
+        tech: {
+          title: "技術",
+          body: `
+            <div>目前支援：</div>
+            <ul style="margin:8px 0 0 18px;">
+              <li>Contain 置中顯示 + 100dvh + safe-area</li>
+              <li>手機：單擊換頁（延遲判斷）、雙擊只縮放</li>
+              <li>縮放後拖曳、慣性滑動、邊界反彈</li>
+              <li>桌機：← → / Space / Home / End；Ctrl+滾輪縮放</li>
+            </ul>
+          `,
+        },
+        cases: {
+          title: "案例",
+          body: `
+            <div>你可以在此放案例列表（例如連到不同資料夾或專案頁）：</div>
+            <ul style="margin:8px 0 0 18px;">
+              <li>#案例 A：品牌視覺</a></li>
+              <li>#案例 B：UI Mock</a></li>
+              <li>#案例 C：海報系列</a></li>
+            </ul>
+            <div class="muted" style="margin-top:8px;">（之後可把點擊改成切換不同 FOLDER 或開新頁）</div>
+          `,
+        },
+        contact: {
+          title: "聯絡",
+          body: `
+            <div>聯絡方式：</div>
+            <ul style="margin:8px 0 0 18px;">
+              <li>Email：mailto:someone@example.comsomeone@example.com</a></li>
+              <li>網站：https://example.comhttps://example.com</a></li>
+              <li>社群：IG / FB / LinkedIn</li>
+            </ul>
+            <div class="muted" style="margin-top:8px;">（請把資料換成你的實際資訊）</div>
+          `,
+        },
       };
 
       function openPanel(type) {
-        // 開啟面板時，避免誤觸換頁/縮放
         cancelSingleTap();
+        stopPanInertia();
+
+        const cfg = PANEL_CONTENT[type];
+        if (!cfg) return;
+
+        panelIcon.innerHTML = getButtonIconHTML(type);
+        panelText.textContent = cfg.title;
+        panelBody.innerHTML = cfg.body;
 
         overlay.classList.add("show");
         overlay.setAttribute("aria-hidden", "false");
-
-        if (type === "about") {
-          panelIcon.innerHTML = ICONS.about;
-          panelText.textContent = "關於";
-          panelBody.innerHTML = `
-            <div>這是一個圖片簡報 Viewer（支援手機單擊換頁、雙擊放大、縮放後拖曳與慣性）。</div>
-            <div class="muted" style="margin-top:8px;">你可以把這裡換成你的專案介紹。</div>
-          `;
-        } else if (type === "tech") {
-          panelIcon.innerHTML = ICONS.tech;
-          panelText.textContent = "技術";
-          panelBody.innerHTML = `
-            <div>目前功能：</div>
-            <ul style="margin:8px 0 0 18px;">
-              <li>Contain 置中顯示 + 動態視窗高度（100dvh）</li>
-              <li>手機：單擊換頁（延遲判斷）、雙擊只縮放</li>
-              <li>縮放後拖曳、慣性滑動、邊界反彈</li>
-              <li>桌機：鍵盤 ← → / 空白 / Home / End；Ctrl+滾輪縮放</li>
-            </ul>
-            <div class="muted" style="margin-top:8px;">你可在此放版本紀錄或技術說明。</div>
-          `;
-        } else if (type === "contact") {
-          panelIcon.innerHTML = ICONS.contact;
-          panelText.textContent = "聯絡";
-          panelBody.innerHTML = `
-            <div>你可以在此放：</div>
-            <ul style="margin:8px 0 0 18px;">
-              <li>Email：mailto:someone@example.comsomeone@example.com</a></li>
-              <li>網站：#https://example.com</a></li>
-              <li>社群：IG / FB / LinkedIn</li>
-            </ul>
-            <div class="muted" style="margin-top:8px;">（請把連結換成你的實際資料）</div>
-          `;
-        }
-
-        // focus close
         setTimeout(() => btnClose.focus?.(), 0);
       }
 
@@ -855,37 +926,33 @@
         overlay.setAttribute("aria-hidden", "true");
       }
 
-      btnAbout.addEventListener("click", (e) => {
+      // toolbar event delegation
+      toolbar.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-panel]");
+        if (!btn) return;
         e.stopPropagation();
-        openPanel("about");
+        openPanel(btn.dataset.panel);
       });
-      btnTech.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPanel("tech");
-      });
-      btnContact.addEventListener("click", (e) => {
-        e.stopPropagation();
-        openPanel("contact");
-      });
-      btnClose.addEventListener("click", closePanel);
 
+      btnClose.addEventListener("click", closePanel);
       overlay.addEventListener("click", (e) => {
-        // 點背景關閉；點卡片不關閉
         if (e.target === overlay) closePanel();
       });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && overlay.classList.contains("show")) {
+        if (e.key === "Escape" && isOverlayOpen()) {
           e.preventDefault();
           closePanel();
         }
       });
 
-      // ===== Viewer：Pointer（縮放/拖曳）=====
+      // ======================
+      //  Pointer interactions
+      // ======================
       viewer.addEventListener(
         "pointerdown",
         (e) => {
-          if (overlay.classList.contains("show")) return; // 面板開著不操作畫面
+          if (isOverlayOpen()) return;
 
           stopPanInertia();
           pointers.set(e.pointerId, {
@@ -894,17 +961,12 @@
             type: e.pointerType,
           });
 
-          if (scale > 1) {
-            try {
-              viewer.setPointerCapture(e.pointerId);
-            } catch {}
-          } else if (e.pointerType !== "touch") {
-            try {
-              viewer.setPointerCapture(e.pointerId);
-            } catch {}
-          }
+          // capture (more stable drag)
+          try {
+            viewer.setPointerCapture(e.pointerId);
+          } catch {}
 
-          // ✅ 觸控雙擊：只縮放，不換頁
+          // ✅ touch double tap: zoom only (cancel single-tap switch)
           const tNow = nowMs();
           if (e.pointerType === "touch" && tNow - lastTap < DOUBLE_TAP_MS) {
             cancelSingleTap();
@@ -914,18 +976,13 @@
             e.stopPropagation?.();
             return;
           }
-
           lastTap = e.pointerType === "touch" ? tNow : 0;
 
-          if (pointers.size === 1) {
-            if (scale > 1) {
-              const p = pointers.get(e.pointerId);
-              dragStart = { x: p.x, y: p.y, tx0: tx, ty0: ty };
-              panHistory.length = 0;
-              recordPanHistory(p.x, p.y);
-            }
-          } else if (pointers.size === 2) {
-            stopPanInertia();
+          // start drag only when zoomed
+          if (scale > 1) {
+            dragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
+            panHistory.length = 0;
+            recordPanHistory(e.clientX, e.clientY);
           }
         },
         { passive: false }
@@ -934,7 +991,7 @@
       viewer.addEventListener(
         "pointermove",
         (e) => {
-          if (overlay.classList.contains("show")) return;
+          if (isOverlayOpen()) return;
           if (!pointers.has(e.pointerId)) return;
 
           preventNativeIfZooming(e);
@@ -944,11 +1001,10 @@
             type: e.pointerType,
           });
 
-          if (pointers.size === 1 && dragStart && scale > 1) {
-            const cur = pointers.get(e.pointerId);
-            tx = dragStart.tx0 + (cur.x - dragStart.x);
-            ty = dragStart.ty0 + (cur.y - dragStart.y);
-            recordPanHistory(cur.x, cur.y);
+          if (scale > 1 && dragStart) {
+            tx = dragStart.tx0 + (e.clientX - dragStart.x);
+            ty = dragStart.ty0 + (e.clientY - dragStart.y);
+            recordPanHistory(e.clientX, e.clientY);
             commit(true);
           }
         },
@@ -961,21 +1017,21 @@
           viewer.releasePointerCapture(e.pointerId);
         } catch {}
 
-        if (pointers.size === 0) {
-          if (dragStart && scale > 1) {
-            const { vx, vy } = computePanVelocity();
-            if (
-              Math.abs(vx) >= INERTIA_MIN_SPEED ||
-              Math.abs(vy) >= INERTIA_MIN_SPEED
-            ) {
-              startPanInertia(vx, vy);
-            }
+        // inertia if zoomed & dragged
+        if (scale > 1 && dragStart) {
+          const { vx, vy } = computePanVelocity();
+          if (
+            Math.abs(vx) >= INERTIA_MIN_SPEED ||
+            Math.abs(vy) >= INERTIA_MIN_SPEED
+          ) {
+            startPanInertia(vx, vy);
           }
-          dragStart = null;
-          setInteractionMode();
-          scheduleRecompute();
-          tryRecomputeAfterInteraction();
         }
+
+        dragStart = null;
+        setInteractionMode();
+        scheduleRecompute();
+        tryRecomputeAfterInteraction();
       });
 
       viewer.addEventListener("pointercancel", () => {
@@ -986,11 +1042,11 @@
         tryRecomputeAfterInteraction();
       });
 
-      // ===== Stage：Tap/Swipe（scale===1），Drag（scale>1）=====
+      // stage: tap/swipe when scale===1; drag when scale>1
       stage.addEventListener(
         "pointerdown",
         (e) => {
-          if (overlay.classList.contains("show")) return;
+          if (isOverlayOpen()) return;
 
           stopPanInertia();
           pointers.set(e.pointerId, {
@@ -1024,7 +1080,8 @@
       stage.addEventListener(
         "pointermove",
         (e) => {
-          if (overlay.classList.contains("show")) return;
+          if (isOverlayOpen()) return;
+
           preventNativeIfZooming(e);
 
           if (scale > 1 && stageDragStart) {
@@ -1034,6 +1091,7 @@
             commit(true);
             return;
           }
+
           lastMoveX = e.clientX;
           lastMoveY = e.clientY;
           lastMoveTime = nowMs();
@@ -1042,7 +1100,7 @@
       );
 
       stage.addEventListener("pointerup", (e) => {
-        if (overlay.classList.contains("show")) return;
+        if (isOverlayOpen()) return;
 
         pointers.delete(e.pointerId);
 
@@ -1063,6 +1121,7 @@
           return;
         }
 
+        // scale===1: tap or swipe
         const endX = e.clientX,
           endY = e.clientY;
         const endTime = nowMs();
@@ -1092,7 +1151,7 @@
             dt <= TAP_DURATION_MS;
 
           if (isTap) {
-            // ✅ touch：延遲換頁，避免雙擊第一下先換
+            // ✅ touch: delayed to see if it becomes double tap
             if (e.pointerType === "touch") scheduleSingleTap(endX);
             else handlePositionalClick(endX);
           }
@@ -1118,68 +1177,69 @@
 
       stage.addEventListener("contextmenu", (e) => e.preventDefault());
 
-      // ===== 滾輪（縮放；禁用平移）=====
+      // wheel: ctrl+wheel zoom only
       stage.addEventListener(
         "wheel",
         (e) => {
-          if (overlay.classList.contains("show")) return;
-
+          if (isOverlayOpen()) return;
           if (e.ctrlKey) {
             e.preventDefault();
             const factor =
               Math.sign(e.deltaY) > 0
                 ? 1 / WHEEL_ZOOM_FACTOR
                 : WHEEL_ZOOM_FACTOR;
-            const target = clamp(scale * factor, MIN_SCALE, MAX_SCALE);
-            zoomAtCenter(target);
+            zoomAtCenter(clamp(scale * factor, MIN_SCALE, MAX_SCALE));
           }
         },
         { passive: false }
       );
 
-      // ===== 鍵盤 =====
+      // keyboard
       document.addEventListener("keydown", (e) => {
-        if (overlay.classList.contains("show")) return;
+        if (isOverlayOpen()) return;
 
-        const key = e.key;
-        if (key === "ArrowLeft") {
+        const k = e.key;
+        if (k === "ArrowLeft") {
           e.preventDefault();
           show(idx - 1);
-        } else if (key === "ArrowRight") {
+        } else if (k === "ArrowRight") {
           e.preventDefault();
           show(idx + 1);
-        } else if (key === "Home") {
+        } else if (k === "Home") {
           e.preventDefault();
           show(0);
-        } else if (key === "End") {
+        } else if (k === "End") {
           e.preventDefault();
           show(images.length - 1);
-        } else if (key === " ") {
+        } else if (k === " ") {
           e.preventDefault();
           show(idx + 1);
-        } else if (key.toLowerCase() === "r") {
+        } else if (k.toLowerCase() === "r") {
           e.preventDefault();
-          resetTransform();
-        } else if (key === "+" || key === "=") {
+          scale = 1;
+          tx = 0;
+          ty = 0;
+          commit(true);
+        } else if (k === "+" || k === "=") {
           e.preventDefault();
           zoomAtCenter(clamp(scale * WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE));
-        } else if (key === "-" || key === "_") {
+        } else if (k === "-" || k === "_") {
           e.preventDefault();
           zoomAtCenter(clamp(scale / WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE));
         }
       });
 
-      // ===== 舞台尺寸變更（排程）=====
+      // viewport changes
       function onViewportChange() {
         viewportDirty = true;
         scheduleRecompute();
       }
       window.addEventListener("resize", onViewportChange);
+      window.addEventListener("orientationchange", onViewportChange);
       if (window.visualViewport)
         window.visualViewport.addEventListener("resize", onViewportChange);
-      window.addEventListener("orientationchange", onViewportChange);
 
-      // ===== 初始化 =====
+      // init
       show(0);
     </script>
   </body>
