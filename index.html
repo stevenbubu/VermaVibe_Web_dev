@@ -3,118 +3,167 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.32</title>
+    <title>ver 0.0.33</title>
 
     <style>
+      /* ===== Nebula + Starfield Neon Theme ===== */
       :root {
-        /* 尺寸與色系（宇宙風） */
         --bar-h: 56px;
 
-        /* 背景：更深的宇宙底色 */
-        --bg-0: #070a12; /* 最深 */
-        --bg-1: #0a0f1d; /* 深 */
-        --bg-2: #0d1226; /* 中深 */
+        /* 深空底色（更冷、更深的藍黑） */
+        --bg-0: #05070d;
+        --bg-1: #081022;
+        --bg-2: #0b1428;
 
-        /* 玻璃風格與邊框（偏霓虹） */
-        --glass-bg: rgba(16, 24, 40, 0.45);
-        --glass-border: rgba(180, 220, 255, 0.14); /* 提高一點亮度 */
+        /* 玻璃霧面底與邊（加強透明度與光澤） */
+        --glass-bg: rgba(10, 18, 34, 0.52);
+        --glass-border: rgba(255, 255, 255, 0.08);
 
-        /* 頂部工具列 */
-        --bar-bg: rgba(10, 16, 28, 0.55);
-        --bar-border: rgba(180, 220, 255, 0.14);
-        --bar-text: rgba(235, 245, 255, 0.95);
-        --muted-text: rgba(218, 230, 255, 0.7);
+        /* 工具列玻璃底 */
+        --bar-bg: rgba(10, 18, 34, 0.55);
+        --bar-border: rgba(255, 255, 255, 0.12);
 
-        /* 按鈕 */
+        /* 文字色系（高對比） */
+        --bar-text: rgba(255, 255, 255, 0.95);
+        --muted-text: rgba(255, 255, 255, 0.68);
+
+        /* 霓虹按鈕底與邊 */
         --btn-bg: rgba(255, 255, 255, 0.06);
-        --btn-bg-hover: rgba(255, 255, 255, 0.15);
-        --btn-border: rgba(180, 220, 255, 0.2);
+        --btn-bg-hover: rgba(255, 255, 255, 0.14);
+        --btn-border: rgba(255, 255, 255, 0.16);
 
-        /* 宇宙霓虹主色（青藍/紫） */
-        --accent: #00d4ff; /* 亮青藍 */
-        --accent-soft: rgba(0, 212, 255, 0.22);
-        --accent-glow: 0 0 22px rgba(0, 212, 255, 0.38);
-        --accent-2: #a681ff; /* 次要紫色 */
-        --accent-2-glow: 0 0 18px rgba(166, 129, 255, 0.35);
+        /* 主題霓虹藍紫（雙色） */
+        --accent: #00d4ff; /* Neon Cyan */
+        --accent-2: #a681ff; /* Neon Purple */
 
-        /* 背景環形星雲層 */
-        --ring-1: rgba(0, 212, 255, 0.25);
-        --ring-2: rgba(166, 129, 255, 0.28);
+        /* 柔光與星環（舞台背景用） */
+        --accent-soft: rgba(0, 212, 255, 0.18);
+        --accent-glow: 0 0 24px rgba(0, 212, 255, 0.32);
+        --ring-1: rgba(0, 212, 255, 0.2);
+        --ring-2: rgba(166, 129, 255, 0.2);
 
-        /* 字型 */
+        /* UI 字型 */
         --font-ui: system-ui, 'Inter', 'SF Pro Text', 'Microsoft JhengHei', sans-serif;
 
-        /* Select option colors（暗色高對比） */
+        /* Select option colors (dark theme defaults) */
         --select-bg: var(--bg-2);
         --select-fg: #eafcff;
-        --select-bg-hover: #141b33;
+        --select-bg-hover: #0f1725;
         --select-fg-hover: #ffffff;
 
-        /* 星點密度與大小（可調） */
-        --stars-density: 140; /* 數值越高越密（CSS 變數僅作標記） */
-        --stars-color: rgba(255, 255, 255, 0.9);
-        --stars-dim: rgba(255, 255, 255, 0.4);
+        /* 霓虹邊框（漸層） */
+        --border-gradient: linear-gradient(
+          135deg,
+          rgba(0, 212, 255, 0.85),
+          rgba(166, 129, 255, 0.85)
+        );
+        /* 卡片外圈星光 */
+        --card-glow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 212, 255, 0.28),
+          0 0 44px rgba(166, 129, 255, 0.22);
       }
 
+      /* ===== Global Background（多層星空 + 星雲 + 星點動畫） ===== */
       html,
       body {
         height: 100%;
         margin: 0;
+        /* 靜態遠景（深空） */
+        background: radial-gradient(
+            1300px 700px at 10% 8%,
+            var(--bg-2) 0%,
+            var(--bg-1) 55%,
+            var(--bg-0) 100%
+          ),
+          linear-gradient(135deg, var(--bg-1), var(--bg-2));
         color: var(--bar-text);
         font: 500 14px/1.6 var(--font-ui);
         overscroll-behavior: contain;
-
-        /* 宇宙背景：星雲漸層 + 多層放射 */
-        background: radial-gradient(
-            1200px 600px at 12% 10%,
-            rgba(0, 212, 255, 0.09),
-            transparent 65%
-          ),
-          radial-gradient(1200px 600px at 88% 75%, rgba(166, 129, 255, 0.1), transparent 65%),
-          radial-gradient(900px 500px at 30% 70%, rgba(255, 80, 160, 0.06), transparent 68%),
-          linear-gradient(135deg, #0b0f1e 0%, #0d1330 38%, #0a0f1d 70%, #070a12 100%);
+        position: relative;
       }
 
-      /* 星點層：使用偽元素與動畫 */
-      body::before,
+      /* 星雲層（柔和移動 + 漸層漂移） */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: -10% -10%;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(50px) saturate(1.1);
+        opacity: 0.65;
+        background: radial-gradient(60vw 40vh at 15% 20%, rgba(0, 212, 255, 0.25), transparent 70%),
+          radial-gradient(50vw 35vh at 80% 75%, rgba(166, 129, 255, 0.28), transparent 72%),
+          radial-gradient(40vw 30vh at 40% 60%, rgba(0, 140, 255, 0.18), transparent 72%);
+        animation: nebulaDrift 36s linear infinite alternate;
+      }
+
+      /* 星點層（兩層星群，微微閃爍＋緩慢平移） */
       body::after {
         content: '';
         position: fixed;
         inset: 0;
-        pointer-events: none;
         z-index: 0;
-        background-repeat: repeat;
-        background-size: 2px 2px;
+        pointer-events: none;
+        background-image:
+          /* layer A (更多小星) */ radial-gradient(
+            1px 1px at 12% 18%,
+            rgba(255, 255, 255, 0.9),
+            transparent 55%
+          ),
+          radial-gradient(1.2px 1.2px at 28% 42%, rgba(255, 255, 255, 0.85), transparent 55%),
+          radial-gradient(1px 1px at 67% 33%, rgba(255, 255, 255, 0.8), transparent 55%),
+          radial-gradient(1.4px 1.4px at 85% 58%, rgba(255, 255, 255, 0.9), transparent 55%),
+          radial-gradient(1px 1px at 40% 75%, rgba(255, 255, 255, 0.85), transparent 55%),
+          /* layer B (稍大星) */
+            radial-gradient(1.8px 1.8px at 22% 70%, rgba(255, 255, 255, 0.85), transparent 55%),
+          radial-gradient(2px 2px at 78% 22%, rgba(255, 255, 255, 0.9), transparent 55%),
+          radial-gradient(1.6px 1.6px at 55% 15%, rgba(255, 255, 255, 0.8), transparent 55%),
+          radial-gradient(2px 2px at 12% 82%, rgba(255, 255, 255, 0.9), transparent 55%),
+          radial-gradient(1.6px 1.6px at 90% 12%, rgba(255, 255, 255, 0.85), transparent 55%);
+        background-repeat: no-repeat;
+        animation: starsTwinkle 6.5s ease-in-out infinite alternate, starsDrift 90s linear infinite;
         opacity: 0.55;
       }
-      /* 兩層不同透明度與大小的星點 */
-      body::before {
-        background-image: radial-gradient(var(--stars-color) 1px, transparent 1px);
-        filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.3));
-        animation: twinkle 7.5s linear infinite;
-      }
-      body::after {
-        background-image: radial-gradient(var(--stars-dim) 1px, transparent 1px);
-        background-size: 3px 3px;
-        opacity: 0.35;
-        animation: twinkle 11.5s linear infinite reverse;
-      }
-      @keyframes twinkle {
+
+      /* 星雲緩慢漂移 */
+      @keyframes nebulaDrift {
         0% {
-          transform: translate3d(0, 0, 0);
-          opacity: 0.55;
+          transform: translate3d(0, 0, 0) scale(1);
         }
         50% {
-          transform: translate3d(-0.6px, -0.8px, 0);
-          opacity: 0.7;
+          transform: translate3d(-2%, 1.5%, 0) scale(1.03);
         }
         100% {
-          transform: translate3d(0.6px, 0.8px, 0);
-          opacity: 0.55;
+          transform: translate3d(1.5%, -2%, 0) scale(1.02);
         }
       }
 
-      /* Top bar */
+      /* 星點閃爍 */
+      @keyframes starsTwinkle {
+        0% {
+          opacity: 0.4;
+          filter: brightness(0.9);
+        }
+        50% {
+          opacity: 0.75;
+          filter: brightness(1.08);
+        }
+        100% {
+          opacity: 0.55;
+          filter: brightness(1);
+        }
+      }
+
+      /* 星點微位移（視差感） */
+      @keyframes starsDrift {
+        0% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(-1.5%, -1%, 0);
+        }
+      }
+
+      /* ===== Topbar（玻璃＋霓虹邊框） ===== */
       .topbar {
         position: fixed;
         top: 0;
@@ -125,9 +174,16 @@
         background: var(--bar-bg);
         backdrop-filter: blur(14px) saturate(1.2);
         -webkit-backdrop-filter: blur(14px) saturate(1.2);
-        border-bottom: 1px solid var(--bar-border);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), var(--accent-glow), var(--accent-2-glow);
-        box-sizing: border-box;
+        border: 1px solid transparent;
+        border-bottom: none;
+
+        /* 漸層邊框 + 霓虹光暈 */
+        background-image: linear-gradient(var(--bar-bg), var(--bar-bg)), var(--border-gradient);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 22px rgba(0, 212, 255, 0.24),
+          0 0 28px rgba(166, 129, 255, 0.2);
       }
       .topbar-inner {
         height: var(--bar-h);
@@ -143,23 +199,15 @@
         gap: 12px;
         color: var(--bar-text);
         font: 650 14px/1 var(--font-ui);
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
         user-select: none;
         white-space: nowrap;
         min-width: 0;
-        text-shadow: 0 0 8px rgba(166, 129, 255, 0.4), 0 0 10px rgba(0, 212, 255, 0.45);
-      }
-      .brand-badge {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
       }
       .brand-badge .brand-logo {
         height: clamp(28px, calc(var(--bar-h) - 6px), 48px);
-        width: auto;
-        display: block;
-        filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.55))
-          drop-shadow(0 0 10px rgba(0, 212, 255, 0.35));
+        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35))
+          drop-shadow(0 0 12px rgba(0, 212, 255, 0.45));
       }
       .brand .muted {
         color: var(--muted-text);
@@ -172,36 +220,50 @@
         flex-wrap: nowrap;
       }
 
-      /* Toolbar buttons（宇宙霓虹） */
-      .tool-btn {
+      /* ===== Buttons（霓虹藍紫玻璃） ===== */
+      .tool-btn,
+      .btn {
         height: 38px;
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 0 12px;
-        border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: var(--btn-bg);
+        border-radius: 14px;
+        border: 1px solid transparent;
         color: var(--bar-text);
         cursor: pointer;
-        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease,
-          box-shadow 0.2s ease, color 0.2s ease;
         touch-action: manipulation;
+        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease,
+          box-shadow 0.2s ease, color 0.2s ease, filter 0.2s ease;
         font: 600 12.5px/1 var(--font-ui);
         letter-spacing: 0.3px;
         white-space: nowrap;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+
+        /* 玻璃＋漸層邊框技巧：雙層背景 */
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))
+            padding-box,
+          var(--border-gradient) border-box;
       }
-      .tool-btn:hover {
-        background: var(--btn-bg-hover);
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow), var(--accent-2-glow);
+      .tool-btn:hover,
+      .btn:hover {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08))
+            padding-box,
+          var(--border-gradient) border-box;
+        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
         color: #eafcff;
+        filter: saturate(1.08);
       }
-      .tool-btn:active {
+      .tool-btn:active,
+      .btn:active {
         transform: scale(0.985);
+      }
+      .tool-btn.active {
+        background: linear-gradient(180deg, rgba(0, 212, 255, 0.18), rgba(166, 129, 255, 0.18))
+            padding-box,
+          var(--border-gradient) border-box;
+        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
       }
       .tool-btn svg {
         width: 18px;
@@ -213,22 +275,18 @@
       }
       .tool-btn:hover svg {
         stroke: var(--accent);
-        filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.75));
-      }
-      .tool-btn.active {
-        border-color: rgba(0, 212, 255, 0.55);
-        background: var(--accent-soft);
-        box-shadow: var(--accent-glow), var(--accent-2-glow);
+        filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6));
       }
       @media (max-width: 420px) {
-        .tool-btn {
+        .tool-btn,
+        .btn {
           font-size: 12px;
-          padding: 0 8px;
+          padding: 0 10px;
           gap: 6px;
         }
       }
 
-      /* Stage：增加星雲亮斑 */
+      /* ===== Stage（背景加環形光暈） ===== */
       .stage {
         position: fixed;
         left: 0;
@@ -244,12 +302,13 @@
         touch-action: pan-y;
         z-index: 10;
 
-        background: radial-gradient(420px 220px at 18% 30%, var(--ring-1), transparent 62%),
-          radial-gradient(500px 280px at 82% 68%, var(--ring-2), transparent 66%),
+        /* 舞台底增加淡淡星環光 */
+        background: radial-gradient(420px 220px at 20% 30%, var(--ring-1), transparent 60%),
+          radial-gradient(480px 260px at 80% 70%, var(--ring-2), transparent 65%),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
       }
 
-      /* Viewer image（加強投影） */
+      /* Viewer（一致霓虹投影） */
       .slide {
         max-width: 100%;
         max-height: 100%;
@@ -261,38 +320,44 @@
         transform-origin: 0 0;
         touch-action: pan-y;
         backface-visibility: hidden;
-        transition: filter 0.25s ease, opacity 0.26s ease;
+        transition: filter 0.25s ease, opacity 0.26s ease, box-shadow 0.25s ease;
       }
       .slide[src] {
-        filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.55))
-          drop-shadow(0 0 20px rgba(0, 212, 255, 0.25));
+        filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.45));
+        /* 霓虹藍紫沿邊 */
+        box-shadow: 0 0 26px rgba(0, 212, 255, 0.24), 0 0 40px rgba(166, 129, 255, 0.2);
       }
 
-      /* Contact Form（宇宙風玻璃） */
+      /* ===== Contact + Result Card（玻璃、星光邊框、霓虹一致） ===== */
       .contact-wrap {
         isolation: isolate;
-        width: min(760px, 92vw);
+        width: min(720px, 92vw);
         margin: 0 auto;
-        padding: clamp(16px, 2.6vw, 24px);
-        border: 1px solid var(--glass-border);
-        background: var(--glass-bg);
+        padding: clamp(14px, 2.6vw, 22px);
         color: var(--bar-text);
         border-radius: 16px;
-        backdrop-filter: blur(12px) saturate(1.1);
-        -webkit-backdrop-filter: blur(12px) saturate(1.1);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), var(--accent-glow), var(--accent-2-glow);
+        backdrop-filter: blur(10px) saturate(1.08);
+        -webkit-backdrop-filter: blur(10px) saturate(1.08);
+
+        /* 玻璃內層＋霓虹邊框（雙層背景 clip） */
+        border: 1px solid transparent;
+        background: linear-gradient(180deg, rgba(16, 24, 40, 0.5), rgba(16, 24, 40, 0.32))
+            padding-box,
+          var(--border-gradient) border-box;
+
+        /* 星光投影 */
+        box-shadow: var(--card-glow);
         transform: translateZ(0);
         box-sizing: border-box;
       }
       .contact-title {
-        font: 700 clamp(18px, 2.4vw, 22px) / 1.4 var(--font-ui);
-        letter-spacing: 0.4px;
+        font: 700 clamp(16px, 2.4vw, 20px) / 1.4 var(--font-ui);
+        letter-spacing: 0.3px;
         margin: 2px 0 clamp(12px, 2.6vw, 16px);
         display: flex;
         align-items: center;
         gap: 10px;
         min-width: 0;
-        text-shadow: 0 0 6px rgba(0, 212, 255, 0.36), 0 0 6px rgba(166, 129, 255, 0.3);
       }
       .contact-grid {
         display: grid;
@@ -324,17 +389,19 @@
         width: 100%;
         padding: clamp(10px, 2.2vw, 12px);
         border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-        color: var(--bar-text);
+        border: 1px solid transparent;
         outline: none;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+          filter 0.2s ease;
         font: 500 clamp(13px, 2vw, 14px) / 1.5 var(--font-ui);
+        min-width: 0;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-        box-sizing: border-box;
-        min-width: 0;
-        appearance: none;
+
+        /* 玻璃內層 + 霓虹邊框 */
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))
+            padding-box,
+          var(--border-gradient) border-box;
       }
       .field input::placeholder,
       .field textarea::placeholder {
@@ -343,21 +410,29 @@
       .field input:focus,
       .field select:focus,
       .field textarea:focus {
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow), var(--accent-2-glow);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+        border-color: transparent;
+        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))
+            padding-box,
+          var(--border-gradient) border-box;
+        filter: saturate(1.06);
       }
       .field textarea {
         min-height: clamp(100px, 22vh, 160px);
         resize: vertical;
       }
       .field :invalid {
-        border-color: #ff7b7b;
+        border-image: linear-gradient(135deg, rgba(255, 115, 115, 0.9), rgba(255, 160, 160, 0.9)) 1;
       }
       .field :valid {
-        border-color: rgba(0, 212, 255, 0.4);
+        border-image: var(--border-gradient) 1;
       }
 
+      /* 高對比 Select */
+      .field select {
+        color: var(--bar-text);
+        overflow: hidden;
+      }
       .field select option {
         background-color: var(--select-bg);
         color: var(--select-fg);
@@ -369,6 +444,7 @@
         color: var(--select-fg-hover);
       }
 
+      /* Actions（沿用 neon 按鈕） */
       .contact-actions {
         display: flex;
         align-items: center;
@@ -376,33 +452,8 @@
         margin-top: clamp(12px, 2.6vw, 16px);
         flex-wrap: wrap;
       }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: clamp(10px, 2.2vw, 12px) clamp(12px, 2.6vw, 14px);
-        border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: var(--btn-bg);
-        color: var(--bar-text);
-        cursor: pointer;
-        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease,
-          box-shadow 0.2s ease, color 0.2s ease;
-        font: 600 clamp(12px, 1.9vw, 13px) / 1 var(--font-ui);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-      }
-      .btn:hover {
-        background: var(--btn-bg-hover);
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow), var(--accent-2-glow);
-        color: #eafcff;
-      }
-      .btn:active {
-        transform: scale(0.985);
-      }
 
-      /* Status toast（宇宙霓虹） */
+      /* ===== Status Toast（玻璃＋霓虹） ===== */
       .status {
         position: fixed;
         left: 10px;
@@ -410,15 +461,17 @@
         z-index: 50;
         padding: 10px 12px;
         border-radius: 14px;
-        border: 1px solid var(--glass-border);
-        background: var(--glass-bg);
-        color: var(--bar-text);
-        font: 12.5px/1.6 var(--font-ui);
+        border: 1px solid transparent;
         max-width: min(560px, calc(100vw - 20px));
         display: none;
+        color: var(--bar-text);
         backdrop-filter: blur(10px) saturate(1.1);
         -webkit-backdrop-filter: blur(10px) saturate(1.1);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), var(--accent-glow), var(--accent-2-glow);
+
+        background: linear-gradient(180deg, rgba(16, 24, 40, 0.5), rgba(16, 24, 40, 0.32))
+            padding-box,
+          var(--border-gradient) border-box;
+        box-shadow: var(--card-glow);
       }
       .status.show {
         display: block;
@@ -434,7 +487,7 @@
       <div class="topbar-inner">
         <div class="brand" title="VermaVibe Viewer">
           <span class="brand-badge" aria-hidden="true">
-            <!-- 你可替換為自己的 SVG/PNG Logo -->
+            <!-- 請將 xlink:href 的 base64 換成你的 Logo -->
             <svg
               class="brand-logo"
               xmlns="http://www.w3.org/2000/svg"
@@ -764,8 +817,8 @@
       }
 
       function clientToImagePoint(clientX, clientY) {
-        const ix = (clientX - baseLx - tx) / scale
-        const iy = (clientY - baseLy - ty) / scale
+        const ix = (clientX - baseLx - tx) / scale,
+          iy = (clientY - baseLy - ty) / scale
         return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) }
       }
 
@@ -922,7 +975,9 @@
         show(0)
       }
 
-      /** ====== 路由解析 & 結果頁（宇宙風） ====== */
+      /** ====== 路由解析 & 結果頁（新增） ====== */
+
+      /** 解析 location.hash 中的查詢參數，如 #result?status=success&msg=... */
       function parseHashQuery() {
         const h = location.hash || ''
         const [route, queryStr] = h.split('?')
@@ -930,7 +985,9 @@
         return { route, params }
       }
 
+      /** 渲染送出結果頁（成功/失敗） */
       function renderResultPage(status = 'success', detail = '') {
+        // 清掉圖片或舊的 contact/form 元素
         clearStageExtras()
         viewer.style.display = 'none'
 
@@ -980,18 +1037,25 @@
             }
           </div>
         `
+
         stage.appendChild(wrap)
 
-        wrap.querySelector('#backBtn')?.addEventListener('click', async () => {
+        // 返回 Contact
+        const backBtn = wrap.querySelector('#backBtn')
+        backBtn?.addEventListener('click', async () => {
           location.hash = ''
           await setAlbum('contact')
         })
-        wrap.querySelector('#homeBtn')?.addEventListener('click', async () => {
+
+        // 回到 About
+        const homeBtn = wrap.querySelector('#homeBtn')
+        homeBtn?.addEventListener('click', async () => {
           location.hash = ''
           await setAlbum('about')
         })
       }
 
+      /** 根據 hash 自動渲染（支援重新整理與分享連結） */
       function handleHashRoute() {
         const { route, params } = parseHashQuery()
         if (route === '#result') {
@@ -1002,86 +1066,103 @@
       }
       window.addEventListener('hashchange', handleHashRoute)
 
-      /* ===== Contact Form（Formspree + AJAX + 結果頁路由） ===== */
+      /* ===== Contact Form（Formspree action + AJAX + 跳轉結果頁） ===== */
       function renderContactForm() {
+        // 隱藏圖片 viewer
         viewer.style.display = 'none'
+
+        // 清理舊表單
         const old = stage.querySelector('.contact-wrap')
         if (old) old.remove()
 
+        // 建立表單容器（修正：<form> 標籤殘字已移除）
         const wrap = document.createElement('div')
         wrap.className = 'contact-wrap'
         wrap.innerHTML = `
-          <div class="contact-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Contact Us</span>
+      <div class="contact-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Contact Us</span>
+      </div>
+
+      <form id="contactForm"
+       q
+        <input type="hidden" name="_replyto" value="" />
+
+        <div class="contact-grid">
+          <div class="field">
+            <label for="name">Name *</label>
+            <input id="name" name="name" type="text" placeholder="William" required />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
           </div>
 
-          https://formspree.io/f/mwpwlrvq
-            <input type="hidden" name="_subject" value="VermaVibe Contact — New Message" />
-            <input type="hidden" name="_replyto" value="" />
+          <div class="field">
+            <label for="country">Country *</label>
+            <select id="country" name="country" required>
+              <option value="">Select</option>
+              <option>Taiwan</option>
+              <option>Japan</option>
+              <option>South Korea</option>
+              <option>China</option>
+              <option>Singapore</option>
+              <option>Malaysia</option>
+              <option>Thailand</option>
+              <option>Vietnam</option>
+              <option>India</option>
+              <option>Indonesia</option>
+              <option>Philippines</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>United Kingdom</option>
+              <option>Germany</option>
+              <option>France</option>
+              <option>Australia</option>
+              <option>New Zealand</option>
+              <option>Other</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label for="topic">Topic *</label>
+            <select id="topic" name="topic" required>
+              <option value="">Select</option>
+              <option>Consult</option>
+              <option>Cooperate</option>
+              <option>Other</option>
+            </select>
+          </div>
 
-            <div class="contact-grid">
-              <div class="field">
-                <label for="name">Name *</label>
-                <input id="name" name="name" type="text" placeholder="William" required />
-              </div>
-              <div class="field">
-                <label for="email">Email *</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required />
-              </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" />
+          </div>
 
-              <div class="field">
-                <label for="country">Country *</label>
-                <select id="country" name="country" required>
-                  <option value="">Select</option>
-                  <option>Taiwan</option><option>Japan</option><option>South Korea</option>
-                  <option>China</option><option>Singapore</option><option>Malaysia</option>
-                  <option>Thailand</option><option>Vietnam</option><option>India</option>
-                  <option>Indonesia</option><option>Philippines</option>
-                  <option>United States</option><option>Canada</option>
-                  <option>United Kingdom</option><option>Germany</option>
-                  <option>France</option><option>Australia</option><option>New Zealand</option>
-                  <option>Other</option>
-                </select>
-              </div>
+          <div class="field">
+            <label for="crop">Crop *</label>
+            <input id="crop" name="crop" type="text" placeholder="Tea / Coffee / Garden" required/>
+          </div>
 
-              <div class="field">
-                <label for="topic">Topic *</label>
-                <select id="topic" name="topic" required>
-                  <option value="">Select</option>
-                  <option>Consult</option><option>Cooperate</option><option>Other</option>
-                </select>
-              </div>
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
+          </div>
+        </div>
 
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" />
-              </div>
+        <div class="contact-actions">
+          <button type="submit" class="btn" id="sendBtn">Send</button>
+          <button type="reset" class="btn">Clear</button>
+        </div>
 
-              <div class="field">
-                <label for="crop">Crop *</label>
-                <input id="crop" name="crop" type="text" placeholder="Tea / Coffee / Garden" required />
-              </div>
-
-              <div class="field" style="grid-column: 1 / -1;">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message"
-                  placeholder="Please briefly describe your needs or problem."
-                  required></textarea>
-              </div>
-            </div>
-
-            <div class="contact-actions">
-              <button type="submit" class="btn" id="sendBtn">Send</button>
-              <button type="reset" class="btn">Clear</button>
-            </div>
-          </form>
-        `
+      </form>
+    `
         stage.appendChild(wrap)
 
+        // 取得欄位（修正：加了 id="contactForm"）
         const form = wrap.querySelector('#contactForm')
         const nameEl = form.querySelector('#name')
         const emailEl = form.querySelector('#email')
@@ -1092,12 +1173,15 @@
         const replyToHidden = form.querySelector('input[name="_replyto"]')
         const sendBtn = form.querySelector('#sendBtn')
 
+        // 初始聚焦
         nameEl.focus({ preventScroll: true })
 
+        // _replyto 跟隨 email
         emailEl.addEventListener('input', () => {
           replyToHidden.value = emailEl.value.trim()
         })
 
+        // 即時驗證樣式更新
         form.addEventListener('input', (e) => {
           const t = e.target
           if (t.matches('input, select, textarea')) {
@@ -1106,6 +1190,7 @@
           }
         })
 
+        // 使用 AJAX 提交，避免跳頁；成功/失敗改為跳轉結果頁
         form.addEventListener('submit', async (e) => {
           e.preventDefault()
 
@@ -1119,7 +1204,7 @@
 
           const errors = []
           if (!name) errors.push('Please fill in your name')
-          if (!email || !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email))
+          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
             errors.push('Incorrect email format')
           if (!country) errors.push('Please select a country')
           if (!crop) errors.push('Please select a crop')
@@ -1129,7 +1214,7 @@
           if (errors.length) {
             setStatus(`<b>Form error:</b> ${errors.join('、')}`)
             if (!name) nameEl.focus()
-            else if (!email || !/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/.test(email)) emailEl.focus()
+            else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) emailEl.focus()
             else if (!country) countryEl.focus()
             else if (!crop) cropEl.focus()
             else if (!topic) topicEl.focus()
@@ -1137,10 +1222,12 @@
             return
           }
 
+          // 準備 payload
           const payload = new FormData(form)
           const friendlySubject = `VermaVibe Contact — [${topic}] ${name} (${country}, ${crop})`
           payload.set('_subject', friendlySubject)
 
+          // 提交中防連點
           sendBtn.disabled = true
           sendBtn.style.opacity = '0.7'
 
@@ -1153,6 +1240,7 @@
 
             if (res.ok) {
               const summary = `We will get back to you soon.`
+              // 路由切換到結果頁 & 顯示成功
               location.hash = `result?status=success&msg=${encodeURIComponent(summary)}`
               renderResultPage('success', summary)
               form.reset()
@@ -1162,6 +1250,7 @@
                 const err = await res.json()
                 if (err?.errors?.[0]?.message) reason = err.errors[0].message
               } catch {}
+              // 顯示失敗原因
               location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`
               renderResultPage('error', reason)
             }
@@ -1170,6 +1259,7 @@
             location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`
             renderResultPage('error', reason)
           } finally {
+            // 若已跳到結果頁，這段不影響（保險起見仍還原）
             sendBtn.disabled = false
             sendBtn.style.opacity = '1'
           }
@@ -1189,6 +1279,7 @@
         ty = 0
 
         const url = images[idx]
+
         viewer.style.opacity = '0'
         viewer.style.transition = 'opacity 260ms ease'
         viewer.src = url
@@ -1319,6 +1410,7 @@
         panAnimId = requestAnimationFrame(step)
       }
 
+      /* Events */
       toolbar.addEventListener('click', async (e) => {
         const btn = e.target.closest('[data-album]')
         if (!btn) return
@@ -1546,14 +1638,12 @@
       }
       window.addEventListener('resize', onViewportChange)
       window.addEventListener('orientationchange', onViewportChange)
-      if (window.visualViewport)
-        window.visualViewport.addEventListener(
-          'resize',
-          onViewportChange
-        )(async function init() {
-          await setAlbum(currentAlbumKey)
-          handleHashRoute()
-        })()
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', onViewportChange)
+      ;(async function init() {
+        await setAlbum(currentAlbumKey)
+        // 初始化後檢查是否需要顯示結果頁（支援重新整理或外部導入）
+        handleHashRoute()
+      })()
     </script>
   </body>
 </html>
