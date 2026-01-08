@@ -3,46 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.33</title>
+    <title>ver 0.0.34</title>
 
     <style>
-      /* ===== Nebula + Starfield Neon Theme ===== */
       :root {
         --bar-h: 56px;
+        --bg-0: #0c0f14;
+        --bg-1: #0f1320;
+        --bg-2: #121a2b;
 
-        /* 深空底色（更冷、更深的藍黑） */
-        --bg-0: #05070d;
-        --bg-1: #081022;
-        --bg-2: #0b1428;
+        --glass-bg: rgba(16, 24, 40, 0.45);
+        --glass-border: rgba(255, 255, 255, 0.12);
 
-        /* 玻璃霧面底與邊（加強透明度與光澤） */
-        --glass-bg: rgba(10, 18, 34, 0.52);
-        --glass-border: rgba(255, 255, 255, 0.08);
-
-        /* 工具列玻璃底 */
-        --bar-bg: rgba(10, 18, 34, 0.55);
+        --bar-bg: rgba(16, 24, 40, 0.5);
         --bar-border: rgba(255, 255, 255, 0.12);
 
-        /* 文字色系（高對比） */
-        --bar-text: rgba(255, 255, 255, 0.95);
-        --muted-text: rgba(255, 255, 255, 0.68);
+        --bar-text: rgba(255, 255, 255, 0.92);
+        --muted-text: rgba(255, 255, 255, 0.65);
 
-        /* 霓虹按鈕底與邊 */
         --btn-bg: rgba(255, 255, 255, 0.06);
-        --btn-bg-hover: rgba(255, 255, 255, 0.14);
+        --btn-bg-hover: rgba(255, 255, 255, 0.12);
         --btn-border: rgba(255, 255, 255, 0.16);
 
-        /* 主題霓虹藍紫（雙色） */
-        --accent: #00d4ff; /* Neon Cyan */
-        --accent-2: #a681ff; /* Neon Purple */
+        --accent: #00d4ff;
+        --accent-soft: rgba(0, 212, 255, 0.2);
+        --accent-glow: 0 0 22px rgba(0, 212, 255, 0.32);
 
-        /* 柔光與星環（舞台背景用） */
-        --accent-soft: rgba(0, 212, 255, 0.18);
-        --accent-glow: 0 0 24px rgba(0, 212, 255, 0.32);
-        --ring-1: rgba(0, 212, 255, 0.2);
-        --ring-2: rgba(166, 129, 255, 0.2);
+        --ring-1: rgba(0, 212, 255, 0.25);
+        --ring-2: rgba(166, 129, 255, 0.25);
 
-        /* UI 字型 */
         --font-ui: system-ui, 'Inter', 'SF Pro Text', 'Microsoft JhengHei', sans-serif;
 
         /* Select option colors (dark theme defaults) */
@@ -50,120 +39,25 @@
         --select-fg: #eafcff;
         --select-bg-hover: #0f1725;
         --select-fg-hover: #ffffff;
-
-        /* 霓虹邊框（漸層） */
-        --border-gradient: linear-gradient(
-          135deg,
-          rgba(0, 212, 255, 0.85),
-          rgba(166, 129, 255, 0.85)
-        );
-        /* 卡片外圈星光 */
-        --card-glow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 212, 255, 0.28),
-          0 0 44px rgba(166, 129, 255, 0.22);
       }
 
-      /* ===== Global Background（多層星空 + 星雲 + 星點動畫） ===== */
       html,
       body {
         height: 100%;
         margin: 0;
-        /* 靜態遠景（深空） */
         background: radial-gradient(
-            1300px 700px at 10% 8%,
+            1200px 600px at 10% 10%,
             var(--bg-2) 0%,
             var(--bg-1) 55%,
             var(--bg-0) 100%
           ),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
+        overscroll-behavior: contain;
         color: var(--bar-text);
         font: 500 14px/1.6 var(--font-ui);
-        overscroll-behavior: contain;
-        position: relative;
       }
 
-      /* 星雲層（柔和移動 + 漸層漂移） */
-      body::before {
-        content: '';
-        position: fixed;
-        inset: -10% -10%;
-        z-index: 0;
-        pointer-events: none;
-        filter: blur(50px) saturate(1.1);
-        opacity: 0.65;
-        background: radial-gradient(60vw 40vh at 15% 20%, rgba(0, 212, 255, 0.25), transparent 70%),
-          radial-gradient(50vw 35vh at 80% 75%, rgba(166, 129, 255, 0.28), transparent 72%),
-          radial-gradient(40vw 30vh at 40% 60%, rgba(0, 140, 255, 0.18), transparent 72%);
-        animation: nebulaDrift 36s linear infinite alternate;
-      }
-
-      /* 星點層（兩層星群，微微閃爍＋緩慢平移） */
-      body::after {
-        content: '';
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        background-image:
-          /* layer A (更多小星) */ radial-gradient(
-            1px 1px at 12% 18%,
-            rgba(255, 255, 255, 0.9),
-            transparent 55%
-          ),
-          radial-gradient(1.2px 1.2px at 28% 42%, rgba(255, 255, 255, 0.85), transparent 55%),
-          radial-gradient(1px 1px at 67% 33%, rgba(255, 255, 255, 0.8), transparent 55%),
-          radial-gradient(1.4px 1.4px at 85% 58%, rgba(255, 255, 255, 0.9), transparent 55%),
-          radial-gradient(1px 1px at 40% 75%, rgba(255, 255, 255, 0.85), transparent 55%),
-          /* layer B (稍大星) */
-            radial-gradient(1.8px 1.8px at 22% 70%, rgba(255, 255, 255, 0.85), transparent 55%),
-          radial-gradient(2px 2px at 78% 22%, rgba(255, 255, 255, 0.9), transparent 55%),
-          radial-gradient(1.6px 1.6px at 55% 15%, rgba(255, 255, 255, 0.8), transparent 55%),
-          radial-gradient(2px 2px at 12% 82%, rgba(255, 255, 255, 0.9), transparent 55%),
-          radial-gradient(1.6px 1.6px at 90% 12%, rgba(255, 255, 255, 0.85), transparent 55%);
-        background-repeat: no-repeat;
-        animation: starsTwinkle 6.5s ease-in-out infinite alternate, starsDrift 90s linear infinite;
-        opacity: 0.55;
-      }
-
-      /* 星雲緩慢漂移 */
-      @keyframes nebulaDrift {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        50% {
-          transform: translate3d(-2%, 1.5%, 0) scale(1.03);
-        }
-        100% {
-          transform: translate3d(1.5%, -2%, 0) scale(1.02);
-        }
-      }
-
-      /* 星點閃爍 */
-      @keyframes starsTwinkle {
-        0% {
-          opacity: 0.4;
-          filter: brightness(0.9);
-        }
-        50% {
-          opacity: 0.75;
-          filter: brightness(1.08);
-        }
-        100% {
-          opacity: 0.55;
-          filter: brightness(1);
-        }
-      }
-
-      /* 星點微位移（視差感） */
-      @keyframes starsDrift {
-        0% {
-          transform: translate3d(0, 0, 0);
-        }
-        100% {
-          transform: translate3d(-1.5%, -1%, 0);
-        }
-      }
-
-      /* ===== Topbar（玻璃＋霓虹邊框） ===== */
+      /* Top bar */
       .topbar {
         position: fixed;
         top: 0;
@@ -174,16 +68,9 @@
         background: var(--bar-bg);
         backdrop-filter: blur(14px) saturate(1.2);
         -webkit-backdrop-filter: blur(14px) saturate(1.2);
-        border: 1px solid transparent;
-        border-bottom: none;
-
-        /* 漸層邊框 + 霓虹光暈 */
-        background-image: linear-gradient(var(--bar-bg), var(--bar-bg)), var(--border-gradient);
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 22px rgba(0, 212, 255, 0.24),
-          0 0 28px rgba(166, 129, 255, 0.2);
+        border-bottom: 1px solid var(--bar-border);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        box-sizing: border-box;
       }
       .topbar-inner {
         height: var(--bar-h);
@@ -204,10 +91,16 @@
         white-space: nowrap;
         min-width: 0;
       }
+      .brand-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
       .brand-badge .brand-logo {
         height: clamp(28px, calc(var(--bar-h) - 6px), 48px);
-        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35))
-          drop-shadow(0 0 12px rgba(0, 212, 255, 0.45));
+        width: auto;
+        display: block;
+        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
       }
       .brand .muted {
         color: var(--muted-text);
@@ -220,50 +113,35 @@
         flex-wrap: nowrap;
       }
 
-      /* ===== Buttons（霓虹藍紫玻璃） ===== */
-      .tool-btn,
-      .btn {
+      /* Toolbar buttons */
+      .tool-btn {
         height: 38px;
         display: inline-flex;
         align-items: center;
         gap: 8px;
         padding: 0 12px;
-        border-radius: 14px;
-        border: 1px solid transparent;
+        border-radius: 12px;
+        border: 1px solid var(--btn-border);
+        background: var(--btn-bg);
         color: var(--bar-text);
         cursor: pointer;
-        touch-action: manipulation;
         transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease,
-          box-shadow 0.2s ease, color 0.2s ease, filter 0.2s ease;
+          box-shadow 0.2s ease, color 0.2s ease;
+        touch-action: manipulation;
         font: 600 12.5px/1 var(--font-ui);
         letter-spacing: 0.3px;
         white-space: nowrap;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-
-        /* 玻璃＋漸層邊框技巧：雙層背景 */
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))
-            padding-box,
-          var(--border-gradient) border-box;
       }
-      .tool-btn:hover,
-      .btn:hover {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08))
-            padding-box,
-          var(--border-gradient) border-box;
-        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
+      .tool-btn:hover {
+        background: var(--btn-bg-hover);
+        border-color: var(--accent);
+        box-shadow: var(--accent-glow);
         color: #eafcff;
-        filter: saturate(1.08);
       }
-      .tool-btn:active,
-      .btn:active {
+      .tool-btn:active {
         transform: scale(0.985);
-      }
-      .tool-btn.active {
-        background: linear-gradient(180deg, rgba(0, 212, 255, 0.18), rgba(166, 129, 255, 0.18))
-            padding-box,
-          var(--border-gradient) border-box;
-        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
       }
       .tool-btn svg {
         width: 18px;
@@ -277,16 +155,20 @@
         stroke: var(--accent);
         filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6));
       }
+      .tool-btn.active {
+        border-color: rgba(0, 212, 255, 0.55);
+        background: var(--accent-soft);
+        box-shadow: var(--accent-glow);
+      }
       @media (max-width: 420px) {
-        .tool-btn,
-        .btn {
+        .tool-btn {
           font-size: 12px;
-          padding: 0 10px;
+          padding: 0 8px;
           gap: 6px;
         }
       }
 
-      /* ===== Stage（背景加環形光暈） ===== */
+      /* Stage */
       .stage {
         position: fixed;
         left: 0;
@@ -301,14 +183,12 @@
         overflow: hidden;
         touch-action: pan-y;
         z-index: 10;
-
-        /* 舞台底增加淡淡星環光 */
         background: radial-gradient(420px 220px at 20% 30%, var(--ring-1), transparent 60%),
           radial-gradient(480px 260px at 80% 70%, var(--ring-2), transparent 65%),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
       }
 
-      /* Viewer（一致霓虹投影） */
+      /* Viewer image */
       .slide {
         max-width: 100%;
         max-height: 100%;
@@ -320,33 +200,25 @@
         transform-origin: 0 0;
         touch-action: pan-y;
         backface-visibility: hidden;
-        transition: filter 0.25s ease, opacity 0.26s ease, box-shadow 0.25s ease;
+        transition: filter 0.25s ease, opacity 0.26s ease;
       }
       .slide[src] {
         filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.45));
-        /* 霓虹藍紫沿邊 */
-        box-shadow: 0 0 26px rgba(0, 212, 255, 0.24), 0 0 40px rgba(166, 129, 255, 0.2);
       }
 
-      /* ===== Contact + Result Card（玻璃、星光邊框、霓虹一致） ===== */
+      /* ===== Contact Form（不互相干涉 & 隨畫面縮放） ===== */
       .contact-wrap {
         isolation: isolate;
         width: min(720px, 92vw);
         margin: 0 auto;
         padding: clamp(14px, 2.6vw, 22px);
+        border: 1px solid var(--glass-border);
+        background: var(--glass-bg);
         color: var(--bar-text);
         border-radius: 16px;
         backdrop-filter: blur(10px) saturate(1.08);
         -webkit-backdrop-filter: blur(10px) saturate(1.08);
-
-        /* 玻璃內層＋霓虹邊框（雙層背景 clip） */
-        border: 1px solid transparent;
-        background: linear-gradient(180deg, rgba(16, 24, 40, 0.5), rgba(16, 24, 40, 0.32))
-            padding-box,
-          var(--border-gradient) border-box;
-
-        /* 星光投影 */
-        box-shadow: var(--card-glow);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), var(--accent-glow);
         transform: translateZ(0);
         box-sizing: border-box;
       }
@@ -389,19 +261,17 @@
         width: 100%;
         padding: clamp(10px, 2.2vw, 12px);
         border-radius: 12px;
-        border: 1px solid transparent;
+        border: 1px solid var(--btn-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--bar-text);
         outline: none;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
-          filter 0.2s ease;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         font: 500 clamp(13px, 2vw, 14px) / 1.5 var(--font-ui);
-        min-width: 0;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-
-        /* 玻璃內層 + 霓虹邊框 */
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04))
-            padding-box,
-          var(--border-gradient) border-box;
+        box-sizing: border-box;
+        min-width: 0;
+        appearance: none; /* unify select look */
       }
       .field input::placeholder,
       .field textarea::placeholder {
@@ -410,28 +280,31 @@
       .field input:focus,
       .field select:focus,
       .field textarea:focus {
-        border-color: transparent;
-        box-shadow: 0 0 18px rgba(0, 212, 255, 0.55), 0 0 28px rgba(166, 129, 255, 0.4);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06))
-            padding-box,
-          var(--border-gradient) border-box;
-        filter: saturate(1.06);
+        border-color: var(--accent);
+        box-shadow: var(--accent-glow);
+        background: rgba(255, 255, 255, 0.12);
       }
       .field textarea {
         min-height: clamp(100px, 22vh, 160px);
         resize: vertical;
       }
       .field :invalid {
-        border-image: linear-gradient(135deg, rgba(255, 115, 115, 0.9), rgba(255, 160, 160, 0.9)) 1;
+        border-color: #ff7b7b;
       }
       .field :valid {
-        border-image: var(--border-gradient) 1;
+        border-color: rgba(0, 212, 255, 0.35);
       }
 
-      /* 高對比 Select */
+      /* Topic select — high contrast on dark background */
       .field select {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
         color: var(--bar-text);
         overflow: hidden;
+      }
+      .field select:focus {
+        border-color: var(--accent);
+        box-shadow: var(--accent-glow);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
       }
       .field select option {
         background-color: var(--select-bg);
@@ -444,7 +317,6 @@
         color: var(--select-fg-hover);
       }
 
-      /* Actions（沿用 neon 按鈕） */
       .contact-actions {
         display: flex;
         align-items: center;
@@ -452,8 +324,33 @@
         margin-top: clamp(12px, 2.6vw, 16px);
         flex-wrap: wrap;
       }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: clamp(10px, 2.2vw, 12px) clamp(12px, 2.6vw, 14px);
+        border-radius: 12px;
+        border: 1px solid var(--btn-border);
+        background: var(--btn-bg);
+        color: var(--bar-text);
+        cursor: pointer;
+        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease,
+          box-shadow 0.2s ease, color 0.2s ease;
+        font: 600 clamp(12px, 1.9vw, 13px) / 1 var(--font-ui);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+      }
+      .btn:hover {
+        background: var(--btn-bg-hover);
+        border-color: var(--accent);
+        box-shadow: var(--accent-glow);
+        color: #eafcff;
+      }
+      .btn:active {
+        transform: scale(0.985);
+      }
 
-      /* ===== Status Toast（玻璃＋霓虹） ===== */
+      /* Status toast */
       .status {
         position: fixed;
         left: 10px;
@@ -461,17 +358,15 @@
         z-index: 50;
         padding: 10px 12px;
         border-radius: 14px;
-        border: 1px solid transparent;
+        border: 1px solid var(--glass-border);
+        background: var(--glass-bg);
+        color: var(--bar-text);
+        font: 12.5px/1.6 var(--font-ui);
         max-width: min(560px, calc(100vw - 20px));
         display: none;
-        color: var(--bar-text);
         backdrop-filter: blur(10px) saturate(1.1);
         -webkit-backdrop-filter: blur(10px) saturate(1.1);
-
-        background: linear-gradient(180deg, rgba(16, 24, 40, 0.5), rgba(16, 24, 40, 0.32))
-            padding-box,
-          var(--border-gradient) border-box;
-        box-shadow: var(--card-glow);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), var(--accent-glow);
       }
       .status.show {
         display: block;
@@ -1075,7 +970,7 @@
         const old = stage.querySelector('.contact-wrap')
         if (old) old.remove()
 
-        // 建立表單容器（修正：<form> 標籤殘字已移除）
+        // 建立表單容器
         const wrap = document.createElement('div')
         wrap.className = 'contact-wrap'
         wrap.innerHTML = `
@@ -1088,7 +983,9 @@
       </div>
 
       <form id="contactForm"
-       q
+        action="https://formspree.io/f/mwpwlrvq"
+        method="POST"
+     ct — New Message" />
         <input type="hidden" name="_replyto" value="" />
 
         <div class="contact-grid">
