@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.25</title>
+    <title>ver 0.0.26</title>
 
     <style>
       :root {
@@ -870,7 +870,6 @@
         show(0)
       }
 
-      /* ===== Contact Form（Formspree action + AJAX success/fail, English UI） ===== */
       function renderContactForm() {
         // 隱藏圖片 viewer
         viewer.style.display = 'none'
@@ -883,67 +882,116 @@
         const wrap = document.createElement('div')
         wrap.className = 'contact-wrap'
         wrap.innerHTML = `
-          <div class="contact-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Contact Us</span>
+      <div class="contact-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Contact Us</span>
+      </div>
+
+      <form id="contactForm"
+        action="https://formspree.io/f/mwpwlrvq"
+        method="POST"
+     ior -->
+        <input type="hidden" name="_subject" value="VermaVibe Contact — New Message" />
+        <input type="hidden" name="_replyto" value="" />
+
+        <div class="contact-grid">
+          <div class="field">
+            <label for="name">Name *</label>
+            <input id="name" name="name" type="text" placeholder="William" required />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
           </div>
 
-          <!-- Submit directly to Formspree; no mailto -->
-          <form
-            action="https://formspree.io/f/mwpwlrvq"
-            method="POST"
-          >
-            <!-- Optional metadata for better email subject/reply behavior -->
-            <input type="hidden" name="_subject" value="VermaVibe Contact — New Message" />
-            <input type="hidden" name="_replyto" value="" />
+          <!-- 新增：Country -->
+          <div class="field">
+            <label for="country">Country *</label>
+            <select id="country" name="country" required>
+              <option value="">Select</option>
+              <option>Taiwan</option>
+              <option>Japan</option>
+              <option>South Korea</option>
+              <option>China</option>
+              <option>Singapore</option>
+              <option>Malaysia</option>
+              <option>Thailand</option>
+              <option>Vietnam</option>
+              <option>India</option>
+              <option>Indonesia</option>
+              <option>Philippines</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>United Kingdom</option>
+              <option>Germany</option>
+              <option>France</option>
+              <option>Australia</option>
+              <option>New Zealand</option>
+              <option>Other</option>
+            </select>
+          </div>
 
-            <div class="contact-grid">
-              <div class="field">
-                <label for="name">Name *</label>
-                <input id="name" name="name" type="text" placeholder="William" required />
-              </div>
-              <div class="field">
-                <label for="email">Email *</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required />
-              </div>
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="0912-345-678" />
-              </div>
-              <div class="field">
-                <label for="topic">Topic *</label>
-                <select id="topic" name="topic" required>
-                  <option value="">Select</option>
-                  <option>Consult</option>
-                  <option>Cooperate</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="field" style="grid-column: 1 / -1;">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
-              </div>
-            </div>
+          <!-- 新增：Crop -->
+          <div class="field">
+            <label for="crop">Crop *</label>
+            <select id="crop" name="crop" required>
+              <option value="">Select</option>
+              <option>Rice</option>
+              <option>Wheat</option>
+              <option>Corn (Maize)</option>
+              <option>Soybean</option>
+              <option>Tea</option>
+              <option>Coffee</option>
+              <option>Sugarcane</option>
+              <option>Cotton</option>
+              <option>Banana</option>
+              <option>Citrus</option>
+              <option>Vegetables (Mixed)</option>
+              <option>Fruit (Mixed)</option>
+              <option>Flowers / Ornamentals</option>
+              <option>Other</option>
+            </select>
+          </div>
 
-            <div class="contact-actions">
-              <button type="submit" class="btn" id="sendBtn">Send</button>
-              <button type="reset" class="btn">Clear</button>
-            </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" />
+          </div>
 
-            <div style="margin-top:8px; color: var(--muted-text); font-size:12px;">
-              Submissions are sent to our server (Formspree). Your mail client will not open.
-            </div>
-          </form>
-        `
+          <div class="field">
+            <label for="topic">Topic *</label>
+            <select id="topic" name="topic" required>
+              <option value="">Select</option>
+              <option>Consult</option>
+              <option>Cooperate</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field" style="grid-column: 1 / -1;">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
+          </div>
+        </div>
+
+        <div class="contact-actions">
+          <button type="submit" class="btn" id="sendBtn">Send</button>
+          <button type="reset" class="btn">Clear</button>
+        </div>
+
+      </form>
+    `
         stage.appendChild(wrap)
 
-        // 取得欄位
+        // 取得欄位（修正：加了 id="contactForm"）
         const form = wrap.querySelector('#contactForm')
         const nameEl = form.querySelector('#name')
         const emailEl = form.querySelector('#email')
+        const countryEl = form.querySelector('#country')
+        const cropEl = form.querySelector('#crop')
         const topicEl = form.querySelector('#topic')
         const messageEl = form.querySelector('#message')
         const replyToHidden = form.querySelector('input[name="_replyto"]')
@@ -973,6 +1021,8 @@
           const name = nameEl.value.trim()
           const email = emailEl.value.trim()
           const phone = form.phone.value.trim()
+          const country = countryEl.value.trim()
+          const crop = cropEl.value.trim()
           const topic = topicEl.value.trim()
           const message = messageEl.value.trim()
 
@@ -980,6 +1030,8 @@
           if (!name) errors.push('Please fill in your name')
           if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
             errors.push('Incorrect email format')
+          if (!country) errors.push('Please select a country')
+          if (!crop) errors.push('Please select a crop')
           if (!topic) errors.push('Please select a topic')
           if (!message) errors.push('Please fill in the message')
 
@@ -987,6 +1039,8 @@
             setStatus(`<b>Form error:</b> ${errors.join('、')}`)
             if (!name) nameEl.focus()
             else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) emailEl.focus()
+            else if (!country) countryEl.focus()
+            else if (!crop) cropEl.focus()
             else if (!topic) topicEl.focus()
             else if (!message) messageEl.focus()
             return
@@ -994,7 +1048,7 @@
 
           // 準備 payload
           const payload = new FormData(form)
-          const friendlySubject = `VermaVibe Contact — [${topic}] ${name}`
+          const friendlySubject = `VermaVibe Contact — [${topic}] ${name} (${country}, ${crop})`
           payload.set('_subject', friendlySubject)
 
           // 提交中防連點
@@ -1064,7 +1118,7 @@
           waitNatural()
         }
         viewer.onerror = () => {
-          setStatus(`圖片載入失敗：<span class="muted">${url}</span>`, true)
+          setStatus(`Image failed to load：<span class="muted">${url}</span>`, true)
           viewer.style.opacity = '1'
         }
 
