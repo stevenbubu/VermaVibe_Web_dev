@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.15</title>
+    <title>ver 0.0.16</title>
 
     <style>
       :root {
@@ -713,15 +713,15 @@
         ty = 0
         commit(true)
 
-        setStatus(`載入 ${ALBUMS[key].label}...`, true)
-        images = await loadAlbumList(key)
+        //setStatus(`載入 ${ALBUMS[key].label}...`, true)
+        // images = await loadAlbumList(key)
 
-        if (!images.length) {
-          setStatus(`找不到任何圖片：${ALBUMS[key].folder}`, true)
-          return
-        }
+        // if (!images.length) {
+        //   setStatus(`找不到任何圖片：${ALBUMS[key].folder}`, true)
+        //   return
+        // }
 
-        setStatus(`OK：${ALBUMS[key].label}（${images.length} 張）`, false)
+        // setStatus(`OK：${ALBUMS[key].label}（${images.length} 張）`, false)
         show(0)
       }
 
