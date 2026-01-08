@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.26</title>
+    <title>ver 0.0.27</title>
 
     <style>
       :root {
@@ -907,7 +907,6 @@
             <input id="email" name="email" type="email" placeholder="you@example.com" required />
           </div>
 
-          <!-- 新增：Country -->
           <div class="field">
             <label for="country">Country *</label>
             <select id="country" name="country" required>
@@ -933,25 +932,13 @@
               <option>Other</option>
             </select>
           </div>
-
-          <!-- 新增：Crop -->
+          
           <div class="field">
-            <label for="crop">Crop *</label>
-            <select id="crop" name="crop" required>
+            <label for="topic">Topic *</label>
+            <select id="topic" name="topic" required>
               <option value="">Select</option>
-              <option>Rice</option>
-              <option>Wheat</option>
-              <option>Corn (Maize)</option>
-              <option>Soybean</option>
-              <option>Tea</option>
-              <option>Coffee</option>
-              <option>Sugarcane</option>
-              <option>Cotton</option>
-              <option>Banana</option>
-              <option>Citrus</option>
-              <option>Vegetables (Mixed)</option>
-              <option>Fruit (Mixed)</option>
-              <option>Flowers / Ornamentals</option>
+              <option>Consult</option>
+              <option>Cooperate</option>
               <option>Other</option>
             </select>
           </div>
@@ -962,13 +949,8 @@
           </div>
 
           <div class="field">
-            <label for="topic">Topic *</label>
-            <select id="topic" name="topic" required>
-              <option value="">Select</option>
-              <option>Consult</option>
-              <option>Cooperate</option>
-              <option>Other</option>
-            </select>
+            <label for="crop">Crop *</label>
+            <input id="crop" name="crop" type="text" placeholder="Tea/Coffee/Garden" required/>
           </div>
 
           <div class="field" style="grid-column: 1 / -1;">
