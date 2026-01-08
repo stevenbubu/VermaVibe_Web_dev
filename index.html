@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.22</title>
+    <title>ver 0.0.23</title>
 
     <style>
       :root {
@@ -265,13 +265,30 @@
         -webkit-backdrop-filter: blur(6px);
         box-sizing: border-box;
         min-width: 0;
+        appearance: none; /* 統一外觀（選單） */
       }
+
+      /* Topic 選單與選項色彩（深色背景相容） */
+      .field select {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+        color: var(--bar-text);
+      }
+      .field select:focus {
+        border-color: var(--accent);
+        box-shadow: var(--accent-glow);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+      }
+      /* 多數瀏覽器可套用 option 色彩；若某些瀏覽器無法完全控制原生下拉樣式，仍維持主體色 */
+      .field select option {
+        background-color: var(--bg-2);
+        color: #eafcff;
+      }
+
       .field input::placeholder,
       .field textarea::placeholder {
         color: rgba(255, 255, 255, 0.55);
       }
       .field input:focus,
-      .field select:focus,
       .field textarea:focus {
         border-color: var(--accent);
         box-shadow: var(--accent-glow);
@@ -353,7 +370,7 @@
       <div class="topbar-inner">
         <div class="brand" title="VermaVibe Viewer">
           <span class="brand-badge" aria-hidden="true">
-            <!-- 請將 xlink:href 的 base64 換成你的 Logo -->
+            <!-- 將 xlink:href 的 base64 換成你的 Logo -->
             <svg
               class="brand-logo"
               xmlns="http://www.w3.org/2000/svg"
@@ -510,8 +527,6 @@
     <div class="status" id="status"></div>
 
     <script>
-      const CONTACT_EMAIL = 'bubuchacha@outlook.com'
-
       const ALBUMS = {
         about: {
           label: 'About',
@@ -843,7 +858,7 @@
         show(0)
       }
 
-      /* ===== Contact Form ===== */
+      /* ===== Contact Form（使用 action 提交至 Formspree） ===== */
       function renderContactForm() {
         viewer.style.display = 'none'
 
@@ -858,117 +873,68 @@
             <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
             <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span>Contact Us</span>
+          <span>聯絡我們</span>
         </div>
 
-        <form id="contactForm" novalidate>
+        <!-- 直接送到 Formspree；若需自訂收件信箱，請在 Formspree 後台設定 -->
+        https://formspree.io/f/mwpwlrvq
+          <!-- 建議附加主旨與回覆位址 -->
+          <input type="hidden" name="_subject" value="VermaVibe 聯絡表單新訊息" />
+          <!-- Formspree 會用 email 欄位當 Reply-To，此 hidden 可視需要保留或移除 -->
+          <input type="hidden" name="_replyto" value="" />
+
           <div class="contact-grid">
             <div class="field">
-              <label for="name">Name *</label>
-              <input id="name" name="name" type="text" placeholder="William" required />
+              <label for="name">姓名 *</label>
+              <input id="name" name="name" type="text" placeholder="王小明" required />
             </div>
             <div class="field">
               <label for="email">Email *</label>
               <input id="email" name="email" type="email" placeholder="you@example.com" required />
             </div>
             <div class="field">
-              <label for="phone">Phone</label>
+              <label for="phone">電話</label>
               <input id="phone" name="phone" type="tel" placeholder="0912-345-678" />
             </div>
             <div class="field">
-              <label for="topic">Topic *</label>
+              <label for="topic">主題 *</label>
               <select id="topic" name="topic" required>
-                <option value="">Select</option>
-                <option>Consult</option>
-                <option>Cooperate</option>
-                <option>Other</option>
+                <option value="">請選擇</option>
+                <option>一般詢問</option>
+                <option>技術合作</option>
+                <option>專案諮詢</option>
+                <option>媒體與公關</option>
               </select>
             </div>
             <div class="field" style="grid-column: 1 / -1;">
-              <label for="message">Message *</label>
-              <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
+              <label for="message">訊息 *</label>
+              <textarea id="message" name="message" placeholder="請簡述您的需求或問題" required></textarea>
             </div>
           </div>
 
           <div class="contact-actions">
-            <button type="submit" class="btn" id="sendBtn">Send</button>
-            <button type="reset" class="btn">Clear</button>
+            <button type="submit" class="btn">送出</button>
+            <button type="reset" class="btn">清除</button>
+          </div>
+
+          <div style="margin-top:8px; color: var(--muted-text); font-size:12px;">
+            送出後資料將直接傳送至伺服器（Formspree），不會開啟郵件程式。
           </div>
         </form>
       `
         stage.appendChild(wrap)
 
+        // 將 email 同步到 _replyto（方便在後台直接回覆）
         const form = wrap.querySelector('#contactForm')
-        const nameEl = form.querySelector('#name')
         const emailEl = form.querySelector('#email')
-        const topicEl = form.querySelector('#topic')
-        const messageEl = form.querySelector('#message')
+        const replyToHidden = form.querySelector('input[name="_replyto"]')
 
-        nameEl.focus({ preventScroll: true })
-
-        form.addEventListener('input', (e) => {
-          const t = e.target
-          if (t.matches('input, select, textarea')) {
-            t.setCustomValidity('')
-            t.checkValidity()
-          }
-        })
-
-        form.addEventListener('submit', (e) => {
-          e.preventDefault()
-
-          const name = nameEl.value.trim()
-          const email = emailEl.value.trim()
-          const phone = form.phone.value.trim()
-          const topic = topicEl.value.trim()
-          const message = messageEl.value.trim()
-
-          const errors = []
-          if (!name) {
-            errors.push('Please fill in your name')
-            nameEl.focus()
-          }
-          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-            errors.push('Incorrect email formatEmail 格式不正確')
-            emailEl.focus()
-          }
-          if (!topic) {
-            errors.push('Please select a topic')
-            topicEl.focus()
-          }
-          if (!message) {
-            errors.push('Please fill in the information')
-            messageEl.focus()
-          }
-
-          if (errors.length) {
-            setStatus(`<b>Form error:</b> ${errors.join('、')}`)
-            return
-          }
-
-          const subject = encodeURIComponent(`【${topic}】${name} 的聯絡需求`)
-          const bodyLines = [
-            `Name：${name}`,
-            `Email：${email}`,
-            `Phone：${phone || '-'}`,
-            `Topic：${topic}`,
-            '',
-            'Message：',
-            message,
-            '',
-            '---',
-            '來源：VermaVibe Viewer（Contact 表單）',
-          ]
-          const body = encodeURIComponent(bodyLines.join('\n'))
-
-          const mailto = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
-          window.location.href = mailto
-
-          setStatus(`已開啟郵件程式，準備寄送給 <span class="muted">${CONTACT_EMAIL}</span>`)
+        emailEl.addEventListener('input', () => {
+          replyToHidden.value = emailEl.value.trim()
         })
       }
 
-      /* ===== Slides ===== */
+      /* ===== Slides（淡入動畫） ===== */
       function show(i) {
         stopPanInertia()
         stopZoomAnim()
@@ -1341,10 +1307,10 @@
       window.addEventListener('resize', onViewportChange)
       window.addEventListener('orientationchange', onViewportChange)
       if (window.visualViewport) window.visualViewport.addEventListener('resize', onViewportChange)
+
       ;(async function init() {
         await setAlbum(currentAlbumKey)
       })()
     </script>
   </body>
 </html>
-``
