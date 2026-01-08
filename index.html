@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.18</title>
+    <title>ver 0.0.19</title>
 
     <style>
       :root {
@@ -781,6 +781,7 @@
       // ======================
       // Slides
       // ======================
+
       function show(i) {
         stopPanInertia()
         stopZoomAnim()
@@ -794,9 +795,16 @@
         ty = 0
 
         const url = images[idx]
+
+        // ✅ 先把透明度歸零（為下一張圖的淡入做準備）
+        viewer.style.opacity = '0'
+        // ✅ 確保 transition 只需設定一次也可以；這裡保守做法在切換時重設
+        viewer.style.transition = 'opacity 260ms ease'
+
         viewer.src = url
         viewer.alt = `slide ${idx + 1}`
 
+        // ✅ 新版 onload：等 naturalWidth/Height 就緒後再淡入
         viewer.onload = () => {
           const waitNatural = () => {
             if (!viewer.naturalWidth || !viewer.naturalHeight) {
@@ -804,14 +812,21 @@
               return
             }
             recomputeBaseSize()
+            // 下一個 frame 再把透明度拉回 1，避免與 layout 計算競爭
+            requestAnimationFrame(() => {
+              viewer.style.opacity = '1'
+            })
           }
           waitNatural()
         }
 
         viewer.onerror = () => {
           setStatus(`圖片載入失敗：<span class="muted">${url}</span>`, true)
+          // 若錯誤，避免一直半透明，可拉回 1（或維持 0 讓使用者感知錯誤）
+          viewer.style.opacity = '1'
         }
 
+        // 預載下一張
         const pre = new Image()
         pre.decoding = 'async'
         pre.src = images[(idx + 1) % images.length]
