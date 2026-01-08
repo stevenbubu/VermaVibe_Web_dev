@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>ver 0.0.13</title>
+    <title>ver 0.0.14</title>
 
     <style>
       :root {
@@ -23,13 +23,16 @@
         --accent: #00d4ff;
       }
 
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        background: #000;
-        overscroll-behavior: contain;
-      }
+      
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: #f7f7f7; /* ✅ 改成淺灰簡約背景 */
+  overscroll-behavior: contain;
+  color: #222; /* ✅ 預設文字顏色 */
+}
+
 
       /* ===== Top Bar ===== */
       .topbar {
@@ -147,36 +150,37 @@
         }
       }
 
-      /* ===== Stage ===== */
-      .stage {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: calc(var(--bar-h) + env(safe-area-inset-top));
-        height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        user-select: none;
-        background: #000;
-        overflow: hidden;
-        touch-action: pan-y;
-        z-index: 10;
-      }
+      
+.stage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: calc(var(--bar-h) + env(safe-area-inset-top));
+  height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  background: linear-gradient(135deg, #fafafa, #eaeaea); /* ✅ 簡約漸層 */
+  overflow: hidden;
+  touch-action: pan-y;
+  z-index: 10;
+}
 
-      .slide {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        background: #000;
-        will-change: transform;
-        transform-origin: 0 0;
-        touch-action: pan-y;
-        backface-visibility: hidden;
-      }
+.slide {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: transparent; /* ✅ 移除黑底 */
+  will-change: transform;
+  transform-origin: 0 0;
+  touch-action: pan-y;
+  backface-visibility: hidden;
+}
+
 
       /* ===== 小型狀態列（防呆：顯示載入/錯誤，不用看 console） ===== */
       .status {
