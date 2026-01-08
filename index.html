@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.21</title>
+    <title>ver 0.0.22</title>
 
     <style>
       :root {
@@ -478,7 +478,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <span>Collab</span>
+            <span>Collaborate</span>
           </button>
 
           <button class="tool-btn" type="button" data-album="contact">
@@ -858,46 +858,41 @@
             <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
             <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span>聯絡我們</span>
+          <span>Contact Us</span>
         </div>
 
         <form id="contactForm" novalidate>
           <div class="contact-grid">
             <div class="field">
-              <label for="name">姓名 *</label>
-              <input id="name" name="name" type="text" placeholder="王小明" required />
+              <label for="name">Name *</label>
+              <input id="name" name="name" type="text" placeholder="William" required />
             </div>
             <div class="field">
               <label for="email">Email *</label>
               <input id="email" name="email" type="email" placeholder="you@example.com" required />
             </div>
             <div class="field">
-              <label for="phone">電話</label>
+              <label for="phone">Phone</label>
               <input id="phone" name="phone" type="tel" placeholder="0912-345-678" />
             </div>
             <div class="field">
-              <label for="topic">主題 *</label>
+              <label for="topic">Topic *</label>
               <select id="topic" name="topic" required>
-                <option value="">請選擇</option>
-                <option>一般詢問</option>
-                <option>技術合作</option>
-                <option>專案諮詢</option>
-                <option>媒體與公關</option>
+                <option value="">Select</option>
+                <option>Consult</option>
+                <option>Cooperate</option>
+                <option>Other</option>
               </select>
             </div>
             <div class="field" style="grid-column: 1 / -1;">
-              <label for="message">訊息 *</label>
-              <textarea id="message" name="message" placeholder="請簡述您的需求或問題" required></textarea>
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
             </div>
           </div>
 
           <div class="contact-actions">
-            <button type="submit" class="btn" id="sendBtn">送出</button>
-            <button type="reset" class="btn">清除</button>
-          </div>
-
-          <div style="margin-top:8px; color: var(--muted-text); font-size:12px;">
-            送出後將以您的預設郵件程式寄出（純前端模式）。若您需要 API 直傳，告訴我您的伺服器端點即可加上。
+            <button type="submit" class="btn" id="sendBtn">Send</button>
+            <button type="reset" class="btn">Clear</button>
           </div>
         </form>
       `
@@ -930,35 +925,35 @@
 
           const errors = []
           if (!name) {
-            errors.push('請填寫姓名')
+            errors.push('Please fill in your name')
             nameEl.focus()
           }
           if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-            errors.push('Email 格式不正確')
+            errors.push('Incorrect email formatEmail 格式不正確')
             emailEl.focus()
           }
           if (!topic) {
-            errors.push('請選擇主題')
+            errors.push('Please select a topic')
             topicEl.focus()
           }
           if (!message) {
-            errors.push('請填寫訊息')
+            errors.push('Please fill in the information')
             messageEl.focus()
           }
 
           if (errors.length) {
-            setStatus(`<b>表單錯誤：</b> ${errors.join('、')}`)
+            setStatus(`<b>Form error:</b> ${errors.join('、')}`)
             return
           }
 
           const subject = encodeURIComponent(`【${topic}】${name} 的聯絡需求`)
           const bodyLines = [
-            `姓名：${name}`,
+            `Name：${name}`,
             `Email：${email}`,
-            `電話：${phone || '-'}`,
-            `主題：${topic}`,
+            `Phone：${phone || '-'}`,
+            `Topic：${topic}`,
             '',
-            '訊息：',
+            'Message：',
             message,
             '',
             '---',
