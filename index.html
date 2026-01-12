@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
     <!-- 響應式必要：讓版面依裝置寬度縮放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.37</title>
+    <title>ver 0.0.38</title>
 
     <style>
       :root {
@@ -46,12 +47,8 @@
       body {
         height: 100%;
         margin: 0;
-        background: radial-gradient(
-            1200px 600px at 10% 10%,
-            var(--bg-2) 0%,
-            var(--bg-1) 55%,
-            var(--bg-0) 100%
-          ),
+        background:
+          radial-gradient(1200px 600px at 10% 10%, var(--bg-2) 0%, var(--bg-1) 55%, var(--bg-0) 100%),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
         overscroll-behavior: contain;
         color: var(--bar-text);
@@ -87,20 +84,28 @@
       .brand {
         display: inline-flex;
         align-items: center;
-        gap: clamp(8px, 2vw, 12px);
+        gap: clamp(6px, 2vw, 12px);
         color: var(--bar-text);
-        font: 650 clamp(13px, 2vw, 14px) / 1 var(--font-ui);
+        font: 650 clamp(12px, 2vw, 14px) / 1 var(--font-ui);
         letter-spacing: 0.4px;
         user-select: none;
         white-space: nowrap;
         min-width: 0;
       }
+
+      /* Logo：隨視窗縮放，並強制 SVG <image> 跟著外層尺寸 */
       .brand-badge .brand-logo {
-        height: clamp(28px, calc(var(--bar-h) - 6px), 48px);
+        height: clamp(24px, 6vw, var(--bar-h));
         width: auto;
         display: block;
         filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
       }
+      .brand-badge .brand-logo image {
+        width: 100%;
+        height: 100%;
+        preserveAspectRatio: xMidYMid meet;
+      }
+
       .brand .muted {
         color: var(--muted-text);
         font-weight: 600;
@@ -172,12 +177,10 @@
 
       /* 小螢幕自動隱藏文字，只留圖示；更易點擊 */
       @media (max-width: 480px) {
-        .tool-btn span {
-          display: none;
-        }
+        .tool-btn span { display: none; }
       }
 
-      /* Stage */
+      /* Stage：圖片模式固定高度；表單模式會套 .scroll 使其可捲動 */
       .stage {
         position: fixed;
         left: 0;
@@ -192,9 +195,15 @@
         overflow: hidden;
         touch-action: pan-y;
         z-index: 10;
-        background: radial-gradient(420px 220px at 20% 30%, var(--ring-1), transparent 60%),
+        background:
+          radial-gradient(420px 220px at 20% 30%, var(--ring-1), transparent 60%),
           radial-gradient(480px 260px at 80% 70%, var(--ring-2), transparent 65%),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      }
+      /* 表單/結果頁：允許內部垂直捲動 */
+      .stage.scroll {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       /* Viewer image */
@@ -218,7 +227,7 @@
       /* ===== Contact Form（響應式） ===== */
       .contact-wrap {
         isolation: isolate;
-        width: min(920px, 92vw); /* 放大上限：桌面更舒適 */
+        width: min(920px, 92vw);
         margin: 0 auto;
         padding: clamp(14px, 2.6vw, 22px);
         border: 1px solid var(--glass-border);
@@ -247,9 +256,7 @@
         align-items: start;
       }
       @media (max-width: 640px) {
-        .contact-grid {
-          grid-template-columns: 1fr;
-        }
+        .contact-grid { grid-template-columns: 1fr; }
       }
 
       .field {
@@ -282,9 +289,7 @@
         appearance: none;
       }
       .field input::placeholder,
-      .field textarea::placeholder {
-        color: rgba(255, 255, 255, 0.55);
-      }
+      .field textarea::placeholder { color: rgba(255, 255, 255, 0.55); }
       .field input:focus,
       .field select:focus,
       .field textarea:focus {
@@ -296,12 +301,8 @@
         min-height: clamp(100px, 22vh, 160px);
         resize: vertical;
       }
-      .field :invalid {
-        border-color: #ff7b7b;
-      }
-      .field :valid {
-        border-color: rgba(0, 212, 255, 0.35);
-      }
+      .field :invalid { border-color: #ff7b7b; }
+      .field :valid { border-color: rgba(0, 212, 255, 0.35); }
 
       .field select {
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
@@ -313,10 +314,7 @@
         box-shadow: var(--accent-glow);
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
       }
-      .field select option {
-        background-color: var(--select-bg);
-        color: var(--select-fg);
-      }
+      .field select option { background-color: var(--select-bg); color: var(--select-fg); }
       .field select option:checked,
       .field select option:hover,
       .field select option:focus {
@@ -353,9 +351,7 @@
         box-shadow: var(--accent-glow);
         color: #eafcff;
       }
-      .btn:active {
-        transform: scale(0.985);
-      }
+      .btn:active { transform: scale(0.985); }
 
       /* Status toast */
       .status {
@@ -375,12 +371,8 @@
         -webkit-backdrop-filter: blur(10px) saturate(1.1);
         box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), var(--accent-glow);
       }
-      .status.show {
-        display: block;
-      }
-      .status .muted {
-        color: var(--muted-text);
-      }
+      .status.show { display: block; }
+      .status .muted { color: var(--muted-text); }
 
       /* 鍵盤可存取性 */
       .tool-btn:focus-visible,
@@ -396,9 +388,7 @@
       @media (prefers-reduced-motion: reduce) {
         .tool-btn,
         .btn,
-        .slide {
-          transition: none !important;
-        }
+        .slide { transition: none !important; }
       }
     </style>
   </head>
@@ -419,137 +409,54 @@
             >
               <g>
                 <image
-                  x="0"
-                  y="0"
-                  xlink:href="data:image/png;base64,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"
-                />
-              </g>
-            </svg>
-          </span>
-          <span>VermaVibe</span>
+                  x="0" y="0"
+                  xlink:href="data:image/png;base64,<!-- 你的 LOGO Base64 放這裡 -->"
+               span>
           <span class="muted">｜<span id="albumName">About</span></span>
         </div>
 
         <nav class="actions" id="toolbar" aria-label="Albums">
           <button class="tool-btn active" type="button" data-album="about" aria-current="page">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z"
-                stroke="currentColor"
-                stroke-width="1.8"
-              />
-              <path
-                d="M12 10.7v6.2"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-              />
-              <path
-                d="M12 7.6h.01"
-                stroke="currentColor"
-                stroke-width="2.6"
-                stroke-linecap="round"
-              />
+              <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 10.7v6.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M12 7.6h.01" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
             </svg>
             <span>About</span>
           </button>
 
           <button class="tool-btn" type="button" data-album="tech">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M9 18 3 12l6-6"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M15 6l6 6-6 6"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M13.5 5.5 10.5 18.5"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-              />
+              <path d="M9 18 3 12l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.5 5.5 10.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
             <span>Tech</span>
           </button>
 
           <button class="tool-btn" type="button" data-album="cases">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M7 7.5A2.5 2.5 0 0 1 9.5 5h9A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-9A2.5 2.5 0 0 1 7 16.5v-9Z"
-                stroke="currentColor"
-                stroke-width="1.8"
-              />
-              <path
-                d="M3 9.2A2.2 2.2 0 0 1 5.2 7H7v12H5.2A2.2 2.2 0 0 1 3 16.8V9.2Z"
-                stroke="currentColor"
-                stroke-width="1.8"
-              />
-              <path
-                d="M10 10.2h8M10 13h8M10 15.8h5.5"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-              />
+              <path d="M7 7.5A2.5 2.5 0 0 1 9.5 5h9A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-9A2.5 2.5 0 0 1 7 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M3 9.2A2.2 2.2 0 0 1 5.2 7H7v12H5.2A2.2 2.2 0 0 1 3 16.8V9.2Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M10 10.2h8M10 13h8M10 15.8h5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
             <span>Case</span>
           </button>
 
           <button class="tool-btn" type="button" data-album="collab">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M8.2 13.2 6 11l-3 3 3.2 3.2c.7.7 1.8.7 2.5 0l1.2-1.2"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M15.8 13.2 18 11l3 3-3.2 3.2c-.7.7-1.8.7-2.5 0l-1.2-1.2"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M9 14.5l2 2c.6.6 1.4.6 2 0l2-2"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M9.2 10.5 11 8.7c.6-.6 1.4-.6 2 0l1.8 1.8"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M8.2 13.2 6 11l-3 3 3.2 3.2c.7.7 1.8.7 2.5 0l1.2-1.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15.8 13.2 18 11l3 3-3.2 3.2c-.7.7-1.8.7-2.5 0l-1.2-1.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 14.5l2 2c.6.6 1.4.6 2 0l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9.2 10.5 11 8.7c.6-.6 1.4-.6 2 0l1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>Collaborate</span>
           </button>
 
           <button class="tool-btn" type="button" data-album="contact">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"
-                stroke="currentColor"
-                stroke-width="1.8"
-              />
-              <path
-                d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>Contact</span>
           </button>
@@ -566,351 +473,288 @@
 
     <script>
       const ALBUMS = {
-        about: {
-          label: 'About',
-          folder: 'images/About',
-          manifest: 'manifest.json',
-          count: 12,
-          ext: 'PNG',
-          pad: 0,
-          type: 'images',
-        },
-        tech: {
-          label: 'Tech',
-          folder: 'images/Tech',
-          manifest: 'manifest.json',
-          count: 18,
-          ext: 'PNG',
-          pad: 0,
-          type: 'images',
-        },
-        cases: {
-          label: 'Case',
-          folder: 'images/Cases',
-          manifest: 'manifest.json',
-          count: 20,
-          ext: 'PNG',
-          pad: 0,
-          type: 'images',
-        },
-        collab: {
-          label: 'Collaborate',
-          folder: 'images/Collab',
-          manifest: 'manifest.json',
-          count: 10,
-          ext: 'PNG',
-          pad: 0,
-          type: 'images',
-        },
-        contact: {
-          label: 'Contact',
-          folder: '',
-          manifest: '',
-          count: 0,
-          ext: '',
-          pad: 0,
-          type: 'form',
-        },
-      }
+        about:  { label: 'About',       folder: 'images/About',  manifest: 'manifest.json', count: 12, ext: 'PNG', pad: 0, type: 'images' },
+        tech:   { label: 'Tech',        folder: 'images/Tech',   manifest: 'manifest.json', count: 18, ext: 'PNG', pad: 0, type: 'images' },
+        cases:  { label: 'Case',        folder: 'images/Cases',  manifest: 'manifest.json', count: 20, ext: 'PNG', pad: 0, type: 'images' },
+        collab: { label: 'Collaborate', folder: 'images/Collab', manifest: 'manifest.json', count: 10, ext: 'PNG', pad: 0, type: 'images' },
+        contact:{ label: 'Contact',     folder: '',              manifest: '',              count: 0,  ext: '',    pad: 0, type: 'form'   },
+      };
 
-      const MIN_SCALE = 1,
-        MAX_SCALE = 6
-      const DOUBLE_TAP_MS = 300
-      const DOUBLE_TAP_TARGET_SCALE = 2.5
-      const ZOOM_ANIM_MS = 220
-      const WHEEL_ZOOM_FACTOR = 1.1
-      const EPS = 0.2
-      const isTouchDevice = navigator.maxTouchPoints > 0
+      const MIN_SCALE = 1, MAX_SCALE = 6;
+      const DOUBLE_TAP_MS = 300;
+      const DOUBLE_TAP_TARGET_SCALE = 2.5;
+      const ZOOM_ANIM_MS = 220;
+      const WHEEL_ZOOM_FACTOR = 1.1;
+      const EPS = 0.2;
+      const isTouchDevice = navigator.maxTouchPoints > 0;
 
       /* 行動裝置上放寬點擊閾值 */
-      const CLICK_THRESHOLD_PX = isTouchDevice ? 22 : 10
-      const CLICK_THRESHOLD_PY = isTouchDevice ? 22 : 10
-      const TAP_DURATION_MS = 250
-      const SWIPE_MIN_PX = isTouchDevice ? 48 : 36
-      const SWIPE_MIN_VELOCITY = 0.35
-      const INERTIA_MIN_SPEED = 0.02
-      const INERTIA_FRICTION = 0.5
-      const BOUNCE_COEFF = 0.1
-      const PAN_HISTORY_MS = 120
+      const CLICK_THRESHOLD_PX = isTouchDevice ? 22 : 10;
+      const CLICK_THRESHOLD_PY = isTouchDevice ? 22 : 10;
+      const TAP_DURATION_MS = 250;
+      const SWIPE_MIN_PX = isTouchDevice ? 48 : 36;
+      const SWIPE_MIN_VELOCITY = 0.35;
+      const INERTIA_MIN_SPEED = 0.02;
+      const INERTIA_FRICTION = 0.5;
+      const BOUNCE_COEFF = 0.1;
+      const PAN_HISTORY_MS = 120;
 
-      const viewer = document.getElementById('viewer')
-      const stage = document.getElementById('stage')
-      const toolbar = document.getElementById('toolbar')
-      const albumName = document.getElementById('albumName')
-      const statusEl = document.getElementById('status')
+      const viewer = document.getElementById('viewer');
+      const stage = document.getElementById('stage');
+      const toolbar = document.getElementById('toolbar');
+      const albumName = document.getElementById('albumName');
+      const statusEl = document.getElementById('status');
 
-      let currentAlbumKey = 'about'
-      let images = []
+      let currentAlbumKey = 'about';
+      let images = [];
 
-      let idx = 0
-      let scale = 1
-      let tx = 0,
-        ty = 0
-      let rafId = null
+      let idx = 0;
+      let scale = 1;
+      let tx = 0, ty = 0;
+      let rafId = null;
 
-      let viewportW = 0,
-        viewportH = 0
-      let baseW = 0,
-        baseH = 0
-      let baseLx = 0,
-        baseLy = 0
+      let viewportW = 0, viewportH = 0;
+      let baseW = 0, baseH = 0;
+      let baseLx = 0, baseLy = 0;
 
-      const pointers = new Map()
-      let dragStart = null
-      let stageDragStart = null
+      const pointers = new Map();
+      let dragStart = null;
+      let stageDragStart = null;
 
-      let tapStartX = null,
-        tapStartY = null,
-        tapStartTime = 0
-      let lastMoveX = null,
-        lastMoveY = null,
-        lastMoveTime = 0
+      let tapStartX = null, tapStartY = null, tapStartTime = 0;
+      let lastMoveX = null, lastMoveY = null, lastMoveTime = 0;
 
-      let recomputeTimer = null
-      let viewportDirty = false
-      let panAnimId = null
-      let panHistory = []
-      let zoomAnimId = null
-      let lastTap = 0
-      let tapTimer = null
+      let recomputeTimer = null;
+      let viewportDirty = false;
+      let panAnimId = null;
+      let panHistory = [];
+      let zoomAnimId = null;
+      let lastTap = 0;
+      let tapTimer = null;
+
+      /* 表單/結果頁模式旗標：避免攔截捲動 */
+      let isFormMode = false;
 
       function setStatus(msg, keep = false) {
         if (!msg) {
-          statusEl.classList.remove('show')
-          statusEl.textContent = ''
-          return
+          statusEl.classList.remove('show');
+          statusEl.textContent = '';
+          return;
         }
-        statusEl.innerHTML = msg
-        statusEl.classList.add('show')
+        statusEl.innerHTML = msg;
+        statusEl.classList.add('show');
         if (!keep) {
-          clearTimeout(setStatus._t)
-          setStatus._t = setTimeout(() => setStatus(''), 2400)
+          clearTimeout(setStatus._t);
+          setStatus._t = setTimeout(() => setStatus(''), 2400);
         }
       }
 
-      const clamp = (v, min, max) => Math.min(max, Math.max(min, v))
-      const nowMs = () => performance.now()
+      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+      const nowMs = () => performance.now();
 
       function cancelSingleTap() {
-        if (tapTimer) {
-          clearTimeout(tapTimer)
-          tapTimer = null
-        }
+        if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
       }
       function scheduleSingleTap(clientX) {
-        cancelSingleTap()
+        cancelSingleTap();
         tapTimer = setTimeout(() => {
-          tapTimer = null
-          handlePositionalClick(clientX)
-        }, DOUBLE_TAP_MS + 30)
+          tapTimer = null;
+          handlePositionalClick(clientX);
+        }, DOUBLE_TAP_MS + 30);
       }
 
-      function stopPanInertia() {
-        if (panAnimId) cancelAnimationFrame(panAnimId)
-        panAnimId = null
-      }
-      function stopZoomAnim() {
-        if (zoomAnimId) cancelAnimationFrame(zoomAnimId)
-        zoomAnimId = null
-      }
+      function stopPanInertia() { if (panAnimId) cancelAnimationFrame(panAnimId); panAnimId = null; }
+      function stopZoomAnim()   { if (zoomAnimId) cancelAnimationFrame(zoomAnimId); zoomAnimId = null; }
 
       function updateViewport() {
-        const vv = window.visualViewport
+        const vv = window.visualViewport;
         if (vv && vv.width && vv.height) {
-          viewportW = vv.width
-          viewportH = vv.height
+          viewportW = vv.width;
+          viewportH = vv.height;
         } else {
-          const r = stage.getBoundingClientRect()
-          viewportW = r.width
-          viewportH = r.height
+          const r = stage.getBoundingClientRect();
+          viewportW = r.width;
+          viewportH = r.height;
         }
       }
 
       function computeContain(nw, nh) {
-        const imgRatio = nw / nh,
-          stageRatio = viewportW / viewportH
-        if (imgRatio > stageRatio) return { w: viewportW, h: viewportW / imgRatio }
-        return { h: viewportH, w: viewportH * imgRatio }
+        const imgRatio = nw / nh, stageRatio = viewportW / viewportH;
+        if (imgRatio > stageRatio) return { w: viewportW, h: viewportW / imgRatio };
+        return { h: viewportH, w: viewportH * imgRatio };
       }
 
       function computeBaseTopLeft() {
-        baseLx = (viewportW - baseW) / 2
-        baseLy = (viewportH - baseH) / 2
+        baseLx = (viewportW - baseW) / 2;
+        baseLy = (viewportH - baseH) / 2;
       }
 
       function clientToImagePoint(clientX, clientY) {
-        const ix = (clientX - baseLx - tx) / scale
-        const iy = (clientY - baseLy - ty) / scale
-        return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) }
+        const ix = (clientX - baseLx - tx) / scale;
+        const iy = (clientY - baseLy - ty) / scale;
+        return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) };
       }
 
       function getPanBounds() {
-        const contentW = baseW * scale,
-          contentH = baseH * scale
-        let minTx, maxTx, minTy, maxTy
+        const contentW = baseW * scale, contentH = baseH * scale;
+        let minTx, maxTx, minTy, maxTy;
         if (contentW > viewportW) {
-          minTx = viewportW - baseLx - contentW - EPS
-          maxTx = -baseLx + EPS
+          minTx = viewportW - baseLx - contentW - EPS;
+          maxTx = -baseLx + EPS;
         } else {
-          const txCenter = (-baseW * (scale - 1)) / 2
-          minTx = maxTx = txCenter
+          const txCenter = (-baseW * (scale - 1)) / 2;
+          minTx = maxTx = txCenter;
         }
         if (contentH > viewportH) {
-          minTy = viewportH - baseLy - contentH - EPS
-          maxTy = -baseLy + EPS
+          minTy = viewportH - baseLy - contentH - EPS;
+          maxTy = -baseLy + EPS;
         } else {
-          const tyCenter = (-baseH * (scale - 1)) / 2
-          minTy = maxTy = tyCenter
+          const tyCenter = (-baseH * (scale - 1)) / 2;
+          minTy = maxTy = tyCenter;
         }
-        return { minTx, maxTx, minTy, maxTy }
+        return { minTx, maxTx, minTy, maxTy };
       }
 
       function commit(needsClamp = true) {
         if (needsClamp) {
-          const { minTx, maxTx, minTy, maxTy } = getPanBounds()
-          tx = clamp(tx, minTx, maxTx)
-          ty = clamp(ty, minTy, maxTy)
+          const { minTx, maxTx, minTy, maxTy } = getPanBounds();
+          tx = clamp(tx, minTx, maxTx);
+          ty = clamp(ty, minTy, maxTy);
         }
-        if (rafId) return
+        if (rafId) return;
         rafId = requestAnimationFrame(() => {
-          viewer.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`
-          setInteractionMode()
-          rafId = null
-        })
+          viewer.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
+          setInteractionMode();
+          rafId = null;
+        });
       }
 
       function setInteractionMode() {
-        const ta = scale === 1 ? 'pan-y' : 'none'
-        viewer.style.touchAction = ta
-        stage.style.touchAction = ta
+        const ta = scale === 1 ? 'pan-y' : 'none';
+        viewer.style.touchAction = ta;
+        stage.style.touchAction = ta;
       }
 
-      function preventNativeIfZooming(e) {
-        if (scale > 1) e.preventDefault?.()
-      }
+      function preventNativeIfZooming(e) { if (scale > 1) e.preventDefault?.(); }
 
       function recomputeBaseSize() {
-        updateViewport()
-        const nw = viewer.naturalWidth || viewer.width || viewer.offsetWidth
-        const nh = viewer.naturalHeight || viewer.height || viewer.offsetHeight
-        if (!nw || !nh || !viewportW || !viewportH) return
-        const s = computeContain(nw, nh)
-        baseW = s.w
-        baseH = s.h
-        viewer.style.width = `${baseW}px`
-        viewer.style.height = `${baseH}px`
-        computeBaseTopLeft()
-        commit(true)
+        updateViewport();
+        const nw = viewer.naturalWidth || viewer.width || viewer.offsetWidth;
+        const nh = viewer.naturalHeight || viewer.height || viewer.offsetHeight;
+        if (!nw || !nh || !viewportW || !viewportH) return;
+        const s = computeContain(nw, nh);
+        baseW = s.w;
+        baseH = s.h;
+        viewer.style.width = `${baseW}px`;
+        viewer.style.height = `${baseH}px`;
+        computeBaseTopLeft();
+        commit(true);
       }
 
       function isInteracting() {
-        return pointers.size > 0 || !!stageDragStart || scale > 1 || !!panAnimId || !!zoomAnimId
+        return pointers.size > 0 || !!stageDragStart || scale > 1 || !!panAnimId || !!zoomAnimId;
       }
-      function scheduleRecompute(delay = 320) {
-        clearTimeout(recomputeTimer)
-        if (isInteracting()) {
-          viewportDirty = true
-          return
-        }
-        viewportDirty = false
-        recomputeTimer = setTimeout(recomputeBaseSize, delay)
+      function scheduleRecompute(delay = 480) { /* 稍微加長，降低 iOS 重排抖動 */
+        clearTimeout(recomputeTimer);
+        if (isInteracting()) { viewportDirty = true; return; }
+        viewportDirty = false;
+        recomputeTimer = setTimeout(recomputeBaseSize, delay);
       }
       function tryRecomputeAfterInteraction() {
-        if (viewportDirty && !isInteracting()) scheduleRecompute(160)
+        if (viewportDirty && !isInteracting()) scheduleRecompute(200);
       }
 
-      function padNumber(n, pad) {
-        return pad ? String(n).padStart(pad, '0') : String(n)
-      }
+      function padNumber(n, pad) { return pad ? String(n).padStart(pad, '0') : String(n); }
       function buildFallbackList(album) {
-        const { folder, count, ext, pad = 0 } = album
-        return Array.from({ length: count }, (_, i) => `${folder}/${padNumber(i + 1, pad)}.${ext}`)
+        const { folder, count, ext, pad = 0 } = album;
+        return Array.from({ length: count }, (_, i) => `${folder}/${padNumber(i + 1, pad)}.${ext}`);
       }
 
-      function canFetchManifest() {
-        return location.protocol === 'http:' || location.protocol === 'https:'
-      }
+      function canFetchManifest() { return location.protocol === 'http:' || location.protocol === 'https:'; }
 
       async function loadAlbumList(key) {
-        const album = ALBUMS[key]
-        if (!album) throw new Error('Unknown album: ' + key)
-        if (album.type === 'form') return []
+        const album = ALBUMS[key];
+        if (!album) throw new Error('Unknown album: ' + key);
+        if (album.type === 'form') return [];
         if (album.manifest && canFetchManifest()) {
-          const url = `${album.folder}/${album.manifest}?v=${Date.now()}`
+          const url = `${album.folder}/${album.manifest}?v=${Date.now()}`;
           try {
-            const res = await fetch(url, { cache: 'no-store' })
+            const res = await fetch(url, { cache: 'no-store' });
             if (res.ok) {
-              const data = await res.json()
+              const data = await res.json();
               const files = Array.isArray(data)
                 ? data
-                : data && Array.isArray(data.files)
-                ? data.files
-                : null
-              if (files && files.length) return files.map((name) => `${album.folder}/${name}`)
+                : data && Array.isArray(data.files) ? data.files : null;
+              if (files && files.length) return files.map((name) => `${album.folder}/${name}`);
             } else {
-              setStatus(`manifest 讀取失敗（HTTP ${res.status}），改用 fallback`, false)
+              setStatus(`manifest 讀取失敗（HTTP ${res.status}），改用 fallback`, false);
             }
           } catch {
-            setStatus(`manifest fetch 失敗，改用 fallback`, false)
+            setStatus(`manifest fetch 失敗，改用 fallback`, false);
           }
         } else if (album.manifest && !canFetchManifest()) {
-          setStatus(
-            `目前是 file:// 開啟，跳過 manifest，使用 count fallback（建議用本機伺服器）`,
-            false
-          )
+          setStatus(`目前是 file:// 開啟，跳過 manifest，使用 count fallback（建議用本機伺服器）`, false);
         }
-        return buildFallbackList(album)
+        return buildFallbackList(album);
       }
 
       function clearStageExtras() {
-        const exist = stage.querySelector('.contact-wrap')
-        if (exist) exist.remove()
-        viewer.style.display = ''
+        const exist = stage.querySelector('.contact-wrap');
+        if (exist) exist.remove();
+        viewer.style.display = '';
+        // 回到圖片模式：移除滾動 & 手勢設定
+        isFormMode = false;
+        stage.classList.remove('scroll');
+        stage.style.touchAction = 'pan-y';
       }
 
       async function setAlbum(key) {
-        if (!ALBUMS[key]) return
+        if (!ALBUMS[key]) return;
         toolbar
           .querySelectorAll('.tool-btn')
-          .forEach((btn) => btn.classList.toggle('active', btn.dataset.album === key))
+          .forEach((btn) => btn.classList.toggle('active', btn.dataset.album === key));
 
-        currentAlbumKey = key
-        albumName.textContent = ALBUMS[key].label
+        currentAlbumKey = key;
+        albumName.textContent = ALBUMS[key].label;
 
-        stopPanInertia()
-        stopZoomAnim()
-        cancelSingleTap()
-        scale = 1
-        tx = 0
-        ty = 0
-        commit(true)
+        stopPanInertia(); stopZoomAnim(); cancelSingleTap();
+        scale = 1; tx = 0; ty = 0; commit(true);
 
         if (ALBUMS[key].type === 'form') {
-          images = []
-          renderContactForm()
-          return
+          images = [];
+          // 進入表單模式：允許捲動 + 放寬觸控
+          isFormMode = true;
+          stage.classList.add('scroll');
+          stage.style.touchAction = 'auto';
+          renderContactForm();
+          return;
         }
 
-        clearStageExtras()
-        images = await loadAlbumList(key)
-        show(0)
+        clearStageExtras();
+        images = await loadAlbumList(key);
+        show(0);
       }
 
-      /** ====== 路由解析 & 結果頁（新增） ====== */
+      /** ====== 路由解析 & 結果頁 ====== */
       function parseHashQuery() {
-        const h = location.hash || ''
-        const [route, queryStr] = h.split('?')
-        const params = new URLSearchParams(queryStr || '')
-        return { route, params }
+        const h = location.hash || '';
+        const [route, queryStr] = h.split('?');
+        const params = new URLSearchParams(queryStr || '');
+        return { route, params };
       }
 
       function renderResultPage(status = 'success', detail = '') {
-        clearStageExtras()
-        viewer.style.display = 'none'
+        clearStageExtras();
+        viewer.style.display = 'none';
 
-        const wrap = document.createElement('div')
-        wrap.className = 'contact-wrap'
-        const isSuccess = status === 'success'
+        // 結果頁啟用可捲動
+        isFormMode = true;
+        stage.classList.add('scroll');
+        stage.style.touchAction = 'auto';
+
+        const wrap = document.createElement('div');
+        wrap.className = 'contact-wrap';
+        const isSuccess = status === 'success';
 
         wrap.innerHTML = `
           <div class="contact-title">
@@ -935,56 +779,53 @@
                 }
               </svg>
               <div>
-                <div style="font-weight:700">${
-                  isSuccess ? '✅ Message sent successfully.' : '❌ Failed to send.'
-                }</div>
-                ${
-                  detail
-                    ? `<div class="muted" style="margin-top:4px;word-break:break-word;">${detail}</div>`
-                    : ''
-                }
+                <div style="font-weight:700">${isSuccess ? '✅ Message sent successfully.' : '❌ Failed to send.'}</div>
+                ${detail ? `<div class="muted" style="margin-top:4px;word-break:break-word;">${detail}</div>` : ''}
               </div>
             </div>
           </div>
 
           <div class="contact-actions">
             <button type="button" class="btn" id="backBtn">Back</button>
-            ${
-              isSuccess ? `<button type="button" class="btn" id="homeBtn">Go to About</button>` : ''
-            }
+            ${isSuccess ? `<button type="button" class="btn" id="homeBtn">Go to About</button>` : ''}
           </div>
-        `
-        stage.appendChild(wrap)
+        `;
+        stage.appendChild(wrap);
 
         wrap.querySelector('#backBtn')?.addEventListener('click', async () => {
-          location.hash = ''
-          await setAlbum('contact')
-        })
+          location.hash = '';
+          await setAlbum('contact');
+        });
         wrap.querySelector('#homeBtn')?.addEventListener('click', async () => {
-          location.hash = ''
-          await setAlbum('about')
-        })
+          location.hash = '';
+          await setAlbum('about');
+        });
       }
 
       function handleHashRoute() {
-        const { route, params } = parseHashQuery()
+        const { route, params } = parseHashQuery();
         if (route === '#result') {
-          const status = params.get('status') || 'success'
-          const msg = params.get('msg') || ''
-          renderResultPage(status, msg)
+          const status = params.get('status') || 'success';
+          const msg = params.get('msg') || '';
+          renderResultPage(status, msg);
         }
       }
-      window.addEventListener('hashchange', handleHashRoute)
+      window.addEventListener('hashchange', handleHashRoute);
 
       /* ===== Contact Form（Formspree action + AJAX + 跳轉結果頁） ===== */
       function renderContactForm() {
-        viewer.style.display = 'none'
+        viewer.style.display = 'none';
 
-        const old = stage.querySelector('.contact-wrap')
-        if (old) old.remove()
+        // 啟用可捲動
+        isFormMode = true;
+        stage.classList.add('scroll');
+        stage.style.touchAction = 'auto';
 
-        const wrap = document.createElement('div')
-        wrap.className = 'contact-wrap'
+        const old = stage.querySelector('.contact-wrap');
+        if (old) old.remove();
+
+        const wrap = document.createElement('div');
+        wrap.className = 'contact-wrap';
         wrap.innerHTML = `
           <div class="contact-title">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -994,10 +835,9 @@
             <span>Contact Us</span>
           </div>
 
-          <form id="contactForm"
-            action="https://formspree.io/f/mwpwlrvq"
-            method="POST"
-         me="_subject" value="VermaVibe Contact — New Message" />
+          <form id="contact.io/f/mwpwlrvq
+            <!-- 修正：補上正確的 _subject 隱藏欄位 -->
+            <input type="hidden" name="_subject" value="VermaVibe Contact — New Message" />
             <input type="hidden" name="_replyto" value="" />
 
             <div class="contact-grid">
@@ -1067,481 +907,389 @@
               <button type="reset" class="btn">Clear</button>
             </div>
           </form>
-        `
-        stage.appendChild(wrap)
+        `;
+        stage.appendChild(wrap);
 
-        const form = wrap.querySelector('#contactForm')
-        const nameEl = form.querySelector('#name')
-        const emailEl = form.querySelector('#email')
-        const countryEl = form.querySelector('#country')
-        const cropEl = form.querySelector('#crop')
-        const topicEl = form.querySelector('#topic')
-        const messageEl = form.querySelector('#message')
-        const replyToHidden = form.querySelector('input[name="_replyto"]')
-        const sendBtn = form.querySelector('#sendBtn')
+        const form = wrap.querySelector('#contactForm');
+        const nameEl = form.querySelector('#name');
+        const emailEl = form.querySelector('#email');
+        const countryEl = form.querySelector('#country');
+        const cropEl = form.querySelector('#crop');
+        const topicEl = form.querySelector('#topic');
+        const messageEl = form.querySelector('#message');
+        const replyToHidden = form.querySelector('input[name="_replyto"]');
+        const sendBtn = form.querySelector('#sendBtn');
 
-        nameEl.focus({ preventScroll: true })
+        nameEl.focus({ preventScroll: true });
 
         emailEl.addEventListener('input', () => {
-          replyToHidden.value = emailEl.value.trim()
-        })
+          replyToHidden.value = emailEl.value.trim();
+        });
 
         form.addEventListener('input', (e) => {
-          const t = e.target
+          const t = e.target;
           if (t.matches('input, select, textarea')) {
-            t.setCustomValidity('')
-            t.checkValidity()
+            t.setCustomValidity('');
+            t.checkValidity();
           }
-        })
+        });
 
         form.addEventListener('submit', async (e) => {
-          e.preventDefault()
+          e.preventDefault();
 
-          const name = nameEl.value.trim()
-          const email = emailEl.value.trim()
-          const phone = form.phone.value.trim()
-          const country = countryEl.value.trim()
-          const crop = cropEl.value.trim()
-          const topic = topicEl.value.trim()
-          const message = messageEl.value.trim()
+          const name = nameEl.value.trim();
+          const email = emailEl.value.trim();
+          const phone = form.phone.value.trim();
+          const country = countryEl.value.trim();
+          const crop = cropEl.value.trim();
+          const topic = topicEl.value.trim();
+          const message = messageEl.value.trim();
 
-          const errors = []
-          if (!name) errors.push('Please fill in your name')
-          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
-            errors.push('Incorrect email format')
-          if (!country) errors.push('Please select a country')
-          if (!crop) errors.push('Please select a crop')
-          if (!topic) errors.push('Please select a topic')
-          if (!message) errors.push('Please fill in the message')
+          const errors = [];
+          if (!name) errors.push('Please fill in your name');
+          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) errors.push('Incorrect email format');
+          if (!country) errors.push('Please select a country');
+          if (!crop) errors.push('Please select a crop');
+          if (!topic) errors.push('Please select a topic');
+          if (!message) errors.push('Please fill in the message');
 
           if (errors.length) {
-            setStatus(`<b>Form error:</b> ${errors.join('、')}`)
-            if (!name) nameEl.focus()
-            else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) emailEl.focus()
-            else if (!country) countryEl.focus()
-            else if (!crop) cropEl.focus()
-            else if (!topic) topicEl.focus()
-            else if (!message) messageEl.focus()
-            return
+            setStatus(`<b>Form error:</b> ${errors.join('、')}`);
+            if (!name) nameEl.focus();
+            else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) emailEl.focus();
+            else if (!country) countryEl.focus();
+            else if (!crop) cropEl.focus();
+            else if (!topic) topicEl.focus();
+            else if (!message) messageEl.focus();
+            return;
           }
 
-          const payload = new FormData(form)
-          const friendlySubject = `VermaVibe Contact — [${topic}] ${name} (${country}, ${crop})`
-          payload.set('_subject', friendlySubject)
+          const payload = new FormData(form);
+          const friendlySubject = `VermaVibe Contact — [${topic}] ${name} (${country}, ${crop})`;
+          payload.set('_subject', friendlySubject);
 
-          sendBtn.disabled = true
-          sendBtn.style.opacity = '0.7'
+          sendBtn.disabled = true;
+          sendBtn.style.opacity = '0.7';
 
           try {
             const res = await fetch(form.action, {
               method: 'POST',
               body: payload,
               headers: { Accept: 'application/json' },
-            })
+            });
 
             if (res.ok) {
-              const summary = `We will get back to you soon.`
-              location.hash = `result?status=success&msg=${encodeURIComponent(summary)}`
-              renderResultPage('success', summary)
-              form.reset()
+              const summary = `We will get back to you soon.`;
+              location.hash = `result?status=success&msg=${encodeURIComponent(summary)}`;
+              renderResultPage('success', summary);
+              form.reset();
             } else {
-              let reason = res.statusText
+              let reason = res.statusText;
               try {
-                const err = await res.json()
-                if (err?.errors?.[0]?.message) reason = err.errors[0].message
+                const err = await res.json();
+                if (err?.errors?.[0]?.message) reason = err.errors[0].message;
               } catch {}
-              location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`
-              renderResultPage('error', reason)
+              location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`;
+              renderResultPage('error', reason);
             }
           } catch (err) {
-            const reason = String(err)
-            location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`
-            renderResultPage('error', reason)
+            const reason = String(err);
+            location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`;
+            renderResultPage('error', reason);
           } finally {
-            sendBtn.disabled = false
-            sendBtn.style.opacity = '1'
+            sendBtn.disabled = false;
+            sendBtn.style.opacity = '1';
           }
-        })
+        });
       }
 
       /* ===== Slides ===== */
       function show(i) {
-        stopPanInertia()
-        stopZoomAnim()
-        cancelSingleTap()
-        if (!images.length) return
+        stopPanInertia(); stopZoomAnim(); cancelSingleTap();
+        if (!images.length) return;
 
-        idx = (i + images.length) % images.length
-        scale = 1
-        tx = 0
-        ty = 0
+        idx = (i + images.length) % images.length;
+        scale = 1; tx = 0; ty = 0;
 
-        const url = images[idx]
+        const url = images[idx];
 
-        viewer.style.opacity = '0'
-        viewer.style.transition = 'opacity 260ms ease'
-        viewer.src = url
-        viewer.alt = `slide ${idx + 1}`
+        viewer.style.opacity = '0';
+        viewer.style.transition = 'opacity 260ms ease';
+        viewer.src = url;
+        viewer.alt = `slide ${idx + 1}`;
 
         viewer.onload = () => {
           const waitNatural = () => {
             if (!viewer.naturalWidth || !viewer.naturalHeight) {
-              requestAnimationFrame(waitNatural)
-              return
+              requestAnimationFrame(waitNatural);
+              return;
             }
-            recomputeBaseSize()
-            requestAnimationFrame(() => {
-              viewer.style.opacity = '1'
-            })
-          }
-          waitNatural()
-        }
+            recomputeBaseSize();
+            requestAnimationFrame(() => { viewer.style.opacity = '1'; });
+          };
+          waitNatural();
+        };
         viewer.onerror = () => {
-          setStatus(`Image failed to load：<span class="muted">${url}</span>`, true)
-          viewer.style.opacity = '1'
-        }
+          setStatus(`Image failed to load：<span class="muted">${url}</span>`, true);
+          viewer.style.opacity = '1';
+        };
 
-        const pre = new Image()
-        pre.decoding = 'async'
-        pre.src = images[(idx + 1) % images.length]
+        const pre = new Image();
+        pre.decoding = 'async';
+        pre.src = images[(idx + 1) % images.length];
       }
 
       function handlePositionalClick(clientX) {
-        if (scale !== 1) return
-        const leftHalf = clientX < viewportW / 2
-        show(leftHalf ? idx - 1 : idx + 1)
+        if (scale !== 1) return;
+        const leftHalf = clientX < viewportW / 2;
+        show(leftHalf ? idx - 1 : idx + 1);
       }
 
       function zoomAtPoint(targetScale, clientX, clientY) {
-        const s1 = clamp(targetScale, MIN_SCALE, MAX_SCALE)
-        const p = clientToImagePoint(clientX, clientY)
-        tx = clientX - baseLx - p.x * s1
-        ty = clientY - baseLy - p.y * s1
-        scale = s1
-        commit(true)
+        const s1 = clamp(targetScale, MIN_SCALE, MAX_SCALE);
+        const p = clientToImagePoint(clientX, clientY);
+        tx = clientX - baseLx - p.x * s1;
+        ty = clientY - baseLy - p.y * s1;
+        scale = s1;
+        commit(true);
       }
       function zoomAtCenter(targetScale) {
-        updateViewport()
-        zoomAtPoint(targetScale, viewportW / 2, viewportH / 2)
+        updateViewport();
+        zoomAtPoint(targetScale, viewportW / 2, viewportH / 2);
       }
-      function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3)
-      }
+      function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
 
       function animateZoomAtCenter(targetScale, duration = ZOOM_ANIM_MS) {
-        stopZoomAnim()
-        updateViewport()
-        const startScale = scale,
-          cX = viewportW / 2,
-          cY = viewportH / 2
-        const p = clientToImagePoint(cX, cY)
-        const sTarget = clamp(targetScale, MIN_SCALE, MAX_SCALE)
-        const t0 = nowMs()
+        stopZoomAnim();
+        updateViewport();
+        const startScale = scale, cX = viewportW / 2, cY = viewportH / 2;
+        const p = clientToImagePoint(cX, cY);
+        const sTarget = clamp(targetScale, MIN_SCALE, MAX_SCALE);
+        const t0 = nowMs();
         const step = () => {
-          const dt = Math.min(1, (nowMs() - t0) / duration)
-          const s = startScale + (sTarget - startScale) * easeOutCubic(dt)
-          tx = cX - baseLx - p.x * s
-          ty = cY - baseLy - p.y * s
-          scale = s
-          commit(true)
-          if (dt < 1) zoomAnimId = requestAnimationFrame(step)
-          else {
-            stopZoomAnim()
-            commit(true)
-          }
-        }
-        step()
+          const dt = Math.min(1, (nowMs() - t0) / duration);
+          const s = startScale + (sTarget - startScale) * easeOutCubic(dt);
+          tx = cX - baseLx - p.x * s;
+          ty = cY - baseLy - p.y * s;
+          scale = s;
+          commit(true);
+          if (dt < 1) zoomAnimId = requestAnimationFrame(step);
+          else { stopZoomAnim(); commit(true); }
+        };
+        step();
       }
 
       function recordPanHistory(px, py) {
-        const t = nowMs()
-        panHistory.push({ x: px, y: py, t })
-        const cutoff = t - PAN_HISTORY_MS
-        while (panHistory.length && panHistory[0].t < cutoff) panHistory.shift()
+        const t = nowMs();
+        panHistory.push({ x: px, y: py, t });
+        const cutoff = t - PAN_HISTORY_MS;
+        while (panHistory.length && panHistory[0].t < cutoff) panHistory.shift();
       }
       function computePanVelocity() {
-        if (panHistory.length < 2) return { vx: 0, vy: 0 }
-        const a = panHistory[0],
-          b = panHistory[panHistory.length - 1]
-        const dt = Math.max(1, b.t - a.t)
-        return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt }
+        if (panHistory.length < 2) return { vx: 0, vy: 0 };
+        const a = panHistory[0], b = panHistory[panHistory.length - 1];
+        const dt = Math.max(1, b.t - a.t);
+        return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt };
       }
       function startPanInertia(vx, vy) {
-        stopPanInertia()
-        let lastTs = nowMs()
+        stopPanInertia();
+        let lastTs = nowMs();
         const step = () => {
-          const ts = nowMs()
-          const dt = Math.max(1, ts - lastTs)
-          lastTs = ts
-          const decay = Math.pow(INERTIA_FRICTION, dt / 16)
-          vx *= decay
-          vy *= decay
-          tx += vx * dt
-          ty += vy * dt
-          const { minTx, maxTx, minTy, maxTy } = getPanBounds()
-          if (tx < minTx && vx < 0) {
-            tx = minTx
-            vx *= -BOUNCE_COEFF
-          }
-          if (tx > maxTx && vx > 0) {
-            tx = maxTx
-            vx *= -BOUNCE_COEFF
-          }
-          if (ty < minTy && vy < 0) {
-            ty = minTy
-            vy *= -BOUNCE_COEFF
-          }
-          if (ty > maxTy && vy > 0) {
-            ty = maxTy
-            vy *= -BOUNCE_COEFF
-          }
-          commit(false)
-          const small = Math.abs(vx) < INERTIA_MIN_SPEED && Math.abs(vy) < INERTIA_MIN_SPEED
-          const inside = tx >= minTx && tx <= maxTx && ty >= minTy && ty <= maxTy
-          if (small && inside) {
-            stopPanInertia()
-            commit(true)
-            return
-          }
-          panAnimId = requestAnimationFrame(step)
-        }
-        panAnimId = requestAnimationFrame(step)
+          const ts = nowMs();
+          const dt = Math.max(1, ts - lastTs);
+          lastTs = ts;
+          const decay = Math.pow(INERTIA_FRICTION, dt / 16);
+          vx *= decay; vy *= decay;
+          tx += vx * dt; ty += vy * dt;
+          const { minTx, maxTx, minTy, maxTy } = getPanBounds();
+          if (tx < minTx && vx < 0) { tx = minTx; vx *= -BOUNCE_COEFF; }
+          if (tx > maxTx && vx > 0) { tx = maxTx; vx *= -BOUNCE_COEFF; }
+          if (ty < minTy && vy < 0) { ty = minTy; vy *= -BOUNCE_COEFF; }
+          if (ty > maxTy && vy > 0) { ty = maxTy; vy *= -BOUNCE_COEFF; }
+          commit(false);
+          const small = Math.abs(vx) < INERTIA_MIN_SPEED && Math.abs(vy) < INERTIA_MIN_SPEED;
+          const inside = tx >= minTx && tx <= maxTx && ty >= minTy && ty <= maxTy;
+          if (small && inside) { stopPanInertia(); commit(true); return; }
+          panAnimId = requestAnimationFrame(step);
+        };
+        panAnimId = requestAnimationFrame(step);
       }
 
+      /* 事件：表單模式避開手勢攔截 */
       toolbar.addEventListener('click', async (e) => {
-        const btn = e.target.closest('[data-album]')
-        if (!btn) return
-        e.stopPropagation()
-        await setAlbum(btn.dataset.album)
-        toolbar.querySelectorAll('.tool-btn').forEach((b) => b.removeAttribute('aria-current'))
-        btn.setAttribute('aria-current', 'page')
-      })
+        const btn = e.target.closest('[data-album]');
+        if (!btn) return;
+        e.stopPropagation();
+        await setAlbum(btn.dataset.album);
+        toolbar.querySelectorAll('.tool-btn').forEach(b => b.removeAttribute('aria-current'));
+        btn.setAttribute('aria-current', 'page');
+      });
 
-      viewer.addEventListener(
-        'pointerdown',
-        (e) => {
-          stopPanInertia()
-          pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType })
-          try {
-            viewer.setPointerCapture(e.pointerId)
-          } catch {}
+      viewer.addEventListener('pointerdown', (e) => {
+        if (isFormMode) return;              /* 表單模式略過 */
+        stopPanInertia();
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
+        try { viewer.setPointerCapture(e.pointerId); } catch {}
 
-          const tNow = nowMs()
-          if (e.pointerType === 'touch' && tNow - lastTap < DOUBLE_TAP_MS) {
-            cancelSingleTap()
-            animateZoomAtCenter(scale > 1 ? 1 : DOUBLE_TAP_TARGET_SCALE)
-            lastTap = 0
-            e.preventDefault?.()
-            e.stopPropagation?.()
-            return
-          }
-          lastTap = e.pointerType === 'touch' ? tNow : 0
+        const tNow = nowMs();
+        if (e.pointerType === 'touch' && tNow - lastTap < DOUBLE_TAP_MS) {
+          cancelSingleTap();
+          animateZoomAtCenter(scale > 1 ? 1 : DOUBLE_TAP_TARGET_SCALE);
+          lastTap = 0;
+          e.preventDefault?.();
+          e.stopPropagation?.();
+          return;
+        }
+        lastTap = e.pointerType === 'touch' ? tNow : 0;
 
-          if (scale > 1) {
-            dragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty }
-            panHistory.length = 0
-            recordPanHistory(e.clientX, e.clientY)
-          }
-        },
-        { passive: false }
-      )
+        if (scale > 1) {
+          dragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
+          panHistory.length = 0;
+          recordPanHistory(e.clientX, e.clientY);
+        }
+      }, { passive: false });
 
-      viewer.addEventListener(
-        'pointermove',
-        (e) => {
-          if (!pointers.has(e.pointerId)) return
-          preventNativeIfZooming(e)
-          pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType })
-          if (scale > 1 && dragStart) {
-            tx = dragStart.tx0 + (e.clientX - dragStart.x)
-            ty = dragStart.ty0 + (e.clientY - dragStart.y)
-            recordPanHistory(e.clientX, e.clientY)
-            commit(true)
-          }
-        },
-        { passive: false }
-      )
+      viewer.addEventListener('pointermove', (e) => {
+        if (isFormMode) return;
+        if (!pointers.has(e.pointerId)) return;
+        preventNativeIfZooming(e);
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
+        if (scale > 1 && dragStart) {
+          tx = dragStart.tx0 + (e.clientX - dragStart.x);
+          ty = dragStart.ty0 + (e.clientY - dragStart.y);
+          recordPanHistory(e.clientX, e.clientY);
+          commit(true);
+        }
+      }, { passive: false });
 
       viewer.addEventListener('pointerup', (e) => {
-        pointers.delete(e.pointerId)
-        try {
-          viewer.releasePointerCapture(e.pointerId)
-        } catch {}
+        if (isFormMode) return;
+        pointers.delete(e.pointerId);
+        try { viewer.releasePointerCapture(e.pointerId); } catch {}
         if (scale > 1 && dragStart) {
-          const { vx, vy } = computePanVelocity()
-          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED)
-            startPanInertia(vx, vy)
+          const { vx, vy } = computePanVelocity();
+          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED) startPanInertia(vx, vy);
         }
-        dragStart = null
-        setInteractionMode()
-        scheduleRecompute()
-        tryRecomputeAfterInteraction()
-      })
+        dragStart = null;
+        setInteractionMode();
+        scheduleRecompute();
+        tryRecomputeAfterInteraction();
+      });
 
       viewer.addEventListener('pointercancel', () => {
-        pointers.clear()
-        dragStart = null
-        setInteractionMode()
-        scheduleRecompute()
-        tryRecomputeAfterInteraction()
-      })
+        if (isFormMode) return;
+        pointers.clear();
+        dragStart = null;
+        setInteractionMode();
+        scheduleRecompute();
+        tryRecomputeAfterInteraction();
+      });
 
-      stage.addEventListener(
-        'pointerdown',
-        (e) => {
-          stopPanInertia()
-          pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType })
-          if (scale > 1) {
-            stageDragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty }
-            panHistory.length = 0
-            recordPanHistory(e.clientX, e.clientY)
-            try {
-              stage.setPointerCapture(e.pointerId)
-            } catch {}
-            return
-          }
-          if (e.buttons && e.buttons !== 1) return
-          tapStartX = e.clientX
-          tapStartY = e.clientY
-          tapStartTime = nowMs()
-          lastMoveX = tapStartX
-          lastMoveY = tapStartY
-          lastMoveTime = tapStartTime
-        },
-        { passive: false }
-      )
+      stage.addEventListener('pointerdown', (e) => {
+        if (isFormMode) return;              /* 表單模式略過 */
+        stopPanInertia();
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
+        if (scale > 1) {
+          stageDragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
+          panHistory.length = 0;
+          recordPanHistory(e.clientX, e.clientY);
+          try { stage.setPointerCapture(e.pointerId); } catch {}
+          return;
+        }
+        if (e.buttons && e.buttons !== 1) return;
+        tapStartX = e.clientX; tapStartY = e.clientY; tapStartTime = nowMs();
+        lastMoveX = tapStartX; lastMoveY = tapStartY; lastMoveTime = tapStartTime;
+      }, { passive: false });
 
-      stage.addEventListener(
-        'pointermove',
-        (e) => {
-          preventNativeIfZooming(e)
-          if (scale > 1 && stageDragStart) {
-            tx = stageDragStart.tx0 + (e.clientX - stageDragStart.x)
-            ty = stageDragStart.ty0 + (e.clientY - stageDragStart.y)
-            recordPanHistory(e.clientX, e.clientY)
-            commit(true)
-            return
-          }
-          lastMoveX = e.clientX
-          lastMoveY = e.clientY
-          lastMoveTime = nowMs()
-        },
-        { passive: false }
-      )
+      stage.addEventListener('pointermove', (e) => {
+        if (isFormMode) return;
+        preventNativeIfZooming(e);
+        if (scale > 1 && stageDragStart) {
+          tx = stageDragStart.tx0 + (e.clientX - stageDragStart.x);
+          ty = stageDragStart.ty0 + (e.clientY - stageDragStart.y);
+          recordPanHistory(e.clientX, e.clientY);
+          commit(true);
+          return;
+        }
+        lastMoveX = e.clientX; lastMoveY = e.clientY; lastMoveTime = nowMs();
+      }, { passive: false });
 
       stage.addEventListener('pointerup', (e) => {
-        pointers.delete(e.pointerId)
+        if (isFormMode) return;
+        pointers.delete(e.pointerId);
         if (scale > 1) {
-          const { vx, vy } = computePanVelocity()
-          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED)
-            startPanInertia(vx, vy)
-          stageDragStart = null
-          try {
-            stage.releasePointerCapture(e.pointerId)
-          } catch {}
-          scheduleRecompute()
-          tryRecomputeAfterInteraction()
-          return
+          const { vx, vy } = computePanVelocity();
+          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED) startPanInertia(vx, vy);
+          stageDragStart = null;
+          try { stage.releasePointerCapture(e.pointerId); } catch {}
+          scheduleRecompute();
+          tryRecomputeAfterInteraction();
+          return;
         }
-        const endX = e.clientX,
-          endY = e.clientY,
-          endTime = nowMs()
-        const dx = endX - (tapStartX ?? endX),
-          dy = endY - (tapStartY ?? endY)
-        const dt = endTime - (tapStartTime || endTime)
-        const mvDt = Math.max(1, endTime - (lastMoveTime || endTime))
-        const mvDx = endX - (lastMoveX ?? endX),
-          velocityX = Math.abs(mvDx) / mvDt
-        const absDx = Math.abs(dx),
-          absDy = Math.abs(dy)
-        const isSwipe =
-          absDx > SWIPE_MIN_PX && absDx > absDy * 1.5 && velocityX >= SWIPE_MIN_VELOCITY
+        const endX = e.clientX, endY = e.clientY, endTime = nowMs();
+        const dx = endX - (tapStartX ?? endX), dy = endY - (tapStartY ?? endY);
+        const dt = endTime - (tapStartTime || endTime);
+        const mvDt = Math.max(1, endTime - (lastMoveTime || endTime));
+        const mvDx = endX - (lastMoveX ?? endX), velocityX = Math.abs(mvDx) / mvDt;
+        const absDx = Math.abs(dx), absDy = Math.abs(dy);
+        const isSwipe = absDx > SWIPE_MIN_PX && absDx > absDy * 1.5 && velocityX >= SWIPE_MIN_VELOCITY;
         if (isSwipe) {
-          cancelSingleTap()
-          show(dx < 0 ? idx + 1 : idx - 1)
+          cancelSingleTap();
+          show(dx < 0 ? idx + 1 : idx - 1);
         } else {
-          const isTap =
-            absDx <= CLICK_THRESHOLD_PX && absDy <= CLICK_THRESHOLD_PY && dt <= TAP_DURATION_MS
+          const isTap = absDx <= CLICK_THRESHOLD_PX && absDy <= CLICK_THRESHOLD_PY && dt <= TAP_DURATION_MS;
           if (isTap) {
-            if (e.pointerType === 'touch') scheduleSingleTap(endX)
-            else handlePositionalClick(endX)
+            if (e.pointerType === 'touch') scheduleSingleTap(endX);
+            else handlePositionalClick(endX);
           }
         }
-        tapStartX = tapStartY = null
-        tapStartTime = 0
-        lastMoveX = lastMoveY = null
-        lastMoveTime = 0
-      })
+        tapStartX = tapStartY = null; tapStartTime = 0;
+        lastMoveX = lastMoveY = null; lastMoveTime = 0;
+      });
 
       stage.addEventListener('pointercancel', () => {
-        pointers.clear()
-        stageDragStart = null
-        tapStartX = tapStartY = null
-        tapStartTime = 0
-        lastMoveX = lastMoveY = null
-        lastMoveTime = 0
-        cancelSingleTap()
-        scheduleRecompute()
-        tryRecomputeAfterInteraction()
-      })
+        if (isFormMode) return;
+        pointers.clear();
+        stageDragStart = null;
+        tapStartX = tapStartY = null; tapStartTime = 0;
+        lastMoveX = lastMoveY = null; lastMoveTime = 0;
+        cancelSingleTap();
+        scheduleRecompute();
+        tryRecomputeAfterInteraction();
+      });
 
-      stage.addEventListener('contextmenu', (e) => e.preventDefault())
+      stage.addEventListener('contextmenu', (e) => e.preventDefault());
 
-      stage.addEventListener(
-        'wheel',
-        (e) => {
-          if (e.ctrlKey) {
-            e.preventDefault()
-            const factor = Math.sign(e.deltaY) > 0 ? 1 / WHEEL_ZOOM_FACTOR : WHEEL_ZOOM_FACTOR
-            zoomAtCenter(clamp(scale * factor, MIN_SCALE, MAX_SCALE))
-          }
-        },
-        { passive: false }
-      )
+      stage.addEventListener('wheel', (e) => {
+        if (isFormMode) return;
+        if (e.ctrlKey) {
+          e.preventDefault();
+          const factor = Math.sign(e.deltaY) > 0 ? 1 / WHEEL_ZOOM_FACTOR : WHEEL_ZOOM_FACTOR;
+          zoomAtCenter(clamp(scale * factor, MIN_SCALE, MAX_SCALE));
+        }
+      }, { passive: false });
 
       document.addEventListener('keydown', (e) => {
-        const k = e.key
-        if (k === 'ArrowLeft') {
-          e.preventDefault()
-          show(idx - 1)
-        } else if (k === 'ArrowRight') {
-          e.preventDefault()
-          show(idx + 1)
-        } else if (k === 'Home') {
-          e.preventDefault()
-          show(0)
-        } else if (k === 'End') {
-          e.preventDefault()
-          show(images.length - 1)
-        } else if (k === ' ') {
-          e.preventDefault()
-          show(idx + 1)
-        } else if (k.toLowerCase() === 'r') {
-          e.preventDefault()
-          scale = 1
-          tx = 0
-          ty = 0
-          commit(true)
-        } else if (k === '+' || k === '=') {
-          e.preventDefault()
-          zoomAtCenter(clamp(scale * WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE))
-        } else if (k === '-' || k === '_') {
-          e.preventDefault()
-          zoomAtCenter(clamp(scale / WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE))
-        }
-      })
+        const k = e.key;
+        if (k === 'ArrowLeft') { e.preventDefault(); show(idx - 1);
+        } else if (k === 'ArrowRight') { e.preventDefault(); show(idx + 1);
+        } else if (k === 'Home') { e.preventDefault(); show(0);
+        } else if (k === 'End') { e.preventDefault(); show(images.length - 1);
+        } else if (k === ' ') { e.preventDefault(); show(idx + 1);
+        } else if (k.toLowerCase() === 'r') { e.preventDefault(); scale = 1; tx = 0; ty = 0; commit(true);
+        } else if (k === '+' || k === '=') { e.preventDefault(); if (!isFormMode) zoomAtCenter(clamp(scale * WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE));
+        } else if (k === '-' || k === '_') { e.preventDefault(); if (!isFormMode) zoomAtCenter(clamp(scale / WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE)); }
+      });
 
-      function onViewportChange() {
-        viewportDirty = true
-        scheduleRecompute()
-      }
-      window.addEventListener('resize', onViewportChange)
-      window.addEventListener('orientationchange', onViewportChange)
-      if (window.visualViewport) window.visualViewport.addEventListener('resize', onViewportChange)
-      ;(async function init() {
-        await setAlbum(currentAlbumKey)
-        handleHashRoute() // 初始化後檢查是否需要顯示結果頁
-      })()
+      function onViewportChange() { viewportDirty = true; scheduleRecompute(); }
+      window.addEventListener('resize', onViewportChange);
+      window.addEventListener('orientationchange', onViewportChange);
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', onViewportChange);
+
+      (async function init() {
+        await setAlbum(currentAlbumKey);
+        handleHashRoute(); // 初始化後檢查是否需要顯示結果頁
+      })();
     </script>
   </body>
 </html>
