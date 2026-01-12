@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <!-- 響應式必要：讓版面依裝置寬度縮放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.39</title>
+    <title>ver 0.0.40</title>
 
     <style>
       :root {
@@ -80,7 +80,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        /* 兩側留白與行動裝置友善間距 */
         padding: 0 clamp(8px, 2vw, 16px);
         gap: clamp(8px, 2vw, 12px);
       }
@@ -106,7 +105,6 @@
       .brand-badge .brand-logo image {
         width: 100%;
         height: 100%;
-        preserveaspectratio: xMidYMid meet;
       }
 
       .brand .muted {
@@ -121,12 +119,12 @@
         gap: clamp(6px, 2vw, 8px);
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding-bottom: 4px; /* 避免捲動截斷陰影 */
+        padding-bottom: 4px;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
       }
       .actions::-webkit-scrollbar {
-        height: 0; /* 行動裝置隱藏滾動條 */
+        height: 0;
       }
 
       /* Toolbar buttons */
@@ -204,10 +202,13 @@
           radial-gradient(480px 260px at 80% 70%, var(--ring-2), transparent 65%),
           linear-gradient(135deg, var(--bg-1), var(--bg-2));
       }
-      /* 表單/結果頁：允許內部垂直捲動 */
+      /* 表單/結果頁：允許內部垂直捲動、頂端對齊 */
       .stage.scroll {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 12px 0 24px; /* 頂/底留白，避免最上方被貼齊 */
       }
 
       /* Viewer image */
@@ -518,7 +519,7 @@
           <button class="tool-btn" type="button" data-album="collab">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
-                d="M8.2 13.2 6 11l-3 3 3.2 3.2c.7.7 1.8.7 2.5 0l1.2-1.2"
+                d="M8.2 13.2 6 11l-3 3 3.2 3.2c(.7).7 1.8.7 2.5 0l1.2-1.2"
                 stroke="currentColor"
                 stroke-width="1.8"
                 stroke-linecap="round"
@@ -908,7 +909,7 @@
 
         if (ALBUMS[key].type === 'form') {
           images = []
-          // 進入表單模式：允許捲動 + 放寬觸控
+          // 進入表單模式：允許捲動 + 放寬觸控（頂端對齊）
           isFormMode = true
           stage.classList.add('scroll')
           stage.style.touchAction = 'auto'
@@ -933,7 +934,7 @@
         clearStageExtras()
         viewer.style.display = 'none'
 
-        // 結果頁啟用可捲動
+        // 結果頁啟用可捲動（頂端對齊）
         isFormMode = true
         stage.classList.add('scroll')
         stage.style.touchAction = 'auto'
@@ -994,6 +995,9 @@
           location.hash = ''
           await setAlbum('about')
         })
+
+        // 結果頁載入後，保證頂端內容不被貼齊遮擋
+        wrap.scrollIntoView({ block: 'start', inline: 'nearest' })
       }
 
       function handleHashRoute() {
@@ -1010,7 +1014,7 @@
       function renderContactForm() {
         viewer.style.display = 'none'
 
-        // 啟用可捲動
+        // 啟用可捲動（頂端對齊）
         isFormMode = true
         stage.classList.add('scroll')
         stage.style.touchAction = 'auto'
@@ -1029,8 +1033,8 @@
             <span>Contact Us</span>
           </div>
 
-          <form id="contact.io/f/mwpwlrvq
-            <!-- 修正：補上正確的 _subject 隱藏欄位 -->
+          <form id="contactForm"
+                     <!-- 修正：補上正確的 _subject 隱藏欄位 -->
             <input type="hidden" name="_subject" value="VermaVibe Contact — New Message" />
             <input type="hidden" name="_replyto" value="" />
 
@@ -1114,6 +1118,8 @@
         const replyToHidden = form.querySelector('input[name="_replyto"]')
         const sendBtn = form.querySelector('#sendBtn')
 
+        // 初次載入：確保 Name 欄位在可視區頂端
+        nameEl.scrollIntoView({ block: 'start', inline: 'nearest' })
         nameEl.focus({ preventScroll: true })
 
         emailEl.addEventListener('input', () => {
@@ -1150,12 +1156,18 @@
 
           if (errors.length) {
             setStatus(`<b>Form error:</b> ${errors.join('、')}`)
-            if (!name) nameEl.focus()
-            else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) emailEl.focus()
-            else if (!country) countryEl.focus()
-            else if (!crop) cropEl.focus()
-            else if (!topic) topicEl.focus()
-            else if (!message) messageEl.focus()
+            // 將焦點欄位滾到頂端，避免被遮到
+            ;(function () {
+              let el = nameEl
+              if (!name) el = nameEl
+              else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) el = emailEl
+              else if (!country) el = countryEl
+              else if (!crop) el = cropEl
+              else if (!topic) el = topicEl
+              else if (!message) el = messageEl
+              el.scrollIntoView({ block: 'start', inline: 'nearest' })
+              el.focus({ preventScroll: true })
+            })()
             return
           }
 
@@ -1558,7 +1570,7 @@
           e.preventDefault()
           show(images.length - 1)
         } else if (k === ' ') {
-          e.preventDefault()
+          e.prevent止
           show(idx + 1)
         } else if (k.toLowerCase() === 'r') {
           e.preventDefault()
