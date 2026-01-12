@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <!-- 響應式必要：讓版面依裝置寬度縮放 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.45</title>
+    <title>ver 0.0.46</title>
 
     <!-- ================== 基礎 SEO ================== -->
     <meta name="description" content="VermaVibe 提供智慧農業技術、成功案例與合作方案，服務茶葉、咖啡、園藝等作物，支援多國市場，歡迎聯絡我們取得專業協助。" />
@@ -14,7 +14,7 @@
     <meta name="robots" content="index,follow" />
     https://YOUR_DOMAIN/
 
-    <!-- 語系宣告（多語站時請依需求增修） -->
+    <!-- 語系宣告（多語站） -->
     https://YOUR_DOMAIN/
     https://YOUR_DOMAIN/en/
 
@@ -24,7 +24,9 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://YOUR_DOMAIN/" />
     <meta property="og:image" content="https://YOUR_DOMAIN/YOUR_COVER_IMAGE.jpg" />
+    <meta property="og:image:alt" content="VermaVibe 智慧農業解決方案封面圖" />
     <meta property="og:locale" content="zh_TW" />
+    <meta property="og:locale:alternate" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="VermaVibe 智慧農業解決方案" />
@@ -33,17 +35,20 @@
 
     <!-- ================== PWA / 瀏覽器整合 ================== -->
     <meta name="theme-color" content="#0f1320" />
-    https://YOUR_DOMAIN/favicon.png
-    https://YOUR_DOMAIN/apple-touch-icon.png
+    <meta name="format-detection" content="telephone=no,email=no,address=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    /favicon.png
+    /apple-touch-icon.png
     /site.webmanifest
 
-    <!-- ================== 效能優化（Preconnect） ================== -->
+    <!-- ================== 效能優化（Preconnect / Preload） ================== -->
     https://formspree.io
-    <!-- 若圖片有 CDN，請加上： -->
-    <!-- https://cdn.YOUR_DOMAIN -->
+    <!-- 首屏預載第一張 About 圖片（若確定存在） -->
+    /images/About/1.PNG
 
     <!-- ================== Sitemap ================== -->
-    https://YOUR_DOMAIN/sitemap.xml
+    /sitemap.xml
 
     <!-- ================== 結構化資料（JSON-LD） ================== -->
     <script type="application/ld+json">
@@ -62,10 +67,12 @@
         "@type": "ContactPoint",
         "telephone": "+886-912-345-678",
         "contactType": "customer service",
-        "areaServed": "TW"
+        "areaServed": "TW",
+        "availableLanguage": ["Chinese", "English", "Japanese"]
       }]
     }
     </script>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -82,7 +89,21 @@
     }
     </script>
 
-    <!-- ================== 原樣式（保留你的互動 UI 設計） ================== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VermaVibe",
+      "url": "https://YOUR_DOMAIN/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://YOUR_DOMAIN/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- ================== 原樣式（保留你的互動 UI 設計，並做小幅優化） ================== -->
     <style>
       :root {
         --bar-h: 56px;
@@ -475,7 +496,7 @@
           <span class="muted">｜<span id="albumName">About</span></span>
         </div>
 
-        <nav class="actions" id="toolbar" aria-label="Albums">
+        <nav class="actions" id="toolbar" aria-label="Main navigation">
           <button class="tool-btn active" type="button" data-album="about" aria-current="page">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="1.8"/>
@@ -527,7 +548,15 @@
     <main role="main">
       <div class="stage" id="stage" aria-live="polite">
         <!-- Contact 模式用 JS 插入 .contact-wrap；圖片模式下使用 viewer -->
-        <img id="viewer" class="slide" src="" alt="VermaVibe 圖片檢視器" draggable="false" fetchpriority="high" />
+        <img
+          id="viewer"
+          class="slide"
+          src=""
+          alt="VermaVibe 圖片檢視器"
+          draggable="false"
+          decoding="async"
+          fetchpriority="high"
+        />
       </div>
     </main>
 
@@ -538,12 +567,12 @@
       <div style="max-width: 920px; margin: 80px auto 24px; padding: 12px; color:#fff;">
         <h2>VermaVibe 智慧農業解決方案（無 JavaScript 版）</h2>
         <p>本頁需要 JavaScript 才能瀏覽相簿與表單。以下提供基本資訊與聯絡方式：</p>
-        images/About/1.PNG
-        <p>聯絡我們：mailto:contact@YOUR_DOMAINcontact@YOUR_DOMAIN</a></p>
+        <p>/images/About/1.PNG</p>
+        <p>聯絡我們：<a hrefcontact@YOUR_DOMAINcontact@YOUR_DOMAIN</a></p>
       </div>
     </noscript>
 
-    <!-- ================== 原互動邏輯（修正 Contact <form> 標籤） ================== -->
+    <!-- ================== 互動邏輯（修正 Contact <form> 標籤；小幅最佳化） ================== -->
     <script>
       const ALBUMS = {
         about:   { label: 'About',       folder: 'images/About',  manifest: 'manifest.json', count: 12, ext: 'PNG', pad: 0, type: 'images' },
@@ -607,6 +636,9 @@
 
       /* 表單/結果頁模式旗標：避免攔截捲動 */
       let isFormMode = false;
+
+      /* 簡單的相簿快取，避免重複 fetch manifest */
+      const albumCache = new Map();
 
       function setStatus(msg, keep = false) {
         if (!msg) { statusEl.classList.remove('show'); statusEl.textContent = ''; return; }
@@ -722,6 +754,10 @@
         const album = ALBUMS[key];
         if (!album) throw new Error('Unknown album: ' + key);
         if (album.type === 'form') return [];
+
+        // 使用快取
+        if (albumCache.has(key)) return albumCache.get(key);
+
         if (album.manifest && canFetchManifest()) {
           const url = `${album.folder}/${album.manifest}?v=${Date.now()}`;
           try {
@@ -729,7 +765,11 @@
             if (res.ok) {
               const data = await res.json();
               const files = Array.isArray(data) ? data : (data && Array.isArray(data.files) ? data.files : null);
-              if (files && files.length) return files.map((name) => `${album.folder}/${name}`);
+              if (files && files.length) {
+                const list = files.map((name) => `${album.folder}/${name}`);
+                albumCache.set(key, list);
+                return list;
+              }
             } else {
               setStatus(`manifest 讀取失敗（HTTP ${res.status}），改用 fallback`, false);
             }
@@ -739,7 +779,9 @@
         } else if (album.manifest && !canFetchManifest()) {
           setStatus(`目前是 file:// 開啟，跳過 manifest，使用 count fallback（建議用本機伺服器）`, false);
         }
-        return buildFallbackList(album);
+        const fallback = buildFallbackList(album);
+        albumCache.set(key, fallback);
+        return fallback;
       }
 
       function clearStageExtras() {
@@ -877,25 +919,21 @@
             <span>Contact Us</span>
           </div>
 
-          <form id="contactForm"
-            action="https://formspree.io/f/mwpwlrvq"
-            method="POST"
-            aria-label="VermaVibe 聯絡表單"
-         dden" name="_replyto" value="" />
-
+          https://formspree.io/f/mwpwlrvq
+            <input type="hidden" name="_replyto" value="" />
             <div class="contact-grid">
               <div class="field">
                 <label for="name">Name *</label>
-                <input id="name" name="name" type="text" placeholder="William" required />
+                <input id="name" name="name" type="text" placeholder="William" autocomplete="name" required />
               </div>
               <div class="field">
                 <label for="email">Email *</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
               </div>
 
               <div class="field">
                 <label for="country">Country *</label>
-                <select id="country" name="country" required>
+                <select id="country" name="country" autocomplete="country-name" required>
                   <option value="">Select</option>
                   <option>Taiwan</option>
                   <option>Japan</option>
@@ -931,7 +969,7 @@
 
               <div class="field">
                 <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" />
+                <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" autocomplete="tel" inputmode="tel" />
               </div>
 
               <div class="field">
@@ -1058,7 +1096,7 @@
         viewer.style.opacity = '0';
         viewer.style.transition = 'opacity 260ms ease';
         viewer.src = url;
-        viewer.alt = `VermaVibe 相簿圖片 ${idx + 1}`;
+        viewer.alt = `VermaVibe 技術展示圖片 ${idx + 1}`;
 
         viewer.onload = () => {
           const waitNatural = () => {
@@ -1331,5 +1369,15 @@
         handleHashRoute();
       })();
     </script>
+
+    <!-- ================== PWA：Service Worker 註冊（可選，如有 /sw.js） ================== -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>
+``
