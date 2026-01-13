@@ -1,480 +1,94 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <!-- 響應式必要：讓版面依裝置寬度縮放 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>ver 0.0.47</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>ver 0.0.48</title>
 
-    <!-- ================== 基礎 SEO ================== -->
-    <meta name="description" content="VermaVibe 提供智慧農業技術、成功案例與合作方案，服務茶葉、咖啡、園藝等作物，支援多國市場，歡迎聯絡我們取得專業協助。" />
-    <meta name="keywords" content="VermaVibe, 智慧農業, 茶葉, 咖啡, 園藝, 農業技術, 成功案例, 合作洽詢, 農業解決方案" />
+    <!-- 基礎 SEO -->
+    <meta
+      name="description"
+      content="VermaVibe 提供智慧農業技術、成功案例與合作方案，服務茶葉、咖啡、園藝等作物，支援多國市場，歡迎聯絡我們取得專業協助。"
+    />
+    <meta
+      name="keywords"
+      content="VermaVibe, 智慧農業, 茶葉, 咖啡, 園藝, 農業技術, 成功案例, 合作洽詢, 農業解決方案"
+    />
     <meta name="author" content="VermaVibe Team" />
     <meta name="robots" content="index,follow" />
-    https://YOUR_DOMAIN/
 
-    <!-- 語系宣告（多語站） -->
-    https://YOUR_DOMAIN/
-    https://YOUR_DOMAIN/en/
+    <link
+      id="canonical"
+      rel="canonical"
+      href="https://stevenbubu.github.io/VermaVibe_Web_dev/"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://stevenbubu.github.io/VermaVibe_Web_dev/en/"
+    />
 
-    <!-- ================== Open Graph / Twitter ================== -->
+    <!-- OG / Twitter -->
     <meta property="og:title" content="VermaVibe 智慧農業解決方案" />
-    <meta property="og:description" content="高效能農業技術與合作方案，涵蓋茶葉、咖啡、園藝，立即聯絡我們！" />
+    <meta
+      property="og:description"
+      content="高效能農業技術與合作方案，涵蓋茶葉、咖啡、園藝，立即聯絡我們！"
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://YOUR_DOMAIN/" />
-    <meta property="og:image" content="https://YOUR_DOMAIN/YOUR_COVER_IMAGE.jpg" />
+    <meta
+      id="ogUrl"
+      property="og:url"
+      content="https://stevenbubu.github.io/VermaVibe_Web_dev/"
+    />
+    <meta
+      id="ogImage"
+      property="og:image"
+      content="https://stevenbubu.github.io/VermaVibe_Web_dev/images/About/cover.jpg"
+    />
     <meta property="og:image:alt" content="VermaVibe 智慧農業解決方案封面圖" />
     <meta property="og:locale" content="zh_TW" />
     <meta property="og:locale:alternate" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="VermaVibe 智慧農業解決方案" />
-    <meta name="twitter:description" content="高效能農業技術與合作方案，涵蓋茶葉、咖啡、園藝。" />
-    <meta name="twitter:image" content="https://YOUR_DOMAIN/YOUR_COVER_IMAGE.jpg" />
+    <meta
+      name="twitter:description"
+      content="高效能農業技術與合作方案，涵蓋茶葉、咖啡、園藝。"
+    />
+    <meta
+      id="twitterImage"
+      name="twitter:image"
+      content="https://stevenbubu.github.io/VermaVibe_Web_dev/images/About/cover.jpg"
+    />
 
-    <!-- ================== PWA / 瀏覽器整合 ================== -->
+    <!-- PWA / Icons -->
     <meta name="theme-color" content="#0f1320" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    /favicon.png
-    /apple-touch-icon.png
-    /site.webmanifest
+    <link rel="icon" href="/VermaVibe_Web_dev/assets/icons/logo.png" />
+    <link rel="logo" href="/VermaVibe_Web_dev/assets/icons/logo.png" />
+    <link rel="manifest" href="/VermaVibe_Web_dev/assets/site.webmanifest" />
 
-    <!-- ================== 效能優化（Preconnect / Preload） ================== -->
-    https://formspree.io
-    <!-- 首屏預載第一張 About 圖片（若確定存在） -->
-    /images/About/1.PNG
+    <!-- Preconnect / Preload -->
+    <link rel="preconnect" href="https://formspree.io" />
+    <link
+      rel="preload"
+      as="image"
+      href="/VermaVibe_Web_dev/images/About/1.PNG"
+    />
 
-    <!-- ================== Sitemap ================== -->
-    /sitemap.xml
-
-    <!-- ================== 結構化資料（JSON-LD） ================== -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "VermaVibe",
-      "url": "https://YOUR_DOMAIN/",
-      "logo": "https://YOUR_DOMAIN/YOUR_LOGO.png",
-      "sameAs": [
-        "https://www.facebook.com/YOUR_PAGE",
-        "https://www.instagram.com/YOUR_PAGE",
-        "https://www.linkedin.com/company/YOUR_PAGE"
-      ],
-      "contactPoint": [{
-        "@type": "ContactPoint",
-        "telephone": "+886-912-345-678",
-        "contactType": "customer service",
-        "areaServed": "TW",
-        "availableLanguage": ["Chinese", "English", "Japanese"]
-      }]
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "VermaVibe 智慧農業解決方案",
-      "url": "https://YOUR_DOMAIN/",
-      "inLanguage": "zh-Hant",
-      "description": "智慧農業技術、成功案例與合作洽詢。",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "VermaVibe",
-        "url": "https://YOUR_DOMAIN/"
-      }
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "VermaVibe",
-      "url": "https://YOUR_DOMAIN/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://YOUR_DOMAIN/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
-    <!-- ================== 原樣式（保留你的互動 UI 設計，並做小幅優化） ================== -->
-    <style>
-      :root {
-        --bar-h: 56px;
-        --bg-0: #0c0f14;
-        --bg-1: #0f1320;
-        --bg-2: #121a2b;
-
-        --glass-bg: rgba(16, 24, 40, 0.45);
-        --glass-border: rgba(255, 255, 255, 0.12);
-
-        --bar-bg: rgba(16, 24, 40, 0.5);
-        --bar-border: rgba(255, 255, 255, 0.12);
-
-        --bar-text: rgba(255, 255, 255, 0.92);
-        --muted-text: rgba(255, 255, 255, 0.65);
-
-        --btn-bg: rgba(255, 255, 255, 0.06);
-        --btn-bg-hover: rgba(255, 255, 255, 0.12);
-        --btn-border: rgba(255, 255, 255, 0.16);
-
-        --accent: #00d4ff;
-        --accent-soft: rgba(0, 212, 255, 0.2);
-        --accent-glow: 0 0 22px rgba(0, 212, 255, 0.32);
-
-        --ring-1: rgba(0, 212, 255, 0.25);
-        --ring-2: rgba(166, 129, 255, 0.25);
-
-        --font-ui: system-ui, 'Inter', 'SF Pro Text', 'Microsoft JhengHei', sans-serif;
-
-        /* Select option colors (dark theme defaults) */
-        --select-bg: var(--bg-2);
-        --select-fg: #eafcff;
-        --select-bg-hover: #0f1725;
-        --select-fg-hover: #ffffff;
-      }
-
-      html, body {
-        height: 100%;
-        margin: 0;
-        background:
-          radial-gradient(1200px 600px at 10% 10%, var(--bg-2) 0%, var(--bg-1) 55%, var(--bg-0) 100%),
-          linear-gradient(135deg, var(--bg-1), var(--bg-2));
-        overscroll-behavior: contain;
-        color: var(--bar-text);
-        font: 500 clamp(13px, 1.7vw, 14px) / 1.6 var(--font-ui);
-      }
-
-      /* SR-only：語意化標題但不影響版面 */
-      .sr-only {
-        position: absolute !important;
-        width: 1px !important;
-        height: 1px !important;
-        padding: 0 !important;
-        margin: -1px !important;
-        overflow: hidden !important;
-        clip: rect(0, 0, 0, 0) !important;
-        white-space: nowrap !important;
-        border: 0 !important;
-      }
-
-      /* Top bar */
-      .topbar {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 30;
-        padding-top: env(safe-area-inset-top);
-        background: var(--bar-bg);
-        backdrop-filter: blur(14px) saturate(1.2);
-        -webkit-backdrop-filter: blur(14px) saturate(1.2);
-        border-bottom: 1px solid var(--bar-border);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-        box-sizing: border-box;
-      }
-      .topbar-inner {
-        height: var(--bar-h);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 clamp(8px, 2vw, 16px);
-        gap: clamp(8px, 2vw, 12px);
-      }
-      .brand {
-        display: inline-flex;
-        align-items: center;
-        gap: clamp(6px, 2vw, 12px);
-        color: var(--bar-text);
-        font: 650 clamp(12px, 2vw, 14px) / 1 var(--font-ui);
-        letter-spacing: 0.4px;
-        user-select: none;
-        white-space: nowrap;
-        min-width: 0;
-      }
-
-      /* Logo：隨視窗縮放，並強制 SVG <image> 跟著外層尺寸 */
-      .brand-badge .brand-logo {
-        height: clamp(24px, 6vw, var(--bar-h));
-        width: auto;
-        display: block;
-        filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
-      }
-      .brand-badge .brand-logo image {
-        width: 100%;
-        height: 100%;
-      }
-
-      .brand .muted {
-        color: var(--muted-text);
-        font-weight: 600;
-      }
-
-      /* Actions: 滿版時可水平捲動，避免爆版 */
-      .actions {
-        display: flex;
-        align-items: center;
-        gap: clamp(6px, 2vw, 8px);
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-      }
-      .actions::-webkit-scrollbar { height: 0; }
-
-      /* Toolbar buttons */
-      .tool-btn {
-        height: clamp(36px, 5.2vw, 38px);
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0 clamp(10px, 2.2vw, 12px);
-        border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: var(--btn-bg);
-        color: var(--bar-text);
-        cursor: pointer;
-        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-        touch-action: manipulation;
-        font: 600 clamp(12px, 1.9vw, 13px) / 1 var(--font-ui);
-        letter-spacing: 0.3px;
-        white-space: nowrap;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-      }
-      .tool-btn:hover {
-        background: var(--btn-bg-hover);
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow);
-        color: #eafcff;
-      }
-      .tool-btn:active { transform: scale(0.985); }
-      .tool-btn svg {
-        width: 18px; height: 18px;
-        display: block; opacity: 0.95;
-        stroke: var(--bar-text);
-        transition: stroke 0.2s ease, filter 0.2s ease;
-        flex: 0 0 auto;
-      }
-      .tool-btn:hover svg {
-        stroke: var(--accent);
-        filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6));
-      }
-      .tool-btn.active {
-        border-color: rgba(0, 212, 255, 0.55);
-        background: var(--accent-soft);
-        box-shadow: var(--accent-glow);
-      }
-      @media (max-width: 480px) {
-        .tool-btn span { display: none; }
-      }
-
-      /* Stage：圖片模式固定高度；表單模式會套 .scroll 使其可捲動 */
-      .stage {
-        position: fixed;
-        left: 0; right: 0; bottom: 0;
-        top: calc(var(--bar-h) + env(safe-area-inset-top));
-        height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top));
-        display: flex;
-        align-items: center; justify-content: center;
-        user-select: none;
-        overflow: hidden;
-        touch-action: pan-y;
-        z-index: 10;
-        background:
-          radial-gradient(420px 220px at 20% 30%, var(--ring-1), transparent 60%),
-          radial-gradient(480px 260px at 80% 70%, var(--ring-2), transparent 65%),
-          linear-gradient(135deg, var(--bg-1), var(--bg-2));
-      }
-      /* 表單/結果頁：允許內部垂直捲動、頂端對齊 */
-      .stage.scroll {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        align-items: flex-start;
-        justify-content: flex-start;
-        padding: 12px 0 24px; /* 頂/底留白，避免最上方被貼齊 */
-      }
-
-      /* Viewer image */
-      .slide {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        background: transparent;
-        will-change: transform;
-        transform-origin: 0 0;
-        touch-action: pan-y;
-        backface-visibility: hidden;
-        transition: filter 0.25s ease, opacity 0.26s ease;
-      }
-      .slide[src] { filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.45)); }
-
-      /* ===== Contact Form（響應式） ===== */
-      .contact-wrap {
-        isolation: isolate;
-        width: min(920px, 92vw);
-        margin: 0 auto;
-        padding: clamp(14px, 2.6vw, 22px);
-        border: 1px solid var(--glass-border);
-        background: var(--glass-bg);
-        color: var(--bar-text);
-        border-radius: 16px;
-        backdrop-filter: blur(10px) saturate(1.08);
-        -webkit-backdrop-filter: blur(10px) saturate(1.08);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), var(--accent-glow);
-        transform: translateZ(0);
-        box-sizing: border-box;
-      }
-      .contact-title {
-        font: 700 clamp(16px, 2.4vw, 20px) / 1.4 var(--font-ui);
-        letter-spacing: 0.3px;
-        margin: 2px 0 clamp(12px, 2.6vw, 16px);
-        display: flex; align-items: center;
-        gap: 10px; min-width: 0;
-      }
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: clamp(10px, 2.6vw, 14px);
-        align-items: start;
-      }
-      @media (max-width: 640px) {
-        .contact-grid { grid-template-columns: 1fr; }
-      }
-
-      .field {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(6px, 1.6vw, 8px);
-        min-width: 0;
-      }
-      .field label {
-        font-size: clamp(12px, 1.8vw, 13px);
-        color: var(--muted-text);
-        letter-spacing: 0.3px;
-      }
-      .field input,
-      .field select,
-      .field textarea {
-        width: 100%;
-        padding: clamp(10px, 2.2vw, 12px);
-        border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: rgba(255, 255, 255, 0.06);
-        color: var(--bar-text);
-        outline: none;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        font: 500 clamp(13px, 2vw, 14px) / 1.5 var(--font-ui);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        box-sizing: border-box;
-        min-width: 0;
-        appearance: none;
-      }
-      .field input::placeholder, .field textarea::placeholder { color: rgba(255, 255, 255, 0.55); }
-      .field input:focus, .field select:focus, .field textarea:focus {
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow);
-        background: rgba(255, 255, 255, 0.12);
-      }
-      .field textarea {
-        min-height: clamp(100px, 22vh, 160px);
-        resize: vertical;
-      }
-      .field :invalid { border-color: #ff7b7b; }
-      .field :valid { border-color: rgba(0, 212, 255, 0.35); }
-
-      .field select {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
-        color: var(--bar-text);
-        overflow: hidden;
-      }
-      .field select:focus {
-        border-color: var(--accent);
-        box-shadow: var(--accent-glow);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
-      }
-      .field select option { background-color: var(--select-bg); color: var(--select-fg); }
-      .field select option:checked, .field select option:hover, .field select option:focus {
-        background-color: var(--select-bg-hover);
-        color: var(--select-fg-hover);
-      }
-
-      .contact-actions {
-        display: flex; align-items: center;
-        gap: clamp(8px, 2vw, 12px);
-        margin-top: clamp(12px, 2.6vw, 16px);
-        flex-wrap: wrap;
-      }
-      .btn {
-        display: inline-flex; align-items: center;
-        gap: 8px;
-        padding: clamp(10px, 2.2vw, 12px) clamp(12px, 2.6vw, 14px);
-        border-radius: 12px;
-        border: 1px solid var(--btn-border);
-        background: var(--btn-bg);
-        color: var(--bar-text);
-        cursor: pointer;
-        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-        font: 600 clamp(12px, 1.9vw, 13px) / 1 var(--font-ui);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-      }
-      .btn:hover { background: var(--btn-bg-hover); border-color: var(--accent); box-shadow: var(--accent-glow); color: #eafcff; }
-      .btn:active { transform: scale(0.985); }
-
-      /* Status toast */
-      .status {
-        position: fixed;
-        left: 10px; bottom: 10px; z-index: 50;
-        padding: 10px 12px;
-        border-radius: 14px;
-        border: 1px solid var(--glass-border);
-        background: var(--glass-bg);
-        color: var(--bar-text);
-        font: clamp(12px, 1.8vw, 12.5px) / 1.6 var(--font-ui);
-        max-width: min(560px, calc(100vw - 20px));
-        display: none;
-        backdrop-filter: blur(10px) saturate(1.1);
-        -webkit-backdrop-filter: blur(10px) saturate(1.1);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), var(--accent-glow);
-      }
-      .status.show { display: block; }
-      .status .muted { color: var(--muted-text); }
-
-      /* 鍵盤可存取性 */
-      .tool-btn:focus-visible,
-      .btn:focus-visible,
-      .field input:focus-visible,
-      .field select:focus-visible,
-      .field textarea:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-      }
-
-      /* 減少動態偏好 */
-      @media (prefers-reduced-motion: reduce) {
-        .tool-btn, .btn, .slide { transition: none !important; }
-      }
-    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/VermaVibe_Web_dev/assets/css/app.css" />
   </head>
-
   <body>
-    <!-- 語意化主標題（SR only，供 SEO/可存取） -->
     <h1 class="sr-only">VermaVibe 智慧農業技術、成功案例與合作洽詢</h1>
 
     <header class="topbar" role="banner">
       <div class="topbar-inner">
         <div class="brand" title="VermaVibe Viewer">
           <span class="brand-badge" aria-hidden="true">
-            <!-- 建議把 xlink:href 的 base64 換成你的 Logo -->
             <svg
               class="brand-logo"
               xmlns="http://www.w3.org/2000/svg"
@@ -488,6 +102,8 @@
                   x="0"
                   y="0"
                   xlink:href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMjAwMTA5MDQvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvVFIvMjAwMS9SRUMtU1ZHLTIwMDEwOTA0L0RURC9zdmcxMC5kdGQiPg0KPHN2ZyB2ZXJzaW9uPSIxLjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEyMnB0IiBoZWlnaHQ9IjE1MnB0IiB2aWV3Qm94PSIwIDAgMTIyIDE1MiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCI+DQo8ZyBmaWxsPSIjMkI4MERCRkUiPg0KPHBhdGggZD0iTSAxMy45NCAxMDguODMgQyA2Ljg5IDk5Ljk2IDQuNTAgOTMuODEgNC41MCA4NC41MCBDIDQuNTAgNzcuMjggNC44NCA3NS44OCA3LjkzIDcwLjE3IEMgMTIuNTIgNjEuNzEgMjEuNjUgNTIuNzEgMzkuMDYgMzkuNDkgQyA1OS45NyAyMy42MSA2Ni4zOCAxNy44MSA3MC42NSAxMC44OSBMIDc0LjQ0IDQuNzUgTCA3NS4zMiA4LjEzIEMgNzYuOTEgMTQuMTYgNzUuNjEgMjUuOTMgNzIuNjggMzIuMDAgQyA2OC43MCA0MC4yOCA2My4zNSA0NS44MSA0OC4xOSA1Ny4zMiBDIDMzLjAwIDY4Ljg1IDI0LjQzIDc3LjQyIDIxLjAxIDg0LjQ3IEMgMTguMjIgOTAuMjUgMTcuMDkgOTkuMjcgMTguMTggMTA3LjIzIEMgMTguNjQgMTEwLjU4IDE4LjgzIDExMy41MSAxOC41OSAxMTMuNzQgQyAxOC4zNiAxMTMuOTcgMTYuMjcgMTExLjc2IDEzLjk0IDEwOC44M1oiLz48L2c+DQo8ZyBmaWxsPSIjMEQ5NDMxRkYiPg0KPHBhdGggZD0iTSA1Ni4xNiAxNDIuMDkgQyA0OS4yOCAxMzMuMzggNDYuNjEgMTI2LjY1IDQ2LjYwIDExOC4wMCBDIDQ2LjYwIDExMS43MSA0Ny4wOCAxMDkuNTQgNDkuNTUgMTA0LjU0IEMgNTMuNTkgOTYuMzcgNjUuMjggODQuODAgODIuOTEgNzEuNTIgQyAxMDAuNDUgNTguMzEgMTEwLjI5IDQ5LjE3IDExNC4wMiA0Mi42NSBMIDExNi44MiAzNy43MyBMIDExNy41NCA0My40OCBDIDExOS4xMyA1Ni4yNCAxMTUuOTYgNjYuMzggMTA3LjQwIDc1LjkwIEMgMTA0LjkxIDc4LjY2IDk2LjcyIDg1LjYxIDg5LjE5IDkxLjMzIEMgODEuNjYgOTcuMDUgNzMuNDAgMTAzLjk4IDcwLjgzIDEwNi43MyBDIDYxLjkwIDExNi4zMSA1OC4xNCAxMjguMDAgNjAuMTAgMTQwLjEyIEMgNjAuNjQgMTQzLjQ5IDYwLjg4IDE0Ni40NSA2MC42MyAxNDYuNzAgQyA2MC4zOCAxNDYuOTYgNTguMzcgMTQ0Ljg4IDU2LjE2IDE0Mi4wOVoiLz48L2c+DQo8ZyBmaWxsPSIjRkNDOTA4RkUiPg0KPHBhdGggZD0iTSAzNi4wNyAxMjUuOTcgQyAzMy44OSAxMjMuMjEgMzAuNjMgMTE3Ljk2IDI4Ljg0IDExNC4zMiBDIDI2LjA3IDEwOC43MSAyNS41OCAxMDYuNjIgMjUuNjAgMTAwLjYwIEMgMjUuNjMgOTEuMjAgMjguMjQgODUuNTggMzYuMzAgNzcuNTEgQyA0Mi4zOSA3MS40MyA2MS40NyA1OC4wMCA2NC4wMyA1OC4wMCBDIDY1Ljk0IDU4LjAwIDY0LjQ4IDY5LjE0IDYxLjkxIDc0LjE4IEMgNjAuNzQgNzYuNDcgNTYuMjAgODEuOTggNTEuODMgODYuNDIgQyA0Mi45MyA5NS40NSA0MC43NSA5OC45OCAzOS4wOSAxMDcuMDQgQyAzOC4wMSAxMTIuMjggMzguNjcgMTIxLjc1IDQwLjYxIDEyOC43NSBDIDQxLjU2IDEzMi4xOCA0MC40MyAxMzEuNDkgMzYuMDcgMTI1Ljk3WiIvPjwvZz4NCjwvc3ZnPg0K"
+                  width="122"
+                  height="152"
                 />
               </g>
             </svg>
@@ -497,48 +113,19 @@
         </div>
 
         <nav class="actions" id="toolbar" aria-label="Main navigation">
-          <button class="tool-btn active" type="button" data-album="about" aria-current="page">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M12 10.7v6.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M12 7.6h.01" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-            </svg>
+          <button class="tool-btn" type="button" data-go="about">
             <span>About</span>
           </button>
-
-          <button class="tool-btn" type="button" data-album="tech">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 18 3 12l6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M15 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M13.5 5.5 10.5 18.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+          <button class="tool-btn" type="button" data-go="tech">
             <span>Tech</span>
           </button>
-
-          <button class="tool-btn" type="button" data-album="cases">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M7 7.5A2.5 2.5 0 0 1 9.5 5h9A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-9A2.5 2.5 0 0 1 7 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M3 9.2A2.2 2.2 0 0 1 5.2 7H7v12H5.2A2.2 2.2 0 0 1 3 16.8V9.2Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="M10 10.2h8M10 13h8M10 15.8h5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
+          <button class="tool-btn" type="button" data-go="cases">
             <span>Case</span>
           </button>
-
-          <button class="tool-btn" type="button" data-album="collab">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M8.2 13.2 6 11l-3 3 3.2 3.2c-.7.7-1.8.7-2.5 0l-1.2-1.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M15.8 13.2 18 11l3 3-3.2 3.2c-.7.7-1.8.7-2.5 0l-1.2-1.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9 14.5l2 2c.6.6 1.4.6 2 0l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M9.2 10.5 11 8.7c.6-.6 1.4-.6 2 0l1.8 1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button class="tool-btn" type="button" data-go="collaborate">
             <span>Collaborate</span>
           </button>
-
-          <button class="tool-btn" type="button" data-album="contact">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <button class="tool-btn" type="button" data-go="contact">
             <span>Contact</span>
           </button>
         </nav>
@@ -546,842 +133,27 @@
     </header>
 
     <main role="main">
-      <div class="stage" id="stage" aria-live="polite">
-        <!-- Contact 模式用 JS 插入 .contact-wrap；圖片模式下使用 viewer -->
-        <img
-          id="viewer"
-          class="slide"
-          src=""
-          alt="VermaVibe 圖片檢視器"
-          draggable="false"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </div>
+      <div class="stage" id="stage" aria-live="polite"></div>
     </main>
-
     <div class="status" id="status" aria-live="polite"></div>
 
-    <!-- noscript：讓無 JS 也有可索引內容（有助 SEO） -->
-    <noscript>
-      <div style="max-width: 920px; margin: 80px auto 24px; padding: 12px; color:#fff;">
-        <h2>VermaVibe 智慧農業解決方案（無 JavaScript 版）</h2>
-        <p>本頁需要 JavaScript 才能瀏覽相簿與表單。以下提供基本資訊與聯絡方式：</p>
-        <p>/images/About/1.PNG</p>
-        <p>聯絡我們：<a hrefcontact@YOUR_DOMAINcontact@YOUR_DOMAIN</a></p>
-      </div>
-    </noscript>
-
-    <!-- ================== 互動邏輯（修正 Contact <form> 標籤；小幅最佳化） ================== -->
+    <!-- JS Modules -->
     <script>
-      const ALBUMS = {
-        about:   { label: 'About',       folder: 'images/About',  manifest: 'manifest.json', count: 12, ext: 'PNG', pad: 0, type: 'images' },
-        tech:    { label: 'Tech',        folder: 'images/Tech',   manifest: 'manifest.json', count: 18, ext: 'PNG', pad: 0, type: 'images' },
-        cases:   { label: 'Case',        folder: 'images/Cases',  manifest: 'manifest.json', count: 20, ext: 'PNG', pad: 0, type: 'images' },
-        collab:  { label: 'Collaborate', folder: 'images/Collab', manifest: 'manifest.json', count: 10, ext: 'PNG', pad: 0, type: 'images' },
-        contact: { label: 'Contact',     folder: '',              manifest: '',              count: 0,  ext: '',    pad: 0, type: 'form'   },
-      };
-
-      const MIN_SCALE = 1, MAX_SCALE = 6;
-      const DOUBLE_TAP_MS = 300;
-      const DOUBLE_TAP_TARGET_SCALE = 2.5;
-      const ZOOM_ANIM_MS = 220;
-      const WHEEL_ZOOM_FACTOR = 1.1;
-      const EPS = 0.2;
-      const isTouchDevice = navigator.maxTouchPoints > 0;
-
-      /* 行動裝置上放寬點擊閾值 */
-      const CLICK_THRESHOLD_PX = isTouchDevice ? 22 : 10;
-      const CLICK_THRESHOLD_PY = isTouchDevice ? 22 : 10;
-      const TAP_DURATION_MS = 250;
-      const SWIPE_MIN_PX = isTouchDevice ? 48 : 36;
-      const SWIPE_MIN_VELOCITY = 0.35;
-      const INERTIA_MIN_SPEED = 0.02;
-      const INERTIA_FRICTION = 0.5;
-      const BOUNCE_COEFF = 0.1;
-      const PAN_HISTORY_MS = 120;
-
-      const viewer   = document.getElementById('viewer');
-      const stage    = document.getElementById('stage');
-      const toolbar  = document.getElementById('toolbar');
-      const albumName= document.getElementById('albumName');
-      const statusEl = document.getElementById('status');
-
-      let currentAlbumKey = 'about';
-      let images = [];
-
-      let idx = 0;
-      let scale = 1;
-      let tx = 0, ty = 0;
-      let rafId = null;
-
-      let viewportW = 0, viewportH = 0;
-      let baseW = 0, baseH = 0;
-      let baseLx = 0, baseLy = 0;
-
-      const pointers = new Map();
-      let dragStart = null;
-      let stageDragStart = null;
-
-      let tapStartX = null, tapStartY = null, tapStartTime = 0;
-      let lastMoveX = null, lastMoveY = null, lastMoveTime = 0;
-
-      let recomputeTimer = null;
-      let viewportDirty = false;
-      let panAnimId = null;
-      let panHistory = [];
-      let zoomAnimId = null;
-      let lastTap = 0;
-      let tapTimer = null;
-
-      /* 表單/結果頁模式旗標：避免攔截捲動 */
-      let isFormMode = false;
-
-      /* 簡單的相簿快取，避免重複 fetch manifest */
-      const albumCache = new Map();
-
-      function setStatus(msg, keep = false) {
-        if (!msg) { statusEl.classList.remove('show'); statusEl.textContent = ''; return; }
-        statusEl.innerHTML = msg;
-        statusEl.classList.add('show');
-        if (!keep) {
-          clearTimeout(setStatus._t);
-          setStatus._t = setTimeout(() => setStatus(''), 2400);
-        }
-      }
-
-      const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-      const nowMs = () => performance.now();
-
-      function cancelSingleTap() { if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; } }
-      function scheduleSingleTap(clientX) {
-        cancelSingleTap();
-        tapTimer = setTimeout(() => { tapTimer = null; handlePositionalClick(clientX); }, DOUBLE_TAP_MS + 30);
-      }
-
-      function stopPanInertia(){ if (panAnimId) cancelAnimationFrame(panAnimId); panAnimId = null; }
-      function stopZoomAnim(){   if (zoomAnimId) cancelAnimationFrame(zoomAnimId); zoomAnimId = null; }
-
-      function updateViewport() {
-        const vv = window.visualViewport;
-        if (vv && vv.width && vv.height) { viewportW = vv.width; viewportH = vv.height; }
-        else { const r = stage.getBoundingClientRect(); viewportW = r.width; viewportH = r.height; }
-      }
-
-      function computeContain(nw, nh) {
-        const imgRatio = nw / nh, stageRatio = viewportW / viewportH;
-        if (imgRatio > stageRatio) return { w: viewportW, h: viewportW / imgRatio };
-        return { h: viewportH, w: viewportH * imgRatio };
-      }
-
-      function computeBaseTopLeft() {
-        baseLx = (viewportW - baseW) / 2;
-        baseLy = (viewportH - baseH) / 2;
-      }
-
-      function clientToImagePoint(clientX, clientY) {
-        const ix = (clientX - baseLx - tx) / scale;
-        const iy = (clientY - baseLy - ty) / scale;
-        return { x: clamp(ix, 0, baseW), y: clamp(iy, 0, baseH) };
-      }
-
-      function getPanBounds() {
-        const contentW = baseW * scale, contentH = baseH * scale;
-        let minTx, maxTx, minTy, maxTy;
-        if (contentW > viewportW) { minTx = viewportW - baseLx - contentW - EPS; maxTx = -baseLx + EPS; }
-        else { const txCenter = (-baseW * (scale - 1)) / 2; minTx = maxTx = txCenter; }
-        if (contentH > viewportH) { minTy = viewportH - baseLy - contentH - EPS; maxTy = -baseLy + EPS; }
-        else { const tyCenter = (-baseH * (scale - 1)) / 2; minTy = maxTy = tyCenter; }
-        return { minTx, maxTx, minTy, maxTy };
-      }
-
-      function commit(needsClamp = true) {
-        if (needsClamp) {
-          const { minTx, maxTx, minTy, maxTy } = getPanBounds();
-          tx = clamp(tx, minTx, maxTx); ty = clamp(ty, minTy, maxTy);
-        }
-        if (rafId) return;
-        rafId = requestAnimationFrame(() => {
-          viewer.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
-          setInteractionMode();
-          rafId = null;
-        });
-      }
-
-      function setInteractionMode() {
-        const ta = scale === 1 ? 'pan-y' : 'none';
-        viewer.style.touchAction = ta;
-        stage.style.touchAction = ta;
-      }
-
-      function preventNativeIfZooming(e) { if (scale > 1) e.preventDefault?.(); }
-
-      function recomputeBaseSize() {
-        updateViewport();
-        const nw = viewer.naturalWidth || viewer.width || viewer.offsetWidth;
-        const nh = viewer.naturalHeight || viewer.height || viewer.offsetHeight;
-        if (!nw || !nh || !viewportW || !viewportH) return;
-        const s = computeContain(nw, nh);
-        baseW = s.w; baseH = s.h;
-        viewer.style.width = `${baseW}px`;
-        viewer.style.height = `${baseH}px`;
-        computeBaseTopLeft();
-        commit(true);
-      }
-
-      function isInteracting() {
-        return pointers.size > 0 || !!stageDragStart || scale > 1 || !!panAnimId || !!zoomAnimId;
-      }
-      function scheduleRecompute(delay = 480) {
-        clearTimeout(recomputeTimer);
-        if (isInteracting()) { viewportDirty = true; return; }
-        viewportDirty = false;
-        recomputeTimer = setTimeout(recomputeBaseSize, delay);
-      }
-      function tryRecomputeAfterInteraction() {
-        if (viewportDirty && !isInteracting()) scheduleRecompute(200);
-      }
-
-      function padNumber(n, pad){ return pad ? String(n).padStart(pad, '0') : String(n); }
-      function buildFallbackList(album){
-        const { folder, count, ext, pad = 0 } = album;
-        return Array.from({ length: count }, (_, i) => `${folder}/${padNumber(i + 1, pad)}.${ext}`);
-      }
-
-      function canFetchManifest(){ return location.protocol === 'http:' || location.protocol === 'https:'; }
-
-      async function loadAlbumList(key) {
-        const album = ALBUMS[key];
-        if (!album) throw new Error('Unknown album: ' + key);
-        if (album.type === 'form') return [];
-
-        // 使用快取
-        if (albumCache.has(key)) return albumCache.get(key);
-
-        if (album.manifest && canFetchManifest()) {
-          const url = `${album.folder}/${album.manifest}?v=${Date.now()}`;
-          try {
-            const res = await fetch(url, { cache: 'no-store' });
-            if (res.ok) {
-              const data = await res.json();
-              const files = Array.isArray(data) ? data : (data && Array.isArray(data.files) ? data.files : null);
-              if (files && files.length) {
-                const list = files.map((name) => `${album.folder}/${name}`);
-                albumCache.set(key, list);
-                return list;
-              }
-            } else {
-              setStatus(`manifest 讀取失敗（HTTP ${res.status}），改用 fallback`, false);
-            }
-          } catch {
-            setStatus(`manifest fetch 失敗，改用 fallback`, false);
-          }
-        } else if (album.manifest && !canFetchManifest()) {
-          setStatus(`目前是 file:// 開啟，跳過 manifest，使用 count fallback（建議用本機伺服器）`, false);
-        }
-        const fallback = buildFallbackList(album);
-        albumCache.set(key, fallback);
-        return fallback;
-      }
-
-      function clearStageExtras() {
-        const exist = stage.querySelector('.contact-wrap');
-        if (exist) exist.remove();
-        viewer.style.display = '';
-        // 回到圖片模式：移除滾動 & 手勢設定
-        isFormMode = false;
-        stage.classList.remove('scroll');
-        stage.style.touchAction = 'pan-y';
-      }
-
-      async function setAlbum(key) {
-        if (!ALBUMS[key]) return;
-        toolbar.querySelectorAll('.tool-btn')
-          .forEach((btn) => btn.classList.toggle('active', btn.dataset.album === key));
-
-        currentAlbumKey = key;
-        albumName.textContent = ALBUMS[key].label;
-
-        stopPanInertia(); stopZoomAnim(); cancelSingleTap();
-        scale = 1; tx = 0; ty = 0; commit(true);
-
-        if (ALBUMS[key].type === 'form') {
-          images = [];
-          isFormMode = true;
-          stage.classList.add('scroll');
-          stage.style.touchAction = 'auto';
-          renderContactForm();
-          return;
-        }
-
-        clearStageExtras();
-        images = await loadAlbumList(key);
-        show(0);
-      }
-
-      /** ====== 路由解析 & 結果頁 ====== */
-      function parseHashQuery() {
-        const h = location.hash || '';
-        const [route, queryStr] = h.split('?');
-        const params = new URLSearchParams(queryStr || '');
-        return { route, params };
-      }
-
-      function renderResultPage(status = 'success', detail = '') {
-        clearStageExtras();
-        viewer.style.display = 'none';
-
-        isFormMode = true;
-        stage.classList.add('scroll');
-        stage.style.touchAction = 'auto';
-
-        const wrap = document.createElement('div');
-        wrap.className = 'contact-wrap';
-        const isSuccess = status === 'success';
-
-        wrap.innerHTML = `
-          <div class="contact-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>${isSuccess ? 'Sent Successfully' : 'Failed to Send'}</span>
-          </div>
-
-          <div class="field" style="grid-column: 1 / -1;">
-            <div style="
-              display:flex;align-items:center;gap:10px;
-              padding:12px;border-radius:12px;
-              border:1px solid var(--btn-border);
-              background:${isSuccess ? 'rgba(0, 212, 255, 0.10)' : 'rgba(255, 100, 100, 0.10)'}">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                ${
-                  isSuccess
-                    ? `<path d="M20 7 9 18l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`
-                    : `<circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16" r="1.2" fill="currentColor"/>`
-                }
-              </svg>
-              <div>
-                <div style="font-weight:700">${isSuccess ? '✅ Message sent successfully.' : '❌ Failed to send.'}</div>
-                ${detail ? `<div class="muted" style="margin-top:4px;word-break:break-word;">${detail}</div>` : ''}
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-actions">
-            <button type="button" class="btn" id="backBtn">Back</button>
-            ${isSuccess ? `<button type="button" class="btn" id="homeBtn">Go to About</button>` : ''}
-          </div>
-        `;
-        stage.appendChild(wrap);
-
-        wrap.querySelector('#backBtn')?.addEventListener('click', async () => {
-          location.hash = '';
-          await setAlbum('contact');
-        });
-        wrap.querySelector('#homeBtn')?.addEventListener('click', async () => {
-          location.hash = '';
-          await setAlbum('about');
-        });
-
-        wrap.scrollIntoView({ block: 'start', inline: 'nearest' });
-      }
-
-      function handleHashRoute() {
-        const { route, params } = parseHashQuery();
-        if (route === '#result') {
-          const status = params.get('status') || 'success';
-          const msg = params.get('msg') || '';
-          renderResultPage(status, msg);
-        }
-      }
-      window.addEventListener('hashchange', handleHashRoute);
-
-      /* ===== Contact Form（Formspree action + AJAX + 跳轉結果頁） ===== */
-      function renderContactForm() {
-        viewer.style.display = 'none';
-
-        isFormMode = true;
-        stage.classList.add('scroll');
-        stage.style.touchAction = 'auto';
-
-        const old = stage.querySelector('.contact-wrap');
-        if (old) old.remove();
-
-        const wrap = document.createElement('div');
-        wrap.className = 'contact-wrap';
-        wrap.innerHTML = `
-          <div class="contact-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" stroke="currentColor" stroke-width="1.8"/>
-              <path d="m5.5 7.2 6.1 5a1 1 0 0 0 1.3 0l6.1-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span>Contact Us</span>
-          </div>
-
-          <form id="contactForm"
-            action="https://formspree.io/f/mwpwlrvq"
-            method="POST"
-            ct — New Message" />
-
-            <input type="hidden" name="_replyto" value="" />
-            <div class="contact-grid">
-              <div class="field">
-                <label for="name">Name *</label>
-                <input id="name" name="name" type="text" placeholder="William" autocomplete="name" required />
-              </div>
-              <div class="field">
-                <label for="email">Email *</label>
-                <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
-              </div>
-
-              <div class="field">
-                <label for="country">Country *</label>
-                <select id="country" name="country" autocomplete="country-name" required>
-                  <option value="">Select</option>
-                  <option>Taiwan</option>
-                  <option>Japan</option>
-                  <option>South Korea</option>
-                  <option>China</option>
-                  <option>Singapore</option>
-                  <option>Malaysia</option>
-                  <option>Thailand</option>
-                  <option>Vietnam</option>
-                  <option>India</option>
-                  <option>Indonesia</option>
-                  <option>Philippines</option>
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>United Kingdom</option>
-                  <option>Germany</option>
-                  <option>France</option>
-                  <option>Australia</option>
-                  <option>New Zealand</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="topic">Topic *</label>
-                <select id="topic" name="topic" required>
-                  <option value="">Select</option>
-                  <option>Consult</option>
-                  <option>Cooperate</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" placeholder="+886 912-345-678" autocomplete="tel" inputmode="tel" />
-              </div>
-
-              <div class="field">
-                <label for="crop">Crop *</label>
-                <input id="crop" name="crop" type="text" placeholder="Tea / Coffee / Garden" required/>
-              </div>
-
-              <div class="field" style="grid-column: 1 / -1;">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" placeholder="Please briefly describe your needs or problem." required></textarea>
-              </div>
-            </div>
-
-            <div class="contact-actions">
-              <button type="submit" class="btn" id="sendBtn">Send</button>
-              <button type="reset" class="btn">Clear</button>
-            </div>
-          </form>
-        `;
-        stage.appendChild(wrap);
-
-        const form           = wrap.querySelector('#contactForm');
-        const nameEl         = form.querySelector('#name');
-        const emailEl        = form.querySelector('#email');
-        const countryEl      = form.querySelector('#country');
-        const cropEl         = form.querySelector('#crop');
-        const topicEl        = form.querySelector('#topic');
-        const messageEl      = form.querySelector('#message');
-        const replyToHidden  = form.querySelector('input[name="_replyto"]');
-        const sendBtn        = form.querySelector('#sendBtn');
-
-        nameEl.scrollIntoView({ block: 'start', inline: 'nearest' });
-        nameEl.focus({ preventScroll: true });
-
-        emailEl.addEventListener('input', () => { replyToHidden.value = emailEl.value.trim(); });
-
-        form.addEventListener('input', (e) => {
-          const t = e.target;
-          if (t.matches('input, select, textarea')) { t.setCustomValidity(''); t.checkValidity(); }
-        });
-
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-
-          const name    = nameEl.value.trim();
-          const email   = emailEl.value.trim();
-          const phone   = form.phone.value.trim();
-          const country = countryEl.value.trim();
-          const crop    = cropEl.value.trim();
-          const topic   = topicEl.value.trim();
-          const message = messageEl.value.trim();
-
-          const errors = [];
-          if (!name) errors.push('Please fill in your name');
-          if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) errors.push('Incorrect email format');
-          if (!country) errors.push('Please select a country');
-          if (!crop) errors.push('Please select a crop');
-          if (!topic) errors.push('Please select a topic');
-          if (!message) errors.push('Please fill in the message');
-
-          if (errors.length) {
-            setStatus(`<b>Form error:</b> ${errors.join('、')}`);
-            (function () {
-              let el = nameEl;
-              if      (!name)   el = nameEl;
-              else if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) el = emailEl;
-              else if (!country) el = countryEl;
-              else if (!crop)    el = cropEl;
-              else if (!topic)   el = topicEl;
-              else if (!message) el = messageEl;
-              el.scrollIntoView({ block: 'start', inline: 'nearest' });
-              el.focus({ preventScroll: true });
-            })();
-            return;
-          }
-
-          const payload = new FormData(form);
-          const friendlySubject = `VermaVibe Contact — [${topic}] ${name} (${country}, ${crop})`;
-          payload.set('_subject', friendlySubject);
-
-          sendBtn.disabled = true; sendBtn.style.opacity = '0.7';
-
-          try {
-            const res = await fetch(form.action, {
-              method: 'POST',
-              body: payload,
-              headers: { Accept: 'application/json' },
-            });
-
-            if (res.ok) {
-              const summary = `We will get back to you soon.`;
-              location.hash = `result?status=success&msg=${encodeURIComponent(summary)}`;
-              renderResultPage('success', summary);
-              form.reset();
-            } else {
-              let reason = res.statusText;
-              try {
-                const err = await res.json();
-                if (err?.errors?.[0]?.message) reason = err.errors[0].message;
-              } catch {}
-              location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`;
-              renderResultPage('error', reason);
-            }
-          } catch (err) {
-            const reason = String(err);
-            location.hash = `result?status=error&msg=${encodeURIComponent(reason)}`;
-            renderResultPage('error', reason);
-          } finally {
-            sendBtn.disabled = false; sendBtn.style.opacity = '1';
-          }
-        });
-      }
-
-      /* ===== Slides ===== */
-      function show(i) {
-        stopPanInertia(); stopZoomAnim(); cancelSingleTap();
-        if (!images.length) return;
-
-        idx = (i + images.length) % images.length;
-        scale = 1; tx = 0; ty = 0;
-
-        const url = images[idx];
-
-        viewer.style.opacity = '0';
-        viewer.style.transition = 'opacity 260ms ease';
-        viewer.src = url;
-        viewer.alt = `VermaVibe 技術展示圖片 ${idx + 1}`;
-
-        viewer.onload = () => {
-          const waitNatural = () => {
-            if (!viewer.naturalWidth || !viewer.naturalHeight) { requestAnimationFrame(waitNatural); return; }
-            recomputeBaseSize();
-            requestAnimationFrame(() => { viewer.style.opacity = '1'; });
-          };
-          waitNatural();
-        };
-        viewer.onerror = () => {
-          setStatus(`Image failed to load：<span class="muted">${url}</span>`, true);
-          viewer.style.opacity = '1';
-        };
-
-        const pre = new Image();
-        pre.decoding = 'async';
-        pre.loading = 'lazy'; // 預載下一張但標示 lazy，減輕負擔
-        pre.src = images[(idx + 1) % images.length];
-      }
-
-      function handlePositionalClick(clientX) {
-        if (scale !== 1) return;
-        const leftHalf = clientX < viewportW / 2;
-        show(leftHalf ? idx - 1 : idx + 1);
-      }
-
-      function zoomAtPoint(targetScale, clientX, clientY) {
-        const s1 = clamp(targetScale, MIN_SCALE, MAX_SCALE);
-        const p  = clientToImagePoint(clientX, clientY);
-        tx = clientX - baseLx - p.x * s1;
-        ty = clientY - baseLy - p.y * s1;
-        scale = s1;
-        commit(true);
-      }
-      function zoomAtCenter(targetScale) {
-        updateViewport();
-        zoomAtPoint(targetScale, viewportW / 2, viewportH / 2);
-      }
-      function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-
-      function animateZoomAtCenter(targetScale, duration = ZOOM_ANIM_MS) {
-        stopZoomAnim();
-        updateViewport();
-        const startScale = scale, cX = viewportW / 2, cY = viewportH / 2;
-        const p = clientToImagePoint(cX, cY);
-        const sTarget = clamp(targetScale, MIN_SCALE, MAX_SCALE);
-        const t0 = nowMs();
-        const step = () => {
-          const dt = Math.min(1, (nowMs() - t0) / duration);
-          const s  = startScale + (sTarget - startScale) * easeOutCubic(dt);
-          tx = cX - baseLx - p.x * s;
-          ty = cY - baseLy - p.y * s;
-          scale = s;
-          commit(true);
-          if (dt < 1) zoomAnimId = requestAnimationFrame(step);
-          else { stopZoomAnim(); commit(true); }
-        };
-        step();
-      }
-
-      function recordPanHistory(px, py) {
-        const t = nowMs();
-        panHistory.push({ x: px, y: py, t });
-        const cutoff = t - PAN_HISTORY_MS;
-        while (panHistory.length && panHistory[0].t < cutoff) panHistory.shift();
-      }
-      function computePanVelocity() {
-        if (panHistory.length < 2) return { vx: 0, vy: 0 };
-        const a = panHistory[0], b = panHistory[panHistory.length - 1];
-        const dt = Math.max(1, b.t - a.t);
-        return { vx: (b.x - a.x) / dt, vy: (b.y - a.y) / dt };
-      }
-      function startPanInertia(vx, vy) {
-        stopPanInertia();
-        let lastTs = nowMs();
-        const step = () => {
-          const ts = nowMs();
-          const dt = Math.max(1, ts - lastTs);
-          lastTs = ts;
-          const decay = Math.pow(INERTIA_FRICTION, dt / 16);
-          vx *= decay; vy *= decay;
-          tx += vx * dt; ty += vy * dt;
-          const { minTx, maxTx, minTy, maxTy } = getPanBounds();
-          if (tx < minTx && vx < 0) { tx = minTx; vx *= -BOUNCE_COEFF; }
-          if (tx > maxTx && vx > 0) { tx = maxTx; vx *= -BOUNCE_COEFF; }
-          if (ty < minTy && vy < 0) { ty = minTy; vy *= -BOUNCE_COEFF; }
-          if (ty > maxTy && vy > 0) { ty = maxTy; vy *= -BOUNCE_COEFF; }
-          commit(false);
-          const small = Math.abs(vx) < INERTIA_MIN_SPEED && Math.abs(vy) < INERTIA_MIN_SPEED;
-          const inside = tx >= minTx && tx <= maxTx && ty >= minTy && ty <= maxTy;
-          if (small && inside) { stopPanInertia(); commit(true); return; }
-          panAnimId = requestAnimationFrame(step);
-        };
-        panAnimId = requestAnimationFrame(step);
-      }
-
-      /* 事件：表單模式避開手勢攔截 */
-      toolbar.addEventListener('click', async (e) => {
-        const btn = e.target.closest('[data-album]');
-        if (!btn) return;
-        e.stopPropagation();
-        await setAlbum(btn.dataset.album);
-        toolbar.querySelectorAll('.tool-btn').forEach((b) => b.removeAttribute('aria-current'));
-        btn.setAttribute('aria-current', 'page');
-      });
-
-      viewer.addEventListener('pointerdown', (e) => {
-        if (isFormMode) return;
-        stopPanInertia();
-        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
-        try { viewer.setPointerCapture(e.pointerId); } catch {}
-
-        const tNow = nowMs();
-        if (e.pointerType === 'touch' && tNow - lastTap < DOUBLE_TAP_MS) {
-          cancelSingleTap();
-          animateZoomAtCenter(scale > 1 ? 1 : DOUBLE_TAP_TARGET_SCALE);
-          lastTap = 0;
-          e.preventDefault?.();
-          e.stopPropagation?.();
-          return;
-        }
-        lastTap = e.pointerType === 'touch' ? tNow : 0;
-
-        if (scale > 1) {
-          dragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
-          panHistory.length = 0;
-          recordPanHistory(e.clientX, e.clientY);
-        }
-      }, { passive: false });
-
-      viewer.addEventListener('pointermove', (e) => {
-        if (isFormMode) return;
-        if (!pointers.has(e.pointerId)) return;
-        preventNativeIfZooming(e);
-        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
-        if (scale > 1 && dragStart) {
-          tx = dragStart.tx0 + (e.clientX - dragStart.x);
-          ty = dragStart.ty0 + (e.clientY - dragStart.y);
-          recordPanHistory(e.clientX, e.clientY);
-          commit(true);
-        }
-      }, { passive: false });
-
-      viewer.addEventListener('pointerup', (e) => {
-        if (isFormMode) return;
-        pointers.delete(e.pointerId);
-        try { viewer.releasePointerCapture(e.pointerId); } catch {}
-        if (scale > 1 && dragStart) {
-          const { vx, vy } = computePanVelocity();
-          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED) startPanInertia(vx, vy);
-        }
-        dragStart = null;
-        setInteractionMode();
-        scheduleRecompute();
-        tryRecomputeAfterInteraction();
-      });
-
-      viewer.addEventListener('pointercancel', () => {
-        if (isFormMode) return;
-        pointers.clear();
-        dragStart = null;
-        setInteractionMode();
-        scheduleRecompute();
-        tryRecomputeAfterInteraction();
-      });
-
-      stage.addEventListener('pointerdown', (e) => {
-        if (isFormMode) return;
-        stopPanInertia();
-        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, type: e.pointerType });
-        if (scale > 1) {
-          stageDragStart = { x: e.clientX, y: e.clientY, tx0: tx, ty0: ty };
-          panHistory.length = 0;
-          recordPanHistory(e.clientX, e.clientY);
-          try { stage.setPointerCapture(e.pointerId); } catch {}
-          return;
-        }
-        if (e.buttons && e.buttons !== 1) return;
-        tapStartX = e.clientX; tapStartY = e.clientY; tapStartTime = nowMs();
-        lastMoveX = tapStartX; lastMoveY = tapStartY; lastMoveTime = tapStartTime;
-      }, { passive: false });
-
-      stage.addEventListener('pointermove', (e) => {
-        if (isFormMode) return;
-        preventNativeIfZooming(e);
-        if (scale > 1 && stageDragStart) {
-          tx = stageDragStart.tx0 + (e.clientX - stageDragStart.x);
-          ty = stageDragStart.ty0 + (e.clientY - stageDragStart.y);
-          recordPanHistory(e.clientX, e.clientY);
-          commit(true);
-          return;
-        }
-        lastMoveX = e.clientX; lastMoveY = e.clientY; lastMoveTime = nowMs();
-      }, { passive: false });
-
-      stage.addEventListener('pointerup', (e) => {
-        if (isFormMode) return;
-        pointers.delete(e.pointerId);
-        if (scale > 1) {
-          const { vx, vy } = computePanVelocity();
-          if (Math.abs(vx) >= INERTIA_MIN_SPEED || Math.abs(vy) >= INERTIA_MIN_SPEED) startPanInertia(vx, vy);
-          stageDragStart = null;
-          try { stage.releasePointerCapture(e.pointerId); } catch {}
-          scheduleRecompute();
-          tryRecomputeAfterInteraction();
-          return;
-        }
-        const endX = e.clientX, endY = e.clientY, endTime = nowMs();
-        const dx = endX - (tapStartX ?? endX), dy = endY - (tapStartY ?? endY);
-        const dt = endTime - (tapStartTime || endTime);
-        const mvDt = Math.max(1, endTime - (lastMoveTime || endTime));
-        const mvDx = endX - (lastMoveX ?? endX), velocityX = Math.abs(mvDx) / mvDt;
-        const absDx = Math.abs(dx), absDy = Math.abs(dy);
-        const isSwipe = absDx > SWIPE_MIN_PX && absDx > absDy * 1.5 && velocityX >= SWIPE_MIN_VELOCITY;
-        if (isSwipe) {
-          cancelSingleTap();
-          show(dx < 0 ? idx + 1 : idx - 1);
-        } else {
-          const isTap = absDx <= CLICK_THRESHOLD_PX && absDy <= CLICK_THRESHOLD_PY && dt <= TAP_DURATION_MS;
-          if (isTap) {
-            if (e.pointerType === 'touch') scheduleSingleTap(endX);
-            else handlePositionalClick(endX);
-          }
-        }
-        tapStartX = tapStartY = null; tapStartTime = 0;
-        lastMoveX = lastMoveY = null; lastMoveTime = 0;
-      });
-
-      stage.addEventListener('pointercancel', () => {
-        if (isFormMode) return;
-        pointers.clear();
-        stageDragStart = null;
-        tapStartX = tapStartY = null; tapStartTime = 0;
-        lastMoveX = lastMoveY = null; lastMoveTime = 0;
-        cancelSingleTap();
-        scheduleRecompute();
-        tryRecomputeAfterInteraction();
-      });
-
-      stage.addEventListener('contextmenu', (e) => e.preventDefault());
-
-      stage.addEventListener('wheel', (e) => {
-        if (isFormMode) return;
-        if (e.ctrlKey) {
-          e.preventDefault();
-          const factor = Math.sign(e.deltaY) > 0 ? 1 / WHEEL_ZOOM_FACTOR : WHEEL_ZOOM_FACTOR;
-          zoomAtCenter(clamp(scale * factor, MIN_SCALE, MAX_SCALE));
-        }
-      }, { passive: false });
-
-      document.addEventListener('keydown', (e) => {
-        const k = e.key;
-        if      (k === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
-        else if (k === 'ArrowRight'){ e.preventDefault(); show(idx + 1); }
-        else if (k === 'Home')      { e.preventDefault(); show(0); }
-        else if (k === 'End')       { e.preventDefault(); show(images.length - 1); }
-        else if (k === ' ')         { e.preventDefault(); show(idx + 1); }
-        else if (k.toLowerCase() === 'r') { e.preventDefault(); scale = 1; tx = 0; ty = 0; commit(true); }
-        else if (k === '+' || k === '=')  { e.preventDefault(); if (!isFormMode) zoomAtCenter(clamp(scale * WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE)); }
-        else if (k === '-' || k === '_')  { e.preventDefault(); if (!isFormMode) zoomAtCenter(clamp(scale / WHEEL_ZOOM_FACTOR, MIN_SCALE, MAX_SCALE)); }
-      });
-
-      function onViewportChange(){ viewportDirty = true; scheduleRecompute(); }
-      window.addEventListener('resize', onViewportChange);
-      window.addEventListener('orientationchange', onViewportChange);
-      if (window.visualViewport) window.visualViewport.addEventListener('resize', onViewportChange);
-
-      (async function init() {
-        await setAlbum(currentAlbumKey);
-        handleHashRoute();
-      })();
+      window.__BASE_PATH__='/VermaVibe_Web_dev/'; window.https://stevenbubu.github.io='https://stevenbubu.github.io';
     </script>
+    <script src="/VermaVibe_Web_dev/js/albums.config.js"></script>
+    <script src="/VermaVibe_Web_dev/js/viewer.js"></script>
+    <script src="/VermaVibe_Web_dev/js/contact.js"></script>
+    <script src="/VermaVibe_Web_dev/js/router.js"></script>
 
-    <!-- ================== PWA：Service Worker 註冊（可選，如有 /sw.js） ================== -->
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch(() => {});
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker
+            .register("/VermaVibe_Web_dev/sw.js")
+            .catch(function () {});
         });
       }
     </script>
   </body>
 </html>
-``
