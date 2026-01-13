@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -7,10 +8,15 @@
   <link rel="stylesheet" href="./assets/css/about.css" />
 </head>
 <body>
+  <!-- 頂部固定導覽 -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand"><div class="logo"></div><div>VermaVibe</div><div class="muted">｜About</div></div>
-      <nav class="nav"><a href="#hero">影片</a><a href="#evolution">農業進化論</a><a href="#quantum">量子農法</a></nav>
+      <nav class="nav">
+        #hero影片</a>
+        #evolution農業進化論</a>
+        #quantum量子農法</a>
+      </nav>
     </div>
   </header>
 
@@ -18,20 +24,17 @@
     <!-- 第一區塊：影片 -->
     <section id="hero" class="section">
       <div class="container">
+        <h1 class="title">示範影片</h1>
         <div class="video-wrap">
-          <iframe src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1" title="VermaVibe 量子農法示範影片" loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- 第二區塊：農業進化論 -->
-    <section id="evolution" class="section">
-      <div class="container">
-        <h1 class="title">農業進化論</h1>
-        <div class="cards">
-          <article class="card"><h3>核心目標</h3><p>恢復退化土壤、強化結構與循環，重建地力。</p></article>
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1"
+            title="VermaVibe 量子農法示範影片"
+            loading="lazy"
+            allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+         <h3>核心目標</h3><p>恢復退化土壤、強化結構與循環，重建地力。</p></article>
           <article class="card"><h3>適用範圍</h3><p>自然農法、有機農業、再生農場等多元場域皆可導入。</p></article>
-          <article class="card"><h3>永續騰諾</h3><p>以活化土地與減碳為核心，持續為永續農業目標做出貢獻。</p></article>
+          <article class="card"><h3>永續承諾</h3><p>以活化土壤與減碳為核心，持續為永續農業目標做出貢獻。</p></article>
         </div>
       </div>
     </section>
@@ -48,10 +51,32 @@
       </div>
     </section>
 
-    <footer class="section"><div class="container"><p class="small">© 2026 VermaVibe. All rights reserved.</p></div></footer>
+    <footer class="section">
+      <div class="container">
+        <p class="small">© 2026 VermaVibe. All rights reserved.</p>
+      </div>
+    </footer>
   </main>
 
+  <!-- 回到頂部 -->
   <a href="#hero" class="back-to-top">↑</a>
+
+  <!-- 底部固定 Tabbar -->
+  <nav class="tabbar" aria-label="底部導覽">
+    #hero
+      <span class="tabbar-icon">🎬</span>
+      <span class="tabbar-label">影片</span>
+    </a>
+    #evolution
+      <span class="tabbar-icon">🌱</span>
+      <span class="tabbar-label">進化論</span>
+    </a>
+    #quantum
+      <span class="tabbar-icon">⚛️</span>
+      <span class="tabbar-label">量子農法</span>
+    </a>
+  </nav>
+
   <script src="./assets/js/about.js"></script>
 </body>
 </html>
