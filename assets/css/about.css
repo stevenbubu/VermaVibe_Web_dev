@@ -8,7 +8,6 @@
   --border: rgba(255, 255, 255, 0.16);
   --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 
-  /* 響應式字級基準 */
   --font-base: clamp(14px, 1.1vw + 0.4rem, 16px);
   --title-size: clamp(22px, 3vw, 28px);
 }
@@ -21,19 +20,20 @@ body {
   background: linear-gradient(135deg, var(--bg), var(--bg2));
   color: var(--text);
   font: 500 var(--font-base)/1.6 system-ui, "Microsoft JhengHei", sans-serif;
-
-  /* 讓內容不被固定的 topbar 遮住 */
-  padding-top: 60px;
 }
 
-/* Topbar 固定在最上面 */
+/* ✅ Topbar：置中，捲動時吸附最上方 */
 .topbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
   z-index: 1000;
+  width: min(1080px, 92vw);
+  margin: 0 auto 16px;
   background: rgba(15, 19, 32, 0.7);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 .topbar-inner {
   display: flex;
@@ -47,31 +47,26 @@ body {
 .nav a { color: var(--muted); margin-left: 12px; text-decoration: none; }
 .nav a:hover { color: #fff; }
 
-/* 主要內容區：扣掉 topbar 高度以滿版呈現 */
-.content { min-height: calc(100vh - 60px); }
-
-/* 容器寬度響應式、水平置中 */
+.content { min-height: 100vh; }
 .container {
   width: min(1080px, 92vw);
   margin: 0 auto;
   padding: 20px;
 }
-
-/* 區塊上下留白 —— 不再整體置中 */
 .section { padding: 48px 0; }
 
-/* 標題置中（僅標題） */
+/* 標題置中 */
 .title {
   margin-bottom: 16px;
   font-size: var(--title-size);
   text-align: center;
 }
 
-/* 影片容器：保持 16:9、水平置中 */
+/* 影片置中 */
 .video-wrap {
   position: relative;
   width: min(1080px, 92vw);
-  margin-inline: auto;     /* 水平置中 */
+  margin-inline: auto;
   aspect-ratio: 16/9;
   background: #000;
   border-radius: 12px;
@@ -80,7 +75,7 @@ body {
 }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* 卡片區：響應式網格，內文左對齊 */
+/* 卡片區：左對齊 */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -92,7 +87,7 @@ body {
   border-radius: 12px;
   padding: 16px;
   box-shadow: var(--shadow);
-  text-align: left;        /* 內文左對齊 */
+  text-align: left;
 }
 .card h3 { margin-top: 0; }
 
