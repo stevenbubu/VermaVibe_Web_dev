@@ -1,51 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>About</title>
-  <link rel="stylesheet" href="./assets/css/about.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VermaVibe 背景「完全一致」接入版</title>
+  <meta name="description" content="此檔為接入版骨架：將 VermaVibe / About 頁的背景 CSS 直接貼入即可完全一致。第一區影片置中，其餘內容分區同前。" />
+  <style>
+    :root { --text: #eaf2ff; --muted: #b6c2d6; --card: rgba(255,255,255,.08); --border: rgba(255,255,255,.14); --shadow: 0 24px 48px rgba(0,0,0,.35); }
+    html, body { height: 100%; }
+    body {
+      margin: 0; color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
+      /* ❶ 請將下方這行替換為你頁面 body 的 background 值（完整字串）以達到「完全一致」 */
+      background: /* 在此貼上 VermaVibe / About 的 background 例如：radial-gradient(...) , linear-gradient(...) */;
+    }
+    * { box-sizing: border-box; }
+    a { color: inherit; text-decoration: none; }
+
+    /* 若原頁還有星光或動畫層，請將 @keyframes 與 .stars 的樣式貼到此處 */
+
+    .nav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(160%) blur(10px); background: var(--card); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-weight: 800; letter-spacing: .3px; }
+    .nav-links { display: flex; gap: 14px; }
+    .nav-links a { color: var(--muted); font-weight: 600; }
+    .nav-links a:hover { color: var(--text); }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 44px 20px; }
+    .section { padding: 40px 0; }
+    h1 { font-size: clamp(28px, 4.8vw, 46px); line-height: 1.15; margin: 0 0 10px; text-align: center; }
+    h2 { font-size: clamp(22px, 3.6vw, 32px); margin: 0 0 14px; }
+    .lead { color: var(--muted); text-align: center; max-width: 72ch; margin: 0 auto 20px; }
+
+    .video-hero { display: grid; justify-items: center; align-items: center; gap: 18px; }
+    .video-wrap { width: min(100%, 860px); aspect-ratio: 16 / 9; background: #000; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+    .video-wrap iframe { width: 100%; height: 100%; border: 0; }
+    .cta-row { display: flex; gap: 10px; justify-content: center; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; font-weight: 700; }
+    .btn.primary { background: #22c55e; color: #062b18; }
+    .btn.secondary { background: rgba(255,255,255,.1); color: var(--text); border: 1px solid var(--border); }
+
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); }
+    .badge { display: inline-block; font-size: 12px; color: #052211; background: rgba(34, 197, 94, .85); padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+
+    footer { border-top: 1px solid var(--border); color: var(--muted); text-align: center; padding: 24px 20px; margin-top: 20px; }
+
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-
-  <main class="content">
-    <!-- 第一區塊：影片 -->
-    <section id="hero" class="section">
-      <div class="container">
-        <div class="video-wrap">
-          <iframe src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1" title="VermaVibe 量子農法示範影片" loading="lazy" allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
+  <!-- 導覽列 -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">農業進化論</div>
+      <div class="nav-links">
+        <a href="#video">影片</a>
+        <a href="#evolution">農業進化論</a>
+        <a href="#quantum">量子農法</a>
       </div>
-    </section>
+    </div>
+  </nav>
 
-    <!-- 第二區塊：農業進化論 -->
-    <section id="evolution" class="section">
-      <div class="container">
-        <h1 class="title">農業進化論</h1>
-        <div class="cards">
-          <article class="card"><h3>核心目標</h3><p>恢復退化土壤、強化結構與循環，重建地力。</p></article>
-          <article class="card"><h3>適用範圍</h3><p>自然農法、有機農業、再生農場等多元場域皆可導入。</p></article>
-          <article class="card"><h3>永續騰諾</h3><p>以活化土地與減碳為核心，持續為永續農業目標做出貢獻。</p></article>
-        </div>
+  <!-- 第一區：影片置中 -->
+  <section id="video" class="container section">
+    <h1>沿用原站背景｜影片置中</h1>
+    <p class="lead">請將原頁的背景 CSS 直接貼到本檔 <code>body{ background: … }</code> 以達到完全一致的視覺效果。</p>
+    <div class="video-hero">
+      <div class="video-wrap" aria-label="介紹影片">
+        <iframe src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1" title="介紹影片" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
-    </section>
-
-    <!-- 第三區塊：量子農法 -->
-    <section id="quantum" class="section">
-      <div class="container">
-        <h1 class="title">量子農法</h1>
-        <div class="cards">
-          <article class="card"><h3>運作機制</h3><p>以資訊場校正方法，針對氣候、天候、土壤與作物狀態進行細緻優化。</p></article>
-          <article class="card"><h3>作用結果</h3><p>提升生物多樣性與微生物活性，改善土壤循環，降低病蟲害風險。</p></article>
-          <article class="card"><h3>校正目標</h3><p>氣候／天候因子優化、土壤結構協調、作物生理機制提升。</p></article>
-        </div>
+      <div class="cta-row">
+        <a class="btn primary" href="#evolution">了解農業進化論</a>
+        <a class="btn secondary" href="#quantum">探索量子農法</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer class="section"><div class="container"><p class="small">© 2026 VermaVibe. All rights reserved.</p></div></footer>
-  </main>
+  <!-- 第二區：農業進化論 -->
+  <section id="evolution" class="container section">
+    <h2>農業進化論</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="badge">核心目標</span>
+        <h3>以成果為中心</h3>
+        <p>資料驅動、品質兼顧、風險可控，建立可量化的改進路徑。</p>
+      </article>
+      <article class="card">
+        <span class="badge">適用範圍</span>
+        <h3>跨作物與場域</h3>
+        <p>露地到智慧溫室，支援各類栽培模式與產銷協作。</p>
+      </article>
+      <article class="card">
+        <span class="badge">永續騰諾</span>
+        <h3>三重底線</h3>
+        <p>環境、經濟、社會價值同步提升，強化韌性。</p>
+      </article>
+    </div>
+  </section>
 
-  <a href="#hero" class="back-to-top">↑</a>
-  <script src="./assets/js/about.js"></script>
+  <!-- 第三區：量子農法 -->
+  <section id="quantum" class="container section">
+    <h2>量子農法</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="badge">運作機制</span>
+        <h3>參數化與迭代</h3>
+        <p>水分、養分、光照、溫濕度等變數可追蹤，小步快跑持續優化。</p>
+      </article>
+      <article class="card">
+        <span class="badge">作用結果</span>
+        <h3>穩定與提升</h3>
+        <p>提升產量與一致性，降低病蟲害與波動，縮短調試時間。</p>
+      </article>
+      <article class="card">
+        <span class="badge">校正目標</span>
+        <h3>以指標為中心</h3>
+        <p>依品質、成熟度、風味與成本自動／半自動修正策略。</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <small>© 2026 農業進化論 · 量子農法</small>
+  </footer>
+
+  <link rel="stylesheet" href="/VermaVibe_Web_dev/assets/css/app.css" />
 </body>
 </html>
