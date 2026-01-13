@@ -1,132 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>About｜VermaVibe 一頁式響應式頁面</title>
+  <meta name="description" content="VermaVibe About：農業進化論與量子農法，一頁式垂直滑動，含影片與內容說明。" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="./assets/css/app.css" />
+</head>
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>VermaVibe</div>
+        <div class="muted">｜About</div>
+      </div>
+      <nav class="nav">
+        <a href="#hero">影片</a>
+        <a href="#evolution">農業進化論</a>
+        <a href="#quantum">量子農法</a>
+      </nav>
+    </div>
+  </header>
 
-<!-- /VermaVibe_Web_dev/partials/about.html -->
-<section id="about" class="section">
-  <div class="container">
-    <!-- 一頁式導覽（可選） -->
-    <nav aria-label="子導覽" style="margin-bottom:16px;">
-      #evolution農業進化論</a>
-      #quantum量子農法</a>
-    </nav>
+  <main id="content" class="content" role="main">
+    <!-- 區塊 1：影片 -->
+    <section id="hero" class="section">
+      <div class="container">
+        <h1 class="title">示範影片｜VermaVibe Quantum Farming</h1>
+        <p class="lead">量子農法運作方式與效果示例（寬度自適應、靜音自動循環）。</p>
+        <div class="video-wrap">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1"
+            title="VermaVibe 量子農法示範影片"
+            loading="lazy"
+            allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+    </section>
 
     <!-- 農業進化論 -->
-    <article id="evolution">
-      <h1 style="margin-top:0;">農業進化論</h1>
+    <section id="evolution" class="section">
+      <div class="container">
+        <h1 class="title">農業進化論</h1>
 
-      <section id="evolution-goals" style="margin-top:22px;">
-        <h2>核心目標</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>恢復土地資源</h3>
-            <p>修復退化土壤、強化結構與循環，重建地力。</p>
+        <section class="subsection">
+          <h2>核心目標</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>恢復土地資源</h3>
+              <p>修復退化土壤、強化結構與循環，重建地力。</p>
+            </article>
+            <article class="card">
+              <h3>提高作物產量</h3>
+              <p>在不增加負擔的前提下，提升生長效率與收穫品質。</p>
+            </article>
+            <article class="card">
+              <h3>降低農藥依賴</h3>
+              <p>活化自然機制，減少病蟲害與化學投入。</p>
+            </article>
+            <article class="card">
+              <h3>達成生態平衡</h3>
+              <p>促進生態系的穩定運作與永續共生。</p>
+            </article>
           </div>
-          <div class="card">
-            <h3>提高作物產量</h3>
-            <p>在不增加負擔的前提下，提升生長效率與收穫品質。</p>
-          </div>
-          <div class="card">
-            <h3>降低農藥依賴</h3>
-            <p>活化自然機制，減少病蟲害與化學投入。</p>
-          </div>
-          <div class="card">
-            <h3>達成生態平衡</h3>
-            <p>促進生態系的穩定運作與永續共生。</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="evolution-scope" style="margin-top:22px;">
-        <h2>適用範圍</h2>
-        <div class="grid split">
-          <div>
-            <div class="card">
+        <section class="subsection">
+          <h2>適用範圍</h2>
+          <div class="grid split">
+            <article class="card">
               <h3>自然農法</h3>
               <p>以最低干預，高度仰賴生態自我調節，整體韌性高。</p>
-            </div>
-          </div>
-          <div>
-            <div class="card">
+            </article>
+            <article class="card">
               <h3>有機農業</h3>
               <p>符合有機原則，支持生態循環與健康土壤。</p>
-            </div>
-          </div>
-          <div>
-            <div class="card">
+            </article>
+            <article class="card">
               <h3>再生農場</h3>
               <p>強化土壤恢復力，提升系統韌性與碳匯能力。</p>
-            </div>
+            </article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="evolution-promise" style="margin-top:22px;">
-        <h2>永續騰諾</h2>
-        <div class="card">
-          <p>以活化土地與減碳為核心，持續為永續農業目標做出貢獻。</p>
-          <ul>
-            <li>支持碳減排目標與再生循環</li>
-            <li>促進自然資源的永續再生</li>
-            <li>提升農場長期可持續性</li>
-          </ul>
-        </div>
-      </section>
-    </article>
+        <section class="subsection">
+          <h2>永續騰諾</h2>
+          <article class="card">
+            <p>以活化土地與減碳為核心，持續為永續農業目標做出貢獻。</p>
+            <ul>
+              <li>支持碳減排目標與再生循環</li>
+              <li>促進自然資源的永續再生</li>
+              <li>提升農場長期可持續性</li>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </section>
 
     <!-- 量子農法 -->
-    <article id="quantum" style="margin-top:32px;">
-      <h1>量子農法</h1>
+    <section id="quantum" class="section">
+      <div class="container">
+        <h1 class="title">量子農法</h1>
 
-      <section id="quantum-mechanism" style="margin-top:22px;">
-        <h2>運作機制</h2>
-        <div class="grid split">
-          <div>
-            <div class="card">
+        <section class="subsection">
+          <h2>運作機制</h2>
+          <div class="grid split">
+            <article class="card">
               <h3>資訊場調諧</h3>
               <p>以資訊場校正方法，針對氣候、天候、土壤與作物狀態進行細緻優化。</p>
-            </div>
-          </div>
-          <div>
-            <div class="card">
+            </article>
+            <article class="card">
               <h3>生長條件客製化</h3>
               <p>為作物創造「黃金生長條件」，促進能量場與生理機制的協同。</p>
-            </div>
+            </article>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="quantum-results" style="margin-top:22px;">
-        <h2>作用結果</h2>
-        <div class="cards">
-          <div class="card">
-            <h3>活化微生物生命力</h3>
-            <p>提升生物多樣性與微生物活性，改善土壤循環。</p>
+        <section class="subsection">
+          <h2>作用結果</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>活化微生物生命力</h3>
+              <p>提升生物多樣性與微生物活性，改善土壤循環。</p>
+            </article>
+            <article class="card">
+              <h3>降低病蟲害風險</h3>
+              <p>緩解環境壓力與病害風險，提升整體健康度。</p>
+            </article>
+            <article class="card">
+              <h3>改善生長勢與產量</h3>
+              <p>喚醒植物活力，提升品質與產量。</p>
+            </article>
           </div>
-          <div class="card">
-            <h3>降低病蟲害風險</h3>
-            <p>緩解環境壓力與病害風險，提升整體健康度。</p>
-          </div>
-          <div class="card">
-            <h3>改善生長勢與產量</h3>
-            <p>喚醒植物活力，提升品質與產量。</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="quantum-targets" style="margin-top:22px;">
-        <h2>校正目標</h2>
-        <div class="card">
-          <ul>
-            <li>氣候／天候因子之資訊場優化</li>
-            <li>土壤結構與微生物相互作用之協調</li>
-            <li>作物生理機制與生長能量之提升</li>
-          </ul>
-        </div>
-      </section>
-    </article>
+        <section class="subsection">
+          <h2>校正目標</h2>
+          <article class="card">
+            <ul>
+              <li>氣候／天候因子之資訊場優化</li>
+              <li>土壤結構與微生物相互作用之協調</li>
+              <li>作物生理機制與生長能量之提升</li>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </section>
 
-    <!-- 回到頂部（可選） -->
-    <div style="margin-top:24px;">
-      #about返回 About 頂端</a>
-    </div>
-  </div>
-</section>
-``
+    <section class="section">
+      <div class="container">
+        <p class="small">© 2026 VermaVibe. All rights reserved.</p>
+      </div>
+    </section>
+  </main>
+
+  <a href="#hero" class="back-to-top" aria-label="回到頂部">↑</a>
+  <script src="./assets/js/script.js"></script>
+</body>
+</html>
