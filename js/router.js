@@ -7,7 +7,7 @@
   const toolbar   = document.getElementById('toolbar');
 
   const ROUTES = {
-    about:       { partial:`${BASE_PATH}partials/about.html`,       title:'VermaVibe｜About',       desc:'智慧農業技術與合作方案', og:`${BASE_PATH}images/About/cover.jpg`,  init: ()=>window.initViewer('about') },
+    about:       { partial:`${BASE_PATH}partials/about.html`,       title:'VermaVibe｜About',       desc:'智慧農業技術與合作方案', og:`${BASE_PATH}images/About/cover.jpg`,  init: initAbout },
     tech:        { partial:`${BASE_PATH}partials/tech.html`,        title:'VermaVibe｜Tech',        desc:'技術與研發',             og:`${BASE_PATH}images/Tech/cover.jpg`,   init: ()=>window.initViewer('tech') },
     cases:       { partial:`${BASE_PATH}partials/cases.html`,       title:'VermaVibe｜Case',        desc:'成功案例',               og:`${BASE_PATH}images/Cases/cover.jpg`, init: ()=>window.initViewer('cases') },
     collaborate: { partial:`${BASE_PATH}partials/collaborate.html`, title:'VermaVibe｜Collaborate', desc:'合作方案',               og:`${BASE_PATH}images/Collab/cover.jpg`, init: ()=>window.initViewer('collaborate') },
@@ -69,6 +69,12 @@
     await injectPageLD(page);
     setActive(page);
     cfg.init(parseHash().params);
+  }
+
+  async function initAbout(){
+    const stageEl = document.getElementById('stage');
+    stageEl.classList.add('scroll');     // 啟用垂直滾動（CSS 已支援）
+    stageEl.style.touchAction = 'auto';  // 讓手機可正常捲動
   }
 
   async function initResult(params){
