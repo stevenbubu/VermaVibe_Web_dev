@@ -4,97 +4,66 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>垂直排版｜農業進化論 × 量子農法（響應式）</title>
-  <meta name="description" content="採用垂直排版的一頁式網站：第一區影片置中，以下依序為農業進化論與量子農法，手機優先、響應式設計。" />
+  <title>垂直排版（全寬）｜農業進化論 × 量子農法</title>
+  <meta name="description" content="取消導覽列、預設寬度為螢幕寬度、影片自動循環播放的垂直排版響應式一頁式。" />
   <style>
-    /* ===== 基礎設定 ===== */
     :root {
-      --bg: #0f172a;        /* 深靛藍背景 */
-      --text: #e5e7eb;      /* 淺灰文字 */
+      --bg: #0f172a;        /* 背景 */
+      --text: #e5e7eb;      /* 文字 */
       --muted: #94a3b8;     /* 次要文字 */
       --brand: #22c55e;     /* 品牌綠 */
-      --accent: #38bdf8;    /* 強調藍 */
-      --card: #111827;      /* 卡片背景 */
       --border: #1f2937;    /* 邊框 */
     }
     html, body { height: 100%; }
     body {
-      margin: 0;
+      margin: 0; background: var(--bg); color: var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
-      background: var(--bg);
-      color: var(--text);
       line-height: 1.7;
     }
     * { box-sizing: border-box; }
     a { color: inherit; text-decoration: none; }
 
-    /* ===== 垂直導覽（固定於頂） ===== */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(8, 12, 24, .6);
-      backdrop-filter: saturate(150%) blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 960px; margin: 0 auto; padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    }
-    .brand { font-weight: 800; letter-spacing: .3px; }
-    .nav-links { display: flex; gap: 12px; }
-    .nav-links a { color: var(--muted); font-weight: 600; }
-    .nav-links a:hover { color: var(--text); }
-
-    /* ===== 垂直容器與區塊 ===== */
-    .container { max-width: 760px; margin: 0 auto; padding: 28px 20px; }
-    .section { display: flex; flex-direction: column; gap: 16px; padding: 32px 0; border-bottom: 1px solid var(--border); }
+    /* ===== 全寬容器（預設使用螢幕寬度） ===== */
+    .container { width: 100vw; max-width: 100vw; margin: 0; padding: 0; }
+    .section  { width: 100vw; padding: 28px 20px; border-bottom: 1px solid var(--border); }
     .section:last-child { border-bottom: none; }
-    .section h2 { font-size: clamp(22px, 4.5vw, 32px); margin: 0; }
-    .lead { color: var(--muted); }
 
-    /* ===== 第一區：影片置中（垂直排列） ===== */
-    .video-hero { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-    .video-wrap { width: 100%; max-width: 760px; aspect-ratio: 16 / 9; background: #000; border-radius: 14px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 18px 36px rgba(0,0,0,.35); }
-    .video-wrap iframe { width: 100%; height: 100%; border: 0; }
-    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    h1 { font-size: clamp(26px, 6vw, 44px); line-height: 1.15; margin: 0 0 10px; text-align: center; }
+    h2 { font-size: clamp(22px, 4.8vw, 34px); margin: 0 0 14px; }
+    .lead { color: var(--muted); text-align: center; max-width: 80ch; margin: 0 auto 18px; }
+
+    /* ===== 第一區：影片全寬置中（維持 16:9） ===== */
+    .video-hero { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .video-wrap  { width: 100vw; aspect-ratio: 16 / 9; background: #000; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .video-inner { width: min(100vw, 1280px); height: 100%; margin: 0 auto; }
+    .video-inner iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; padding-top: 10px; }
     .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; font-weight: 700; }
-    .btn.primary { background: var(--brand); color: #062b18; }
-    .btn.secondary { background: rgba(255,255,255,.06); color: var(--text); border: 1px solid var(--border); }
+    .btn.primary   { background: var(--brand); color: #062b18; }
+    .btn.secondary { background: rgba(255,255,255,.08); color: var(--text); border: 1px solid var(--border); }
 
-    /* ===== 垂直卡片 ===== */
-    .stack { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0)); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+    /* ===== 垂直卡片堆疊（全寬） ===== */
+    .stack { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .card  { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
     .card h3 { margin: 0 0 6px; font-size: 18px; }
-    .card p { margin: 0; color: var(--muted); }
-    .badge { display: inline-block; font-size: 12px; color: #052211; background: rgba(34, 197, 94, .85); padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+    .card p  { margin: 0; color: var(--muted); }
+    .badge    { display: inline-block; font-size: 12px; color: #052211; background: rgba(34, 197, 94, .85); padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
 
-    /* ===== 響應式：加寬時仍保持「垂直」但放大寬度 ===== */
-    @media (min-width: 900px) {
-      .container { max-width: 860px; }
-      .video-wrap { max-width: 860px; }
-    }
+    footer { color: var(--muted); text-align: center; padding: 24px 20px; }
   </style>
 </head>
 <body>
-  <!-- 導覽列（垂直頁面頂部） -->
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="brand">農業進化論</div>
-      <div class="nav-links">
-        <a href="#video">影片</a>
-        <a href="#evolution">農業進化論</a>
-        <a href="#quantum">量子農法</a>
-      </div>
-    </div>
-  </nav>
-
   <main class="container">
-    <!-- 第一區：影片置中（垂直排版） -->
-    <section id="video" class="section">
-      <h2>影片主視覺</h2>
-      <p class="lead">垂直排版、手機優先的響應式設計；影片置中呈現，搭配精簡 CTA 導向核心內容。</p>
+    <!-- 第一區：影片（全寬、置中、循環播放） -->
+    <section id="video" class="section" style="padding-top: 20px;">
+      <h1>影片主視覺（全寬＋自動循環播放）</h1>
+      <p class="lead">已移除導覽列；版面預設使用螢幕寬度。影片維持 16:9 比例，並啟用自動播放、靜音與循環。</p>
       <div class="video-hero">
         <div class="video-wrap" aria-label="介紹影片">
-          <iframe src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1" title="介紹影片" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          <div class="video-inner">
+            <iframe src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1" title="介紹影片" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
         <div class="cta-row">
           <a class="btn primary" href="#evolution">了解農業進化論</a>
@@ -146,10 +115,10 @@
         </article>
       </div>
     </section>
-  </main>
 
-  <footer class="container" style="padding-top:0;">
-    <small style="color:var(--muted)">© 2026 農業進化論 · 量子農法</small>
-  </footer>
+    <footer>
+      <small>© 2026 農業進化論 · 量子農法</small>
+    </footer>
+  </main>
 </body>
 </html>
