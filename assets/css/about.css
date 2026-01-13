@@ -2,7 +2,7 @@
 /* 主題與版面（簡版） */
 :root{
   --bg:#0f1320; --bg2:#121a2b; --text:#eaf6ff; --muted:#99a8bd;
-  --accent:#00d4ff; --accent2:#22c55e; --border:rgba(255,255,255,.16);
+  --accent:#00d4ff; --border:rgba(255,255,255,.16);
   --shadow:0 10px 28px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
@@ -14,31 +14,25 @@ body{
   font:500 15px/1.6 system-ui,'Microsoft JhengHei',sans-serif;
 }
 
-/* 頂部導覽（可選） */
-.topbar{
-  position:sticky; top:0; z-index:50;
-  background:rgba(15,19,32,.6);
-  backdrop-filter:blur(10px) saturate(1.2);
-  border-bottom:1px solid var(--border);
-}
-.topbar-inner{display:flex;justify-content:space-between;align-items:center;height:60px;padding:0 16px}
-.brand{display:flex;align-items:center;gap:8px;font-weight:700}
-.brand .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
-.brand .muted{color:var(--muted)}
-.nav a{color:var(--muted);margin-left:12px;text-decoration:none}
-.nav a:hover{color:#fff}
-
-/* 內容容器 */
+/* 內容容器與標題 */
 .content{min-height:100vh}
-.container{width:min(1080px,92vw);margin:0 auto;padding:20px}
 .section{padding:48px 0}
-.title{margin:0 0 12px 0;font-size:clamp(22px,3vw,28px)}
-.small{color:var(--muted);font-size:13px}
+.container{width:min(1080px,92vw); margin:0 auto;}
+.title{margin:0 0 12px 0; font-size:clamp(22px,3vw,28px)}
+.small{color:var(--muted); font-size:13px}
+
+/* 區塊置中：讓每個 section 的內容水平置中 */
+.section-center{
+  display:flex;
+  justify-content:center;   /* 水平置中 section 內的 .container */
+  align-items:center;       /* 在少量內容時垂直置中，可視需求保留或移除 */
+  text-align:center;        /* 讓標題等文字置中 */
+}
 
 /* 響應式影片容器（置中、全寬、16:9） */
 .video-wrap{
   position:relative;
-  width:min(1200px,100vw); /* 桌機不超過容器寬、手機全寬 */
+  width:min(1200px, 100vw);   /* 桌機不超過 1200px、手機可滿版 */
   margin:0 auto;
   aspect-ratio:16/9;
   background:#000;
@@ -52,16 +46,13 @@ body{
   border:0;
 }
 
-/* 卡片與網格：自動排版（桌機多欄、手機單欄） */
+/* 卡片與自動排版（桌機多欄、手機單欄） */
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
   gap:16px;
+  width:100%;
 }
-.grid{display:grid; gap:16px}
-.split{grid-template-columns:repeat(2,1fr)}
-@media (max-width:860px){ .split{ grid-template-columns:1fr } }
-
 .card{
   background:rgba(255,255,255,.06);
   border:1px solid var(--border);
@@ -82,3 +73,8 @@ body{
   color:#fff; text-decoration:none;
 }
 .back-to-top:hover{ background:rgba(255,255,255,.16) }
+
+/* 小型裝置微調（可視覺需要調整） */
+@media (max-width:768px){
+  .title{font-size:clamp(20px,4vw,24px)}
+}
