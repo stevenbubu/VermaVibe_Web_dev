@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>About</title>
   <meta name="color-scheme" content="light dark" />
+  <!-- 使用 about.css -->
   ./assets/css/about.css
 </head>
 <body>
-  <!-- 頂部導覽，可保留或移除 -->
+  <!-- 頂部導覽（可保留或移除） -->
   <header class="topbar" role="banner">
     <div class="topbar-inner">
       <div class="brand">
@@ -17,7 +18,7 @@
         <div>VermaVibe</div>
         <div class="muted">｜About</div>
       </div>
-      <nav class="nav">
+      <nav class="nav" aria-label="子導覽">
         #hero影片</a>
         #evolution農業進化論</a>
         #quantum量子農法</a>
@@ -27,16 +28,20 @@
 
   <main id="content" class="content" role="main">
     <!-- 第一區塊：影片（置中、全寬、16:9、靜音自動循環） -->
-    <section id="hero" class="section">
+    <section id="hero" class="section" aria-labelledby="hero-title">
       <div class="container">
-        <div class="video-wrap">
+        <h1 id="hero-title" class="title">示範影片｜VermaVibe Quantum Farming</h1>
+
+        <div class="video-wrap" role="region" aria-label="示範影片">
           <iframe
             src="https://www.youtube-nocookie.com/embed/8AjpAFxvUME?rel=0&autoplay=1&mute=1&loop=1&playlist=8AjpAFxvUME&playsinline=1"
             title="VermaVibe 量子農法示範影片"
             loading="lazy"
             allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-           2>核心目標</h2>
+           s="title">農業進化論</h1>
+
+        <section class="subsection" aria-labelledby="goals-title">
+          <h2 id="goals-title">核心目標</h2>
           <div class="cards">
             <article class="card">
               <h3>恢復土地資源</h3>
@@ -57,8 +62,8 @@
           </div>
         </section>
 
-        <section class="subsection">
-          <h2>適用範圍</h2>
+        <section class="subsection" aria-labelledby="scope-title">
+          <h2 id="scope-title">適用範圍</h2>
           <div class="grid split">
             <article class="card">
               <h3>自然農法</h3>
@@ -75,8 +80,8 @@
           </div>
         </section>
 
-        <section class="subsection">
-          <h2>永續騰諾</h2>
+        <section class="subsection" aria-labelledby="promise-title">
+          <h2 id="promise-title">永續騰諾</h2>
           <article class="card">
             <p>以活化土地與減碳為核心，持續為永續農業目標做出貢獻。</p>
             <ul>
@@ -89,13 +94,13 @@
       </div>
     </section>
 
-    <!-- 第三區塊：量子農法（自動排版：卡片/網格） -->
-    <section id="quantum" class="section">
+    <!-- 第三區塊：量子農法 -->
+    <section id="quantum" class="section" aria-labelledby="quantum-title">
       <div class="container">
-        <h1 class="title">量子農法</h1>
+        <h1 id="quantum-title" class="title">量子農法</h1>
 
-        <section class="subsection">
-          <h2>運作機制</h2>
+        <section class="subsection" aria-labelledby="mechanism-title">
+          <h2 id="mechanism-title">運作機制</h2>
           <div class="grid split">
             <article class="card">
               <h3>資訊場調諧</h3>
@@ -108,8 +113,8 @@
           </div>
         </section>
 
-        <section class="subsection">
-          <h2>作用結果</h2>
+        <section class="subsection" aria-labelledby="effects-title">
+          <h2 id="effects-title">作用結果</h2>
           <div class="cards">
             <article class="card">
               <h3>活化微生物生命力</h3>
@@ -126,8 +131,8 @@
           </div>
         </section>
 
-        <section class="subsection">
-          <h2>校正目標</h2>
+        <section class="subsection" aria-labelledby="targets-title">
+          <h2 id="targets-title">校正目標</h2>
           <article class="card">
             <ul>
               <li>氣候／天候因子之資訊場優化</li>
@@ -146,7 +151,10 @@
     </section>
   </main>
 
+  <!-- 回到頂部（可選） -->
   #hero↑</a>
-  ./assets/js/script.js</script>
+
+  <!-- 平滑捲動（可選） -->
+  ./assets/js/about.js</script>
 </body>
 </html>
