@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
   <head>
@@ -7,7 +6,7 @@
     <title>VermaVibe</title>
     <meta
       name="description"
-      content="在 Premium 精修版基礎上，微調右側影片位置向左靠一點；左側標題微向右、無品牌小字；霓虹背景、玻璃霧面卡片與微動效。Slogan 強化視覺，卡片顯示保險機制。"
+      content="在 Premium 精修版基礎上，微調右側影片位置向左靠一點；左側標題微向右、無品牌小字；霓虹背景、玻璃霧面卡片與微動效。"
     />
     <style>
       :root {
@@ -21,53 +20,99 @@
         --border: rgba(255, 255, 255, 0.14);
         --shadow: 0 36px 72px rgba(0, 0, 0, 0.5);
       }
-
-      html, body { height: 100%; }
-      html { scroll-behavior: smooth; }
-
+      html,
+      body {
+        height: 100%;
+      }
       body {
         margin: 0;
         color: var(--text);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI,
           Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
-        background:
-          radial-gradient(1100px 560px at 14% -10%, rgba(88, 166, 255, 0.22), transparent 60%),
-          radial-gradient(900px 460px at 90% 110%, rgba(32, 192, 91, 0.22), transparent 62%),
-          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+        background: radial-gradient(
+            1100px 560px at 14% -10%,
+            rgba(88, 166, 255, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 460px at 90% 110%,
+            rgba(32, 192, 91, 0.22),
+            transparent 62%
+          ),
+          linear-gradient(
+            180deg,
+            var(--bg-0) 0%,
+            var(--bg-1) 40%,
+            var(--bg-0) 100%
+          );
         overflow-x: hidden;
       }
-      * { box-sizing: border-box; }
-
+      * {
+        box-sizing: border-box;
+      }
       .stars {
         position: fixed;
         inset: 0;
         z-index: -2;
         pointer-events: none;
-        background:
-          radial-gradient(1px 1px at 14% 28%, rgba(255, 255, 255, 0.9), transparent 2px),
-          radial-gradient(1px 1px at 42% 82%, rgba(255, 255, 255, 0.7), transparent 2px),
-          radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.7), transparent 2px),
-          radial-gradient(1px 1px at 85% 58%, rgba(255, 255, 255, 0.6), transparent 2px);
+        background: radial-gradient(
+            1px 1px at 14% 28%,
+            rgba(255, 255, 255, 0.9),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 42% 82%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 70% 30%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 85% 58%,
+            rgba(255, 255, 255, 0.6),
+            transparent 2px
+          );
         animation: twinkle 6s linear infinite;
       }
-      @keyframes twinkle { 50% { opacity: 0.6; } }
-
+      @keyframes twinkle {
+        50% {
+          opacity: 0.6;
+        }
+      }
       .orb {
         position: fixed;
         inset: -20vh -10vw auto auto;
         width: 60vw;
         height: 60vh;
         z-index: -3;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(88, 166, 255, 0.32), transparent 50%),
-          radial-gradient(circle at 70% 60%, rgba(32, 192, 91, 0.24), transparent 60%),
-          radial-gradient(circle at 10% 80%, rgba(245, 158, 11, 0.18), transparent 55%);
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(88, 166, 255, 0.32),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 60%,
+            rgba(32, 192, 91, 0.24),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 10% 80%,
+            rgba(245, 158, 11, 0.18),
+            transparent 55%
+          );
         filter: blur(42px);
         animation: drift 28s ease-in-out infinite alternate;
       }
       @keyframes drift {
-        0% { transform: translate3d(0, 0, 0) scale(1); }
-        100% { transform: translate3d(-6vw, 4vh, 0) scale(1.06); }
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(-6vw, 4vh, 0) scale(1.06);
+        }
       }
 
       /* ★ 整體往右靠一點點：左側 padding 增加 */
@@ -77,7 +122,9 @@
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
-      .section { width: 100%; }
+      .section {
+        width: 100%;
+      }
 
       .hero {
         display: grid;
@@ -88,7 +135,7 @@
       .title {
         display: flex;
         flex-direction: column;
-        gap: 16px; /* 原 14px → 稍微增大 */
+        gap: 14px;
         padding-left: 24px;
       }
 
@@ -116,98 +163,22 @@
         background: linear-gradient(90deg, var(--brand), var(--accent));
         box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
       }
-
-      /* ===== Slogan 強化樣式 ===== */
-      .slogan-capsule {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 18px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.08);
-        border: 1px solid var(--border);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        box-shadow: 0 18px 36px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
-      }
-      .slogan-capsule .spark {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: radial-gradient(circle, #7dd3fc 0%, #22c55e 60%, transparent 70%);
-        box-shadow: 0 0 22px rgba(88,166,255,0.6), 0 0 14px rgba(32,192,91,0.6) inset;
-        flex: 0 0 10px;
-      }
-      .slogan-capsule strong {
-        color: transparent;
-        background-image: linear-gradient(90deg, var(--text), #b6c6ff);
-        -webkit-background-clip: text;
-        background-clip: text;
-        font-weight: 800;
-        font-size: clamp(20px, 3.2vw, 28px);
-        letter-spacing: 0.2px;
-      }
-      .slogan-capsule::after {
-        content: "";
-        position: absolute;
-        left: 16px;
-        right: 16px;
-        bottom: -12px;
-        height: 6px;
-        border-radius: 8px;
-        background: linear-gradient(90deg, var(--brand), var(--accent));
-        filter: blur(0.6px);
-        opacity: 0.9;
-      }
-
-      .slogan-sub {
-        margin: 14px 0 4px;
-        color: var(--muted);
-        font-size: clamp(16px, 2.2vw, 18px);
-        max-width: 58ch;
-      }
-
-      /* 副標權重降低 */
-      .subtitle {
-        font-size: clamp(20px, 3.6vw, 30px);
-        margin: 4px 0 0;
+      .title h2 {
+        font-size: clamp(24px, 4.2vw, 36px);
+        margin: 0;
         color: var(--accent);
-        font-weight: 700; /* 原本 800 → 降低視覺權重 */
+        font-weight: 800;
       }
 
-      /* CTA 按鈕 */
-      .cta {
-        display: flex;
-        gap: 12px;
-        margin-top: 8px;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 16px;
-        border-radius: 12px;
-        font-weight: 700;
-        font-size: 14px;
-        letter-spacing: 0.2px;
-        border: 1px solid var(--border);
-        transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-        text-decoration: none;
-      }
-      .btn.primary {
-        background: linear-gradient(90deg, rgba(32,192,91,0.22), rgba(88,166,255,0.22));
-        color: var(--text);
-      }
-      .btn.ghost {
-        background: rgba(255,255,255,0.06);
+      /* ★ slogan 放大 */
+      .title p.slogan {
+        margin: 10px 0 0;
         color: var(--muted);
-      }
-      .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+        font-size: clamp(18px, 2.8vw, 22px);
+        max-width: 50ch;
       }
 
+      /* ★ 影片整體向左微靠（保留原本特性） */
       .video-wrap {
         width: 100%;
         aspect-ratio: 16/9;
@@ -216,7 +187,7 @@
         border-radius: 18px;
         overflow: hidden;
         box-shadow: var(--shadow);
-        margin-left: -16px; /* ★ 影片整體向左微靠 */
+        margin-left: -16px;
       }
       .video-wrap iframe {
         width: 100%;
@@ -242,9 +213,9 @@
         border-radius: 16px;
         padding: 20px;
         box-shadow: var(--shadow);
-        transform: translateY(8px);
-        opacity: 0; /* 初始為 0，reveal 後變 1 */
-        transition: transform 480ms ease, opacity 480ms ease;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.6s ease;
       }
       .card.reveal {
         transform: translateY(0);
@@ -284,16 +255,19 @@
       }
 
       @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        /* ★ 手機端也稍微往右靠 */
-        .container { padding: 32px 20px 32px 44px; }
-        .video-wrap { margin-left: -8px; }
-        .slogan-capsule {
-          padding: 10px 16px;
-          box-shadow: 0 12px 24px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.08);
+        .hero {
+          grid-template-columns: 1fr;
         }
-        .slogan-capsule::after { bottom: -10px; height: 5px; }
+        .title {
+          padding-left: 12px;
+        }
+        /* ★ 手機端也稍微往右靠 */
+        .container {
+          padding: 32px 20px 32px 44px;
+        }
+        .video-wrap {
+          margin-left: -8px;
+        }
       }
     </style>
   </head>
@@ -302,39 +276,26 @@
     <div class="orb" aria-hidden="true"></div>
 
     <main class="container">
-      <!-- Hero 區 -->
       <section class="section" aria-labelledby="hero-title">
         <div class="hero">
           <div class="title">
             <h1 id="hero-title"><span class="underline">VermaVibe</span></h1>
-
-            <!-- 玻璃膠囊 Slogan -->
-            <div class="slogan-capsule" aria-label="核心口號">
-              <span class="spark" aria-hidden="true"></span>
-              <strong>Create Harvests With Less Input</strong>
-            </div>
-
-            <!-- 次要說明 -->
-            <p class="slogan-sub">用更少的水分、養分與調試時間，穩定提升產量與品質。</p>
-
-            <!-- 副標：權重降低 -->
-            <h2 class="subtitle">Quantum Farming</h2>
-
-            <!-- CTA -->
-            <div class="cta">
-              #quantum了解方法</a>
-              #evolution更多案例</a>
-            </div>
+            <h2>Quantum Farming</h2>
+            <p class="slogan">Create Harvests With Less Input</p>
           </div>
-
-          <!-- 右側影片（維持左靠設定） -->
           <div class="video-wrap" aria-label="介紹影片">
             <iframe
               src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
               title="介紹影片"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowfullscreen
-           h3 id="evo-title">農業進化論</h3>
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section id="evolution" class="section" aria-labelledby="evo-title">
+        <h3 id="evo-title">農業進化論</h3>
         <div class="stack">
           <article class="card">
             <span class="badge">核心目標</span>
@@ -354,14 +315,15 @@
         </div>
       </section>
 
-      <!-- 量子農法 -->
       <section id="quantum" class="section" aria-labelledby="quantum-title">
         <h3 id="quantum-title">量子農法</h3>
         <div class="stack">
           <article class="card">
             <span class="badge">運作機制</span>
             <h4>參數化與迭代</h4>
-            <p>把水分、養分、光照、溫濕度等轉為可追蹤參數，小步快跑持續優化。</p>
+            <p>
+              把水分、養分、光照、溫濕度等轉為可追蹤參數，小步快跑持續優化。
+            </p>
           </article>
           <article class="card">
             <span class="badge">作用結果</span>
@@ -381,25 +343,22 @@
       </footer>
     </main>
 
-    <!-- 顯示保險機制：多重觸發方式，確保下方卡片一定出現 -->
     <script>
       const cards = document.querySelectorAll(".card");
 
-      // IntersectionObserver：門檻更低、觸發更早
+      /* ★ 降低門檻，增加 rootMargin，避免不觸發的情況 */
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("reveal");
-              io.unobserve(e.target); // 顯示後不再觀察，節省資源
-            }
+            if (e.isIntersecting) e.target.classList.add("reveal");
           });
         },
-        { threshold: 0, rootMargin: "0px 0px -20% 0px" }
+        { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
       );
+
       cards.forEach((c) => io.observe(c));
 
-      // 載入後保險機制：若 800ms 仍未 reveal，就強制顯示
+      /* ★ 載入後保險機制：若 800ms 仍未 reveal，就強制顯示 */
       window.addEventListener("load", () => {
         setTimeout(() => {
           cards.forEach((c) => {
@@ -407,32 +366,15 @@
           });
         }, 800);
       });
-
-      // DOMContentLoaded：初次渲染完也檢查一次
-      document.addEventListener("DOMContentLoaded", () => {
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        cards.forEach((c) => {
-          const rect = c.getBoundingClientRect();
-          if (rect.top <= vh * 0.95) c.classList.add("reveal");
-        });
-      });
-
-      // 首次滾動保險
-      let firstScrollChecked = false;
-      window.addEventListener("scroll", () => {
-        if (firstScrollChecked) return;
-        firstScrollChecked = true;
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        cards.forEach((c) => {
-          const rect = c.getBoundingClientRect();
-          if (rect.top <= vh * 1.05) c.classList.add("reveal");
-        });
-      });
-
-      // 超保險：1.2s 後全部 reveal
-      setTimeout(() => {
-        cards.forEach((c) => c.classList.add("reveal"));
-      }, 1200);
     </script>
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .card {
+          transform: none;
+          opacity: 1 !important;
+          transition: none;
+        }
+      }
+    </style>
   </body>
 </html>
