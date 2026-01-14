@@ -1,20 +1,19 @@
-
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]          # 依你的主分支調整，如 main 或 master
-  workflow_dispatch:            # 允許手動觸發（方便你「重新 build」）
+    branches: [main] # 如果你的主分支是 master，改為 master
+  workflow_dispatch: # 允許手動觸發（方便重新 build）
 
-# 同一時間僅允許一個部署在進行；新的運行會取消舊的（避免卡住）
+# 僅允許單一併發；新的執行會自動取消舊的（避免 in-progress 衝突）
 concurrency:
   group: pages-deploy
   cancel-in-progress: true
 
 permissions:
   contents: read
-  pages: write                   # ★ 必須，否則部署會失敗
-  id-token: write                # ★ 必須，用於 OIDC 驗證
+  pages: write # 必要：部署 Pages
+  id-token: write # 必要：OIDC
 
 jobs:
   build:
@@ -23,22 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'     # 依你的專案調整 Node 版本
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build       # 請確保會輸出到 ./dist（或替換為你的輸出資料夾）
-
+      # 你的網站是純靜態，沒有 build 步驟，直接上傳 index.html 所在的資料夾。
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .                 # ★ 若你的輸出不是 dist，改成正確資料夾
+          path: ./ # 若網站改放在 docs/，改成 ./docs
 
   deploy:
     environment:
