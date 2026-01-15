@@ -8,6 +8,9 @@
       name="description"
       content="在 Premium 精修版基礎上，微調右側影片位置向左靠一點；左側標題微向右、無品牌小字；霓虹背景、玻璃霧面卡片與微動效。"
     />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0f1e" />
+
     <style>
       :root {
         --bg-0: #0a0f1e;
@@ -20,10 +23,15 @@
         --border: rgba(255, 255, 255, 0.14);
         --shadow: 0 36px 72px rgba(0, 0, 0, 0.5);
       }
+
       html,
       body {
         height: 100%;
       }
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         color: var(--text);
@@ -46,10 +54,11 @@
             var(--bg-0) 100%
           );
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
-      * {
-        box-sizing: border-box;
-      }
+
+      /* 背景星點與光暈 */
       .stars {
         position: fixed;
         inset: 0;
@@ -82,6 +91,7 @@
           opacity: 0.6;
         }
       }
+
       .orb {
         position: fixed;
         inset: -20vh -10vw auto auto;
@@ -115,12 +125,12 @@
         }
       }
 
-      /* ★ 整體往右靠一點點：左側 padding 增加 */
+      /* 版面與 Hero */
       .container {
         width: 100vw;
         max-width: 100vw;
         margin: 0;
-        padding: 40px 24px 40px 52px;
+        padding: 40px 24px 40px 52px; /* 整體微向右 */
       }
       .section {
         width: 100%;
@@ -136,7 +146,7 @@
         display: flex;
         flex-direction: column;
         gap: 14px;
-        padding-left: 24px;
+        padding-left: 24px; /* 標題微向右 */
       }
 
       .title h1 {
@@ -170,7 +180,6 @@
         font-weight: 800;
       }
 
-      /* ★ slogan 放大 */
       .title p.slogan {
         margin: 10px 0 0;
         color: var(--muted);
@@ -178,7 +187,7 @@
         max-width: 50ch;
       }
 
-      /* ★ 影片整體向左微靠（保留原本特性） */
+      /* 影片微向左（用 transform，避免負 margin 的副作用） */
       .video-wrap {
         width: 100%;
         aspect-ratio: 16/9;
@@ -187,7 +196,7 @@
         border-radius: 18px;
         overflow: hidden;
         box-shadow: var(--shadow);
-        margin-left: -16px;
+        transform: translateX(-12px);
       }
       .video-wrap iframe {
         width: 100%;
@@ -226,11 +235,9 @@
           margin-left: -8px;
         }
       }
-
-      /* Nature Power - Intro section (uses existing CSS variables) */
       .intro-section {
         padding: 60px 24px;
-        margin-top: 60px;
+        margin-top: 68px; /* 你要求的：往下移，Hero 與 Intro 留白更舒適 */
         background: radial-gradient(
             circle at 20% 20%,
             color-mix(in oklab, var(--accent) 30%, transparent),
@@ -252,7 +259,6 @@
         padding-inline: 8px; /* 微調左右內距以對齊主容器 */
       }
 
-      /* Title & subtitle */
       .intro-title {
         font-size: clamp(28px, 5vw, 48px);
         font-weight: 900;
@@ -288,7 +294,7 @@
         gap: 20px;
       }
 
-      /* Card style aligned with your glassy design */
+      /* 玻璃霧面卡片 + reveal 動畫 */
       .intro-card {
         background: var(--card);
         border: 1px solid var(--border);
@@ -298,12 +304,21 @@
         backdrop-filter: blur(8px);
         box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        outline: none; /* 用 focus-visible 取代預設 outline */
+
+        /* 初始先不顯示，等待 reveal */
+        opacity: 0;
+        transform: translateY(8px);
       }
       .intro-card:hover,
       .intro-card:focus-visible {
         transform: translateY(-4px);
         box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+        outline: none;
+      }
+      .intro-card.reveal {
+        opacity: 1;
+        transform: none;
+        transition: opacity 0.5s ease, transform 0.5s ease;
       }
 
       .intro-card h3 {
@@ -316,24 +331,49 @@
         font-size: 16px;
         color: var(--muted);
         line-height: 1.65;
+        margin: 0;
       }
 
-      /* Reduce motion support */
+      /* 使用者偏好減少動效時 */
       @media (prefers-reduced-motion: reduce) {
+        .stars,
+        .orb {
+          animation: none !important;
+        }
         .intro-card {
-          transition: none;
+          transform: none !important;
+          opacity: 1 !important;
+          transition: none !important;
         }
         .intro-card:hover,
         .intro-card:focus-visible {
-          transform: none;
-          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+          transform: none !important;
+          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4) !important;
         }
       }
 
-      /* Responsive */
+      /* RWD */
       @media (max-width: 1024px) {
         .intro-grid {
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+      }
+
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          padding-left: 12px;
+        }
+        .container {
+          padding: 32px 20px 40px 44px; /* 手機端也稍微往右靠 */
+        }
+        .video-wrap {
+          transform: translateX(-6px);
+        }
+        .intro-section {
+          margin-top: 56px; /* 手機端留白稍收斂 */
         }
       }
 
@@ -353,6 +393,7 @@
       }
     </style>
   </head>
+
   <body>
     <div class="stars" aria-hidden="true"></div>
     <div class="orb" aria-hidden="true"></div>
@@ -365,6 +406,7 @@
             <h2>Quantum Farming</h2>
             <p class="slogan">Create Harvests With Less Input</p>
           </div>
+
           <div class="video-wrap" aria-label="介紹影片">
             <iframe
               src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
@@ -446,21 +488,22 @@
     </main>
 
     <script>
-      const cards = document.querySelectorAll(".card");
+      // 只觀察 .intro-card（修正過去選錯 .card）
+      const cards = document.querySelectorAll(".intro-card");
 
-      /* ★ 降低門檻，增加 rootMargin，避免不觸發的情況 */
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
             if (e.isIntersecting) e.target.classList.add("reveal");
           });
         },
+        // 放寬一點，避免在某些視窗高度下沒觸發
         { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
       );
 
       cards.forEach((c) => io.observe(c));
 
-      /* ★ 載入後保險機制：若 800ms 仍未 reveal，就強制顯示 */
+      // 載入後保險機制：若 800ms 仍未 reveal，就強制顯示
       window.addEventListener("load", () => {
         setTimeout(() => {
           cards.forEach((c) => {
