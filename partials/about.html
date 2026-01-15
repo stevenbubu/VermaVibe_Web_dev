@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,7 +19,7 @@
     <meta property="og:title" content="VermaVibe — Quantum Farming" />
     <meta
       property="og:description"
-      content="Create Harvests With Less Input. Where Nature's Force Becomes Your Strength."
+      content="Achieve Harvests with Quantum Power. Where Nature's Force Becomes Your Strength."
     />
     <meta property="og:image" content="https://example.com/og-cover.jpg" />
     <meta property="og:url" content="https://example.com/" />
@@ -26,7 +27,7 @@
     <meta name="twitter:title" content="VermaVibe — Quantum Farming" />
     <meta
       name="twitter:description"
-      content="Create Harvests With Less Input."
+      content="Achieve Harvests with Quantum Power."
     />
     <meta name="twitter:image" content="https://example.com/og-cover.jpg" />
 
@@ -42,15 +43,19 @@
         --border: rgba(255, 255, 255, 0.18);
         --shadow: 0 36px 72px rgba(0, 0, 0, 0.5);
         --shadow-hover: 0 32px 64px rgba(0, 0, 0, 0.5);
+
+        /* Intro/Evolution 掃光用 */
+        --shine-1: rgba(255, 255, 255, 0.75);
+        --shine-2: rgba(255, 255, 255, 0.35);
+        --shine-3: rgba(255, 255, 255, 0);
+        --shimmer-duration: 3.8s; /* 掃光 */
+        --gloss-duration: 2.6s;   /* 窄光束 */
       }
 
       html,
-      body {
-        height: 100%;
-      }
-      * {
-        box-sizing: border-box;
-      }
+      body { height: 100%; }
+      * { box-sizing: border-box; }
+
       body {
         margin: 0;
         color: var(--text);
@@ -102,11 +107,7 @@
           );
         animation: twinkle 6s linear infinite;
       }
-      @keyframes twinkle {
-        50% {
-          opacity: 0.6;
-        }
-      }
+      @keyframes twinkle { 50% { opacity: 0.6; } }
 
       .orb {
         position: fixed;
@@ -133,12 +134,8 @@
         animation: drift 28s ease-in-out infinite alternate;
       }
       @keyframes drift {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        100% {
-          transform: translate3d(-6vw, 4vh, 0) scale(1.06);
-        }
+        0% { transform: translate3d(0, 0, 0) scale(1); }
+        100% { transform: translate3d(-6vw, 4vh, 0) scale(1.06); }
       }
 
       /* Layout */
@@ -148,9 +145,7 @@
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
-      .section {
-        width: 100%;
-      }
+      .section { width: 100%; }
 
       .hero {
         display: grid;
@@ -178,6 +173,8 @@
         position: relative;
         display: inline-block;
       }
+
+      /* ===== Hero 底線：由消失到出現（一次性） ===== */
       .title h1 .underline::after {
         content: "";
         position: absolute;
@@ -188,7 +185,21 @@
         border-radius: 8px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
         box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
+        /* 從 0 → 1 的展開與淡入 */
+        transform-origin: left;
+        transform: scaleX(0);
+        opacity: 0;
+        animation: underline-reveal 900ms ease-out 220ms both;
       }
+      /* Hero 不要窄光束層，確保是「由無到有」的純粹顯現 */
+      .title h1 .underline::before { content: none; }
+
+      @keyframes underline-reveal {
+        0%   { transform: scaleX(0); opacity: 0; }
+        55%  { transform: scaleX(1.05); opacity: 1; } /* 輕微超伸，更有生動感 */
+        100% { transform: scaleX(1); opacity: 1; }
+      }
+
       .title h2 {
         font-size: clamp(24px, 4.2vw, 36px);
         margin: 0;
@@ -225,28 +236,26 @@
         padding: 30px 24px;
       }
 
-      /* 減少動效偏好：直接顯示，避免看不到 */
+      /* 減少動效偏好 */
       @media (prefers-reduced-motion: reduce) {
         .card {
           transform: none;
           opacity: 1 !important;
           transition: none;
         }
+        /* Hero 底線改為靜態呈現 */
+        .title h1 .underline::after {
+          animation: none !important;
+          transform: none !important;
+          opacity: 1 !important;
+        }
       }
 
       @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-        .title {
-          padding-left: 12px;
-        }
-        .container {
-          padding: 32px 20px 32px 44px;
-        } /* 手機端也稍微往右靠 */
-        .video-wrap {
-          transform: translateX(-6px);
-        }
+        .hero { grid-template-columns: 1fr; }
+        .title { padding-left: 12px; }
+        .container { padding: 32px 20px 32px 44px; }
+        .video-wrap { transform: translateX(-6px); }
       }
 
       /* Nature Power - Intro section */
@@ -281,6 +290,7 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
+      /* === Intro 標題掃光（保留原掃光效果） === */
       .intro-title::after {
         content: "";
         position: absolute;
@@ -289,8 +299,40 @@
         width: 100%;
         height: 6px;
         border-radius: 6px;
-        background: linear-gradient(90deg, var(--brand), var(--accent));
+        background:
+          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
+          linear-gradient(
+            90deg,
+            var(--shine-3) 0%,
+            var(--shine-2) 44%,
+            var(--shine-1) 50%,
+            var(--shine-2) 56%,
+            var(--shine-3) 100%
+          ) no-repeat;
+        background-size: 100% 100%, 240% 100%;
+        background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
+        animation: shimmer var(--shimmer-duration) ease-in-out infinite;
+      }
+      .intro-title::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        bottom: -10px;
+        width: 16%;
+        height: 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.45) 45%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0.45) 55%,
+          transparent 100%
+        );
+        filter: blur(3.5px);
+        transform: skewX(-12deg);
+        animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
       }
 
       .intro-subtitle {
@@ -323,10 +365,8 @@
         transform: translateY(-4px);
         box-shadow: var(--shadow-hover);
       }
-      .intro-card.reveal {
-        opacity: 1;
-        transform: none;
-      }
+      .intro-card.reveal { opacity: 1; transform: none; }
+
       .intro-card h3 {
         font-size: 20px;
         margin: 0;
@@ -390,23 +430,10 @@
         opacity: 0.55;
         z-index: -1;
       }
-      .intro-icon svg {
-        display: block;
-        width: 22px;
-        height: 22px;
-      }
-      .intro-card:nth-child(1) .intro-icon {
-        --g1: #58a6ff;
-        --g2: #7c3aed;
-      }
-      .intro-card:nth-child(2) .intro-icon {
-        --g1: #22c55e;
-        --g2: #58a6ff;
-      }
-      .intro-card:nth-child(3) .intro-icon {
-        --g1: #f59e0b;
-        --g2: #22c55e;
-      }
+      .intro-icon svg { width: 22px; height: 22px; display: block; }
+      .intro-card:nth-child(1) .intro-icon { --g1:#58a6ff; --g2:#7c3aed; }
+      .intro-card:nth-child(2) .intro-icon { --g1:#22c55e; --g2:#58a6ff; }
+      .intro-card:nth-child(3) .intro-icon { --g1:#f59e0b; --g2:#22c55e; }
 
       /* === Agricultural Evolution Section (ALL ENGLISH) === */
       .evolution-section {
@@ -438,6 +465,7 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
+      /* === Evolution 標題掃光（保留原掃光效果） === */
       .evolution-title::after {
         content: "";
         position: absolute;
@@ -446,9 +474,42 @@
         width: 100%;
         height: 6px;
         border-radius: 6px;
-        background: linear-gradient(90deg, var(--brand), var(--accent));
+        background:
+          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
+          linear-gradient(
+            90deg,
+            var(--shine-3) 0%,
+            var(--shine-2) 44%,
+            var(--shine-1) 50%,
+            var(--shine-2) 56%,
+            var(--shine-3) 100%
+          ) no-repeat;
+        background-size: 100% 100%, 240% 100%;
+        background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
+        animation: shimmer var(--shimmer-duration) ease-in-out infinite;
       }
+      .evolution-title::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        bottom: -10px;
+        width: 16%;
+        height: 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.45) 45%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0.45) 55%,
+          transparent 100%
+        );
+        filter: blur(3.5px);
+        transform: skewX(-12deg);
+        animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
+      }
+
       .evolution-lead {
         font-size: clamp(18px, 2.6vw, 22px);
         color: var(--muted);
@@ -479,10 +540,8 @@
         transform: translateY(-4px);
         box-shadow: var(--shadow-hover);
       }
-      .evolution-card.reveal {
-        opacity: 1;
-        transform: none;
-      }
+      .evolution-card.reveal { opacity: 1; transform: none; }
+
       .evolution-card h3 {
         font-size: 20px;
         margin: 0;
@@ -524,10 +583,7 @@
           0 10px 26px rgba(88, 166, 255, 0.36), 0 2px 8px rgba(0, 0, 0, 0.26);
       }
       .evolution-icon svg,
-      .evo-icon svg {
-        width: 24px;
-        height: 24px;
-      }
+      .evo-icon svg { width: 24px; height: 24px; }
 
       /* Accessibility: focus visible for intro cards too */
       .intro-card:focus-visible {
@@ -535,19 +591,23 @@
         outline-offset: 4px;
       }
 
-      /* Reduced motion */
+      /* 掃光與卡片運動的 Reduced motion */
       @media (prefers-reduced-motion: reduce) {
-        .stars,
-        .orb {
-          animation: none !important;
-        }
-        .intro-card,
-        .evolution-card {
+        .stars, .orb { animation: none !important; }
+        .intro-card, .evolution-card {
           transform: none !important;
           opacity: 1 !important;
           transition: none !important;
         }
-        .intro-icon::before {
+        .intro-icon::before { display: none !important; }
+        /* 保留掃光區塊的靜態底線 */
+        .intro-title::after,
+        .evolution-title::after {
+          animation: none !important;
+          background-position: 0 0, 0 0 !important;
+        }
+        .intro-title::before,
+        .evolution-title::before {
           display: none !important;
         }
       }
@@ -559,40 +619,36 @@
         }
       }
       @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-        .title {
-          padding-left: 12px;
-        }
-        .container {
-          padding: 32px 20px 32px 44px; /* still slightly right-shift */
-        }
-        .video-wrap {
-          transform: translateX(-6px);
-        }
+        .hero { grid-template-columns: 1fr; }
+        .title { padding-left: 12px; }
+        .container { padding: 32px 20px 32px 44px; }
+        .video-wrap { transform: translateX(-6px); }
       }
       @media (max-width: 768px) {
         .intro-title::after,
-        .evolution-title::after {
-          height: 4px;
-        }
-        .intro-subtitle {
-          font-size: 16px;
-        }
+        .evolution-title::after { height: 4px; }
+        .intro-subtitle { font-size: 16px; }
         .intro-card h3,
-        .evolution-card h3 {
-          font-size: 18px;
-        }
+        .evolution-card h3 { font-size: 18px; }
         .intro-card p,
-        .evolution-card p {
-          font-size: 15px;
-        }
+        .evolution-card p { font-size: 15px; }
       }
       @media (max-width: 480px) {
-        .orb {
-          filter: blur(28px); /* lighten GPU workload on small screens */
-        }
+        .orb { filter: blur(28px); }
+      }
+
+      /* Intro/Evolution 掃光的動畫（Hero 已不使用） */
+      @keyframes shimmer {
+        0%   { background-position: 0 0, -160% 0; }
+        50%  { background-position: 0 0, 80% 0; }
+        100% { background-position: 0 0, -160% 0; }
+      }
+      @keyframes gloss-sweep {
+        0%   { left: -18%; opacity: 0; }
+        12%  { opacity: 0.55; }
+        50%  { left: 68%; opacity: 0.9; }
+        88%  { opacity: 0.4; }
+        100% { left: 118%; opacity: 0; }
       }
     </style>
   </head>
@@ -607,7 +663,7 @@
           <div class="title">
             <h1 id="hero-title"><span class="underline">VermaVibe</span></h1>
             <h2>Quantum Farming</h2>
-            <p class="slogan">Create Harvests With Less Input</p>
+            <p class="slogan">Achieve Harvests with Quantum Power</p>
           </div>
           <div class="video-wrap" aria-label="Intro video">
             <iframe
