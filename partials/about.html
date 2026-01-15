@@ -236,28 +236,6 @@
         padding: 30px 24px;
       }
 
-      /* 減少動效偏好 */
-      @media (prefers-reduced-motion: reduce) {
-        .card {
-          transform: none;
-          opacity: 1 !important;
-          transition: none;
-        }
-        /* Hero 底線改為靜態呈現 */
-        .title h1 .underline::after {
-          animation: none !important;
-          transform: none !important;
-          opacity: 1 !important;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        .container { padding: 32px 20px 32px 44px; }
-        .video-wrap { transform: translateX(-6px); }
-      }
-
       /* Nature Power - Intro section */
       .intro-section {
         padding: 60px 24px;
@@ -347,25 +325,45 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
       }
-      .intro-card {
+
+      /* ====== 卡片動畫（初始、顯示、互動）====== */
+      .intro-card,
+      .evolution-card {
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 16px;
         padding: 24px;
         text-align: left;
         backdrop-filter: blur(8px);
-        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
         outline: none;
+
+        /* 初始狀態：淡、下移、陰影輕 */
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(14px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+
+        /* 進場過渡：透明、位移、陰影一起變化 */
+        transition:
+          opacity 0.6s ease-out,
+          transform 0.6s ease-out,
+          box-shadow 0.6s ease-out;
       }
+      /* 顯示狀態：完全可見、歸位、陰影加深 */
+      .intro-card.reveal,
+      .evolution-card.reveal {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38);
+      }
+
+      /* Hover / Focus：細微上浮 + 陰影加深 */
       .intro-card:hover,
-      .intro-card:focus-visible {
+      .intro-card:focus-visible,
+      .evolution-card:hover,
+      .evolution-card:focus-visible {
         transform: translateY(-4px);
         box-shadow: var(--shadow-hover);
       }
-      .intro-card.reveal { opacity: 1; transform: none; }
 
       .intro-card h3 {
         font-size: 20px;
@@ -523,25 +521,8 @@
         gap: 24px;
       }
       .evolution-card {
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 16px;
         padding: 28px;
-        text-align: left;
-        backdrop-filter: blur(8px);
-        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
-        outline: none;
-        opacity: 0;
-        transform: translateY(10px);
       }
-      .evolution-card:hover,
-      .evolution-card:focus-visible {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-hover);
-      }
-      .evolution-card.reveal { opacity: 1; transform: none; }
-
       .evolution-card h3 {
         font-size: 20px;
         margin: 0;
@@ -591,15 +572,19 @@
         outline-offset: 4px;
       }
 
-      /* 掃光與卡片運動的 Reduced motion */
+      /* 減少動效偏好 */
       @media (prefers-reduced-motion: reduce) {
         .stars, .orb { animation: none !important; }
+
         .intro-card, .evolution-card {
           transform: none !important;
           opacity: 1 !important;
           transition: none !important;
+          box-shadow: 0 24px 48px rgba(0,0,0,0.38) !important;
         }
+
         .intro-icon::before { display: none !important; }
+
         /* 保留掃光區塊的靜態底線 */
         .intro-title::after,
         .evolution-title::after {
@@ -695,7 +680,7 @@
           <div class="intro-grid">
             <!-- Mechanism -->
             <article
-              class="intro-card reveal"
+              class="intro-card"
               tabindex="0"
               aria-labelledby="np-mechanism-title"
             >
@@ -728,7 +713,7 @@
 
             <!-- Target -->
             <article
-              class="intro-card reveal"
+              class="intro-card"
               tabindex="0"
               aria-labelledby="np-target-title"
             >
@@ -766,7 +751,7 @@
 
             <!-- Effects -->
             <article
-              class="intro-card reveal"
+              class="intro-card"
               tabindex="0"
               aria-labelledby="np-effects-title"
             >
@@ -813,7 +798,7 @@
           <div class="evolution-grid">
             <!-- Core -->
             <article
-              class="evolution-card reveal"
+              class="evolution-card"
               tabindex="0"
               aria-labelledby="core-title"
             >
@@ -847,7 +832,7 @@
 
             <!-- Application -->
             <article
-              class="evolution-card reveal"
+              class="evolution-card"
               tabindex="0"
               aria-labelledby="application-title"
             >
@@ -895,13 +880,25 @@
         ".intro-card, .evolution-card"
       );
 
+      // 依 DOM 順序產生 Stagger 延遲，避免 IO entries 順序不固定
+      const getIndexDelay = (el) => {
+        const list = Array.from(revealTargets);
+        const idx = list.indexOf(el);
+        const base = 120; // 每張卡片延遲（毫秒）
+        return Math.max(0, idx) * base;
+      };
+
       if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver(
           (entries, obs) => {
-            entries.forEach((e) => {
-              if (e.isIntersecting) {
-                reveal(e.target);
-                obs.unobserve(e.target); // reduce callbacks once revealed
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const delay = getIndexDelay(entry.target);
+                // 使用 requestAnimationFrame 確保更順暢
+                setTimeout(() => {
+                  requestAnimationFrame(() => reveal(entry.target));
+                }, delay);
+                obs.unobserve(entry.target); // reduce callbacks once revealed
               }
             });
           },
@@ -912,10 +909,10 @@
         // Fallback: ensure content is visible even if IO doesn't trigger promptly
         window.addEventListener("load", () => {
           setTimeout(() => {
-            revealTargets.forEach(
-              (c) => c.classList.contains("reveal") || reveal(c)
+            revealTargets.forEach((c) =>
+              c.classList.contains("reveal") || reveal(c)
             );
-          }, 800);
+          }, 1000);
         });
       } else {
         // Older browsers: reveal immediately
@@ -924,3 +921,4 @@
     </script>
   </body>
 </html>
+``
