@@ -1,73 +1,167 @@
 
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Use full available viewport including notches on iOS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>VermaVibe</title>
     <meta
       name="description"
-      content="在 Premium 精修版基礎上，微調右側影片位置向左靠一點；左側標題微向右、無品牌小字；霓虹背景、玻璃霧面卡片與微動效。"
+      content="VermaVibe Quantum Farming — Neon background, glassmorphism cards, subtle motion; refined layout with a right-shifted hero and slightly left-shifted video."
     />
+
+    <!-- Canonical & Theme -->
+    https://example.com/
+    <meta name="theme-color" content="#0a0f1e" />
+
+    <!-- Open Graph / Twitter Cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="VermaVibe — Quantum Farming" />
+    <meta
+      property="og:description"
+      content="Create Harvests With Less Input. Where Nature's Force Becomes Your Strength."
+    />
+    <meta property="og:image" content="https://example.com/og-cover.jpg" />
+    <meta property="og:url" content="https://example.com/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="VermaVibe — Quantum Farming" />
+    <meta name="twitter:description" content="Create Harvests With Less Input." />
+    <meta name="twitter:image" content="https://example.com/og-cover.jpg" />
+
+    <!-- Icons & PWA -->
+    /favicon.ico
+    /icon.svg
+    /apple-touch-icon.png
+    /site.webmanifest
+
+    <!-- Performance hints for YouTube -->
+    https://www.youtube-nocookie.com
+    https://i.ytimg.com
+    https://www.youtube-nocookie.com
+    https://i.ytimg.com
+
     <style>
       :root {
         --bg-0: #0a0f1e;
         --bg-1: #0f172a;
         --text: #eef4ff;
-        --muted: #a5b2c9;
+        --muted: #b9c5da; /* brighter for contrast */
         --brand: #20c05b;
         --accent: #58a6ff;
-        --card: rgba(255, 255, 255, 0.07);
-        --border: rgba(255, 255, 255, 0.14);
+        --card: rgba(255, 255, 255, 0.09);
+        --border: rgba(255, 255, 255, 0.18);
         --shadow: 0 36px 72px rgba(0, 0, 0, 0.5);
+        --shadow-hover: 0 32px 64px rgba(0, 0, 0, 0.5);
       }
-      html, body { height: 100%; }
-      * { box-sizing: border-box; }
+
+      html,
+      body {
+        height: 100%;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         color: var(--text);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI,
-          Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
-        background:
-          radial-gradient(1100px 560px at 14% -10%, rgba(88,166,255,.22), transparent 60%),
-          radial-gradient(900px 460px at 90% 110%, rgba(32,192,91,.22), transparent 62%),
-          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+          Noto Sans, Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
+        background: radial-gradient(
+            1100px 560px at 14% -10%,
+            rgba(88, 166, 255, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 460px at 90% 110%,
+            rgba(32, 192, 91, 0.22),
+            transparent 62%
+          ),
+          linear-gradient(
+            180deg,
+            var(--bg-0) 0%,
+            var(--bg-1) 40%,
+            var(--bg-0) 100%
+          );
         overflow-x: hidden;
       }
 
       .stars {
-        position: fixed; inset: 0; z-index: -2; pointer-events: none;
-        background:
-          radial-gradient(1px 1px at 14% 28%, rgba(255, 255, 255, 0.9), transparent 2px),
-          radial-gradient(1px 1px at 42% 82%, rgba(255, 255, 255, 0.7), transparent 2px),
-          radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.7), transparent 2px),
-          radial-gradient(1px 1px at 85% 58%, rgba(255, 255, 255, 0.6), transparent 2px);
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background: radial-gradient(
+            1px 1px at 14% 28%,
+            rgba(255, 255, 255, 0.9),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 42% 82%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 70% 30%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 85% 58%,
+            rgba(255, 255, 255, 0.6),
+            transparent 2px
+          );
         animation: twinkle 6s linear infinite;
       }
-      @keyframes twinkle { 50% { opacity: 0.6; } }
+      @keyframes twinkle {
+        50% {
+          opacity: 0.6;
+        }
+      }
 
       .orb {
-        position: fixed; inset: -20vh -10vw auto auto; width: 60vw; height: 60vh; z-index: -3;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(88,166,255,.32), transparent 50%),
-          radial-gradient(circle at 70% 60%, rgba(32,192,91,.24), transparent 60%),
-          radial-gradient(circle at 10% 80%, rgba(245,158,11,.18), transparent 55%);
+        position: fixed;
+        inset: -20vh -10vw auto auto;
+        width: 60vw;
+        height: 60vh;
+        z-index: -3;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(88, 166, 255, 0.32),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 60%,
+            rgba(32, 192, 91, 0.24),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 10% 80%,
+            rgba(245, 158, 11, 0.18),
+            transparent 55%
+          );
         filter: blur(42px);
         animation: drift 28s ease-in-out infinite alternate;
       }
       @keyframes drift {
-        0% { transform: translate3d(0,0,0) scale(1); }
-        100% { transform: translate3d(-6vw,4vh,0) scale(1.06); }
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(-6vw, 4vh, 0) scale(1.06);
+        }
       }
 
-      /* ★ 整體往右靠一點點：左側 padding 增加 */
+      /* Layout */
       .container {
         width: 100vw;
         max-width: 100vw;
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
-      .section { width: 100%; }
+      .section {
+        width: 100%;
+      }
 
       .hero {
         display: grid;
@@ -76,36 +170,71 @@
         align-items: center;
       }
       .title {
-        display: flex; flex-direction: column; gap: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
         padding-left: 24px;
       }
 
       .title h1 {
         position: relative;
         font-size: clamp(40px, 7.4vw, 86px);
-        line-height: 1.02; margin: 0; font-weight: 900; letter-spacing: .3px;
+        line-height: 1.02;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 0.3px;
         display: inline-block;
       }
-      .title h1 .underline { position: relative; display: inline-block; }
+      .title h1 .underline {
+        position: relative;
+        display: inline-block;
+      }
       .title h1 .underline::after {
         content: "";
-        position: absolute; left: 0; bottom: -10px;
-        width: 100%; height: 8px; border-radius: 8px;
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100%;
+        height: 8px;
+        border-radius: 8px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
-        box-shadow: 0 10px 22px rgba(88,166,255,.3);
+        box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
       }
-      .title h2 { font-size: clamp(24px,4.2vw,36px); margin: 0; color: var(--accent); font-weight: 800; }
-      .title p.slogan { margin: 10px 0 0; color: var(--muted); font-size: clamp(18px,2.8vw,22px); max-width: 50ch; }
+      .title h2 {
+        font-size: clamp(24px, 4.2vw, 36px);
+        margin: 0;
+        color: var(--accent);
+        font-weight: 800;
+      }
+      .title p.slogan {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.8vw, 22px);
+        max-width: 50ch;
+      }
 
-      /* 影片微向左（建議用 transform，避免負 margin 的副作用） */
       .video-wrap {
-        width: 100%; aspect-ratio: 16/9; background: #000;
-        border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: #000;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
         transform: translateX(-12px);
       }
-      .video-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+      .video-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
 
-      footer { color: var(--muted); text-align: center; padding: 30px 24px; }
+      footer {
+        color: var(--muted);
+        text-align: center;
+        padding: 30px 24px;
+      }
 
       /* 減少動效偏好：直接顯示，避免看不到 */
       @media (prefers-reduced-motion: reduce) {
@@ -117,47 +246,76 @@
       }
 
       @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        .container { padding: 32px 20px 32px 44px; }  /* 手機端也稍微往右靠 */
-        .video-wrap { transform: translateX(-6px); }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          padding-left: 12px;
+        }
+        .container {
+          padding: 32px 20px 32px 44px;
+        } /* 手機端也稍微往右靠 */
+        .video-wrap {
+          transform: translateX(-6px);
+        }
       }
 
       /* Nature Power - Intro section */
       .intro-section {
         padding: 60px 24px;
         margin-top: 60px;
-        background:
-          radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent) 30%, transparent), transparent 60%),
-          radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 60%),
+        background: radial-gradient(
+            circle at 20% 20%,
+            color-mix(in oklab, var(--accent) 30%, transparent),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            color-mix(in oklab, var(--brand) 30%, transparent),
+            transparent 60%
+          ),
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text);
       }
-      .intro-container { max-width: 1200px; margin: 0 auto; text-align: center; padding-inline: 8px; }
+      .intro-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-inline: 8px;
+      }
 
       .intro-title {
         font-size: clamp(28px, 5vw, 48px);
-        font-weight: 900; margin: 0 0 16px; position: relative; display: inline-block; letter-spacing: .2px;
+        font-weight: 900;
+        margin: 0 0 16px;
+        position: relative;
+        display: inline-block;
+        letter-spacing: 0.2px;
       }
       .intro-title::after {
-        content: ""; position: absolute; left: 0; bottom: -8px; width: 100%; height: 6px; border-radius: 6px;
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 6px;
+        border-radius: 6px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
-        box-shadow: 0 6px 16px rgba(88,166,255,.3);
+        box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
       }
 
       .intro-subtitle {
         font-size: clamp(16px, 2.4vw, 20px);
-        color: var(--muted); max-width: 70ch; margin: 0 auto 40px; line-height: 1.65;
+        color: var(--muted);
+        max-width: 70ch;
+        margin: 0 auto 40px;
+        line-height: 1.65;
       }
-
-      /* Cards grid */
       .intro-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
       }
-
-      /* 玻璃霧面卡片 + reveal */
       .intro-card {
         background: var(--card);
         border: 1px solid var(--border);
@@ -166,22 +324,19 @@
         text-align: left;
         backdrop-filter: blur(8px);
         box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
         outline: none;
-
-        /* 初始隱藏（若未加 reveal） */
         opacity: 0;
         transform: translateY(8px);
       }
       .intro-card:hover,
       .intro-card:focus-visible {
         transform: translateY(-4px);
-        box-shadow: 0 32px 64px rgba(0, 0, 0, 0.5);
+        box-shadow: var(--shadow-hover);
       }
       .intro-card.reveal {
         opacity: 1;
         transform: none;
-        transition: opacity .5s ease, transform .5s ease;
       }
       .intro-card h3 {
         font-size: 20px;
@@ -196,78 +351,260 @@
         margin: 10px 0 0;
       }
 
-      /* ====== 圖示「放在主題旁邊」＋「彩色光暈版」 ====== */
       .card-head {
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 6px; /* 與段落的距離 */
+        margin-bottom: 6px;
       }
-
       .intro-icon {
-        --g1: #58a6ff;     /* 主色 1（可被 nth-child 覆蓋） */
-        --g2: #20c05b;     /* 主色 2（可被 nth-child 覆蓋） */
-        --ring: rgba(255,255,255,.18);
+        --g1: #58a6ff;
+        --g2: #20c05b;
+        --ring: rgba(255, 255, 255, 0.18);
 
         position: relative;
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
         border-radius: 10px;
-        display: inline-grid; place-items: center;
-        color: #eef4ff; /* SVG 線條顏色（使用 currentColor） */
+        display: inline-grid;
+        place-items: center;
+        color: #eef4ff;
 
-        /* 彩色暈光底 */
-        background:
-          radial-gradient(60% 60% at 30% 30%, color-mix(in oklab, var(--g1) 90%, transparent), transparent 60%),
-          radial-gradient(60% 60% at 70% 70%, color-mix(in oklab, var(--g2) 90%, transparent), transparent 60%),
-          rgba(255,255,255,.06);
-        box-shadow:
-          inset 0 0 0 1px var(--ring),
+        background: radial-gradient(
+            60% 60% at 30% 30%,
+            color-mix(in oklab, var(--g1) 90%, transparent),
+            transparent 60%
+          ),
+          radial-gradient(
+            60% 60% at 70% 70%,
+            color-mix(in oklab, var(--g2) 90%, transparent),
+            transparent 60%
+          ),
+          rgba(255, 255, 255, 0.06);
+        box-shadow: inset 0 0 0 1px var(--ring),
           0 10px 26px color-mix(in oklab, var(--g1) 36%, transparent),
-          0 2px 8px rgba(0,0,0,.26);
+          0 2px 8px rgba(0, 0, 0, 0.26);
         backdrop-filter: blur(4px);
       }
-      /* 外擴的柔光暈（不影響排版） */
       .intro-icon::before {
         content: "";
-        position: absolute; inset: -8px; border-radius: inherit;
-        background: conic-gradient(from 0deg,
+        position: absolute;
+        inset: -8px;
+        border-radius: inherit;
+        background: conic-gradient(
+          from 0deg,
           color-mix(in oklab, var(--g1) 60%, transparent),
           color-mix(in oklab, var(--g2) 60%, transparent),
           color-mix(in oklab, var(--g1) 60%, transparent)
         );
         filter: blur(14px);
-        opacity: .55;
+        opacity: 0.55;
         z-index: -1;
       }
-      .intro-icon svg { display: block; width: 22px; height: 22px; }
+      .intro-icon svg {
+        display: block;
+        width: 22px;
+        height: 22px;
+      }
+      .intro-card:nth-child(1) .intro-icon {
+        --g1: #58a6ff;
+        --g2: #7c3aed;
+      }
+      .intro-card:nth-child(2) .intro-icon {
+        --g1: #22c55e;
+        --g2: #58a6ff;
+      }
+      .intro-card:nth-child(3) .intro-icon {
+        --g1: #f59e0b;
+        --g2: #22c55e;
+      }
 
-      /* 三張卡各自的彩色主題（可換） */
-      .intro-card:nth-child(1) .intro-icon { --g1:#58a6ff; --g2:#7c3aed; } /* 藍紫 */
-      .intro-card:nth-child(2) .intro-icon { --g1:#22c55e; --g2:#58a6ff; } /* 綠藍 */
-      .intro-card:nth-child(3) .intro-icon { --g1:#f59e0b; --g2:#22c55e; } /* 金綠 */
+      /* === Agricultural Evolution Section (ALL ENGLISH) === */
+      .evolution-section {
+        padding: 80px 24px;
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(88, 166, 255, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(32, 192, 91, 0.18),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
+        color: var(--text);
+      }
+      .evolution-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-inline: 8px;
+      }
+      .evolution-title {
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 900;
+        margin-bottom: 16px;
+        position: relative;
+        display: inline-block;
+        letter-spacing: 0.2px;
+      }
+      .evolution-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 6px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+        box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
+      }
+      .evolution-lead {
+        font-size: clamp(18px, 2.6vw, 22px);
+        color: var(--muted);
+        max-width: 70ch;
+        margin: 0 auto 48px;
+        line-height: 1.65;
+      }
+      .evolution-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+      }
+      .evolution-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        text-align: left;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
+        outline: none;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .evolution-card:hover,
+      .evolution-card:focus-visible {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+      }
+      .evolution-card.reveal {
+        opacity: 1;
+        transform: none;
+      }
+      .evolution-card h3 {
+        font-size: 20px;
+        margin: 0;
+        color: var(--accent);
+        font-weight: 800;
+      }
+      .evolution-card p {
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.65;
+        margin: 10px 0 0;
+      }
+      .evolution-card:focus-visible {
+        outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
+        outline-offset: 4px;
+      }
+      .evolution-card .card-head,
+      .evo-card-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .evolution-icon,
+      .evo-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        color: #eef4ff;
+        background: radial-gradient(
+            circle at 30% 30%,
+            var(--accent),
+            transparent 60%
+          ),
+          radial-gradient(circle at 70% 70%, var(--brand), transparent 60%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+          0 10px 26px rgba(88, 166, 255, 0.36),
+          0 2px 8px rgba(0, 0, 0, 0.26);
+      }
+      .evolution-icon svg,
+      .evo-icon svg {
+        width: 24px;
+        height: 24px;
+      }
 
-      /* 減少動效偏好 */
+      /* Accessibility: focus visible for intro cards too */
+      .intro-card:focus-visible {
+        outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
+        outline-offset: 4px;
+      }
+
+      /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
-        .stars, .orb { animation: none !important; }
-        .intro-card { transform: none !important; opacity: 1 !important; transition: none !important; }
-        .intro-icon::before { display: none !important; } /* 避免暈光過度 */
+        .stars,
+        .orb {
+          animation: none !important;
+        }
+        .intro-card,
+        .evolution-card {
+          transform: none !important;
+          opacity: 1 !important;
+          transition: none !important;
+        }
+        .intro-icon::before {
+          display: none !important;
+        }
       }
 
       /* RWD */
       @media (max-width: 1024px) {
-        .intro-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .intro-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
       }
       @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        .container { padding: 32px 20px 32px 44px; }
-        .video-wrap { transform: translateX(-6px); }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          padding-left: 12px;
+        }
+        .container {
+          padding: 32px 20px 32px 44px; /* still slightly right-shift */
+        }
+        .video-wrap {
+          transform: translateX(-6px);
+        }
       }
       @media (max-width: 768px) {
-        .intro-title::after { height: 4px; }
-        .intro-subtitle { font-size: 16px; }
-        .intro-card h3 { font-size: 18px; }
-        .intro-card p { font-size: 15px; }
+        .intro-title::after,
+        .evolution-title::after {
+          height: 4px;
+        }
+        .intro-subtitle {
+          font-size: 16px;
+        }
+        .intro-card h3,
+        .evolution-card h3 {
+          font-size: 18px;
+        }
+        .intro-card p,
+        .evolution-card p {
+          font-size: 15px;
+        }
+      }
+      @media (max-width: 480px) {
+        .orb {
+          filter: blur(28px); /* lighten GPU workload on small screens */
+        }
       }
     </style>
   </head>
@@ -276,6 +613,7 @@
     <div class="orb" aria-hidden="true"></div>
 
     <main class="container">
+      <!-- Hero -->
       <section class="section" aria-labelledby="hero-title">
         <div class="hero">
           <div class="title">
@@ -283,10 +621,10 @@
             <h2>Quantum Farming</h2>
             <p class="slogan">Create Harvests With Less Input</p>
           </div>
-          <div class="video-wrap" aria-label="介紹影片">
+          <div class="video-wrap" aria-label="Intro video">
             <iframe
               src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
-              title="介紹影片"
+              title="Intro video"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowfullscreen
             ></iframe>
@@ -300,89 +638,133 @@
         aria-label="Nature's Force Intro"
       >
         <div class="intro-container">
-          <!-- Title -->
-          <h2 class="intro-title">
-            Where Nature's Force Becomes Your Strength
-          </h2>
+          <h2 class="intro-title">Where Nature's Force Becomes Your Strength</h2>
           <p class="intro-subtitle">
-            Activate nature's inherent energy to enrich the soil, enabling crops
-            to thrive naturally, reducing pest intrusion, and suppressing
-            pathogens. Minimize pesticide use and create a healthy, safe
+            Quantum farming activates nature's inherent energy to enrich the soil, enabling crops to thrive naturally,
+            reducing pest intrusion, and suppressing pathogens. Minimize pesticide use and create a healthy, safe
             agricultural environment.
           </p>
 
-          <!-- Three pillars -->
           <div class="intro-grid">
             <!-- Mechanism -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-mechanism-title"
-            >
+            <article class="intro-card" tabindex="0" aria-labelledby="np-mechanism-title">
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <!-- Gear / Mechanism -->
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" stroke="currentColor" stroke-width="1.6"/>
-                    <path d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54a7.2 7.2 0 0 1 .79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05.63.05.96s-.02.65-.05.96l1.83 1.4-1.8 3.12-2.2-.54a7.2 7.2 0 0 1-.8.68l-.1 2.27h-3.6l-.1-2.27a7.2 7.2 0 0 1-.79-.68l-2.21.54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path
+                      d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                    <path
+                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05.63.05.96s-.02.65-.05.96l1.83 1.4-1.8 3.12-2.2-.54c-.25.25-.52.48-.8.68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21.54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
                 <h3 id="np-mechanism-title">Mechanism</h3>
               </div>
               <p>
-                By leveraging <strong>Scalar Waves</strong> and
-                <strong>Intrinsic Data Fields</strong>, we adjust the target's
-                developmental state, guiding it toward a positive and balanced
-                trajectory.
+                By leveraging <strong>Scalar Waves</strong> and <strong>Intrinsic Data Fields</strong>, we adjust the target's
+                developmental state, guiding it toward a positive and balanced trajectory.
               </p>
             </article>
 
             <!-- Target -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-target-title"
-            >
+            <article class="intro-card" tabindex="0" aria-labelledby="np-target-title">
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <!-- Target / Aim -->
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/>
-                    <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-                    <circle cx="12" cy="12" r="1.8" fill="currentColor"/>
+                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" />
+                    <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6" />
+                    <circle cx="12" cy="12" r="1.8" fill="currentColor" />
                   </svg>
                 </span>
                 <h3 id="np-target-title">Target</h3>
               </div>
               <p>
-                Using quantum adjustment technology, we fine-tune the
-                <strong>Information Fields</strong> of soil, water, air, and
-                crops to create optimal growth conditions. This customized
-                approach ensures fertile soil and supports crops in achieving
-                their golden growth state.
+                Using quantum adjustment technology, we fine-tune the <strong>Information Fields</strong> of soil, water, air, and
+                crops to create optimal growth conditions. This customized approach ensures fertile soil and supports
+                crops in achieving their golden growth state.
               </p>
             </article>
 
             <!-- Effects -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-effects-title"
-            >
+            <article class="intro-card" tabindex="0" aria-labelledby="np-effects-title">
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <!-- Leaf / Growth -->
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                    <path d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <path
+                      d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
                   </svg>
                 </span>
                 <h3 id="np-effects-title">Effects</h3>
               </div>
               <p>
-                It awakens plant vitality, enriches soil nutrients, repels
-                pests, activates beneficial microorganisms, boosts harvests,
-                reduces pesticide use, and enhances overall crop efficiency.
+                It awakens plant vitality, enriches soil nutrients, repels pests, activates beneficial microorganisms,
+                boosts harvests, reduces pesticide use, and enhances overall crop efficiency.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- === Agricultural Evolution (ALL ENGLISH) — placed AFTER #nature-power === -->
+      <section class="evolution-section" aria-label="Agricultural Evolution">
+        <div class="evolution-container">
+          <h2 class="evolution-title">Agricultural Evolution</h2>
+          <p class="evolution-lead">
+            When quantum technology harmonizes with the wisdom of nature,
+            <strong>VermaVibe Quantum Farming</strong> becomes more than a tool—it represents a true breakthrough in agriculture.
+          </p>
+
+          <div class="evolution-grid">
+            <!-- Core -->
+            <article class="evolution-card" tabindex="0" aria-labelledby="core-title">
+              <div class="evo-card-head">
+                <span class="evo-icon" aria-hidden="true">
+                  <!-- Core Icon: synergy -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M7 12a5 5 0 1 1 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M17 12a5 5 0 1 1-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".85" />
+                  </svg>
+                </span>
+                <h3 id="core-title">Core</h3>
+              </div>
+              <p>
+                Empowering people to achieve more with less—revitalizing depleted land, boosting crop yields, reducing reliance on pesticides, and fostering ecological balance.
+              </p>
+            </article>
+
+            <!-- Application -->
+            <article class="evolution-card" tabindex="0" aria-labelledby="application-title">
+              <div class="evo-card-head">
+                <span class="evo-icon" aria-hidden="true">
+                  <!-- Application Icon: growth route -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M4 18c4-6 6-6 8-6s4 0 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                    <path d="M18 4l2 2-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <h3 id="application-title">Application</h3>
+              </div>
+              <p>
+                Ideal for natural farming, organic agriculture, regenerative farms, and diverse plant growth environments.
               </p>
             </article>
           </div>
@@ -395,23 +777,36 @@
     </main>
 
     <script>
-      // 觀察卡片進場（若你保留 HTML 的 .reveal，則會立即顯示）
-      const cards = document.querySelectorAll(".intro-card");
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("reveal"); });
-        },
-        { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
-      );
-      cards.forEach((c) => io.observe(c));
+      // Reveal helper
+      const reveal = (el) => el.classList.add("reveal");
 
-      // 保險：載入 800ms 後仍未 reveal，則強制顯示
-      window.addEventListener("load", () => {
-        setTimeout(() => {
-          cards.forEach((c) => { if (!c.classList.contains("reveal")) c.classList.add("reveal"); });
-        }, 800);
-      });
+      // Observe both intro cards and evolution cards
+      const revealTargets = document.querySelectorAll(".intro-card, .evolution-card");
+
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                reveal(e.target);
+                obs.unobserve(e.target); // reduce callbacks once revealed
+              }
+            });
+          },
+          { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
+        );
+        revealTargets.forEach((c) => io.observe(c));
+
+        // Fallback: ensure content is visible even if IO doesn't trigger promptly
+        window.addEventListener("load", () => {
+          setTimeout(() => {
+            revealTargets.forEach((c) => c.classList.contains("reveal") || reveal(c));
+          }, 800);
+        });
+      } else {
+        // Older browsers: reveal immediately
+        revealTargets.forEach(reveal);
+      }
     </script>
   </body>
 </html>
-``
