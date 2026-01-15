@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,12 +48,16 @@
         --shine-2: rgba(255, 255, 255, 0.35);
         --shine-3: rgba(255, 255, 255, 0);
         --shimmer-duration: 3.8s; /* 掃光 */
-        --gloss-duration: 2.6s;   /* 窄光束 */
+        --gloss-duration: 2.6s; /* 窄光束 */
       }
 
       html,
-      body { height: 100%; }
-      * { box-sizing: border-box; }
+      body {
+        height: 100%;
+      }
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         margin: 0;
@@ -107,7 +110,11 @@
           );
         animation: twinkle 6s linear infinite;
       }
-      @keyframes twinkle { 50% { opacity: 0.6; } }
+      @keyframes twinkle {
+        50% {
+          opacity: 0.6;
+        }
+      }
 
       .orb {
         position: fixed;
@@ -134,8 +141,12 @@
         animation: drift 28s ease-in-out infinite alternate;
       }
       @keyframes drift {
-        0% { transform: translate3d(0, 0, 0) scale(1); }
-        100% { transform: translate3d(-6vw, 4vh, 0) scale(1.06); }
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(-6vw, 4vh, 0) scale(1.06);
+        }
       }
 
       /* Layout */
@@ -145,7 +156,9 @@
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
-      .section { width: 100%; }
+      .section {
+        width: 100%;
+      }
 
       .hero {
         display: grid;
@@ -191,12 +204,24 @@
         opacity: 0;
         animation: underline-reveal 900ms ease-out 220ms both;
       }
-      .title h1 .underline::before { content: none; }
+      /* Hero 不要窄光束層，確保是「由無到有」的純粹顯現 */
+      .title h1 .underline::before {
+        content: none;
+      }
 
       @keyframes underline-reveal {
-        0%   { transform: scaleX(0); opacity: 0; }
-        55%  { transform: scaleX(1.05); opacity: 1; } /* 輕微超伸 */
-        100% { transform: scaleX(1); opacity: 1; }
+        0% {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        55% {
+          transform: scaleX(1.05);
+          opacity: 1;
+        } /* 輕微超伸，更有生動感 */
+        100% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
       }
 
       .title h2 {
@@ -276,16 +301,17 @@
         width: 100%;
         height: 6px;
         border-radius: 6px;
-        background:
-          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
+        background: linear-gradient(90deg, var(--brand), var(--accent))
+            no-repeat,
           linear-gradient(
-            90deg,
-            var(--shine-3) 0%,
-            var(--shine-2) 44%,
-            var(--shine-1) 50%,
-            var(--shine-2) 56%,
-            var(--shine-3) 100%
-          ) no-repeat;
+              90deg,
+              var(--shine-3) 0%,
+              var(--shine-2) 44%,
+              var(--shine-1) 50%,
+              var(--shine-2) 56%,
+              var(--shine-3) 100%
+            )
+            no-repeat;
         background-size: 100% 100%, 240% 100%;
         background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
@@ -325,7 +351,7 @@
         gap: 20px;
       }
 
-      /* ====== 卡片動畫（初始、滾動方向、顯示、互動）====== */
+      /* ====== 卡片動畫（初始、顯示、互動）====== */
       .intro-card,
       .evolution-card {
         background: var(--card);
@@ -338,26 +364,13 @@
 
         /* 初始狀態：淡、下移、陰影輕 */
         opacity: 0;
-        transform: translateY(14px); /* 預設向下進場（往下滾時） */
+        transform: translateY(14px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
 
-        will-change: transform, opacity, box-shadow;
-        transition:
-          opacity 0.6s ease-out,
-          transform 0.6s ease-out,
+        /* 進場過渡：透明、位移、陰影一起變化 */
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out,
           box-shadow 0.6s ease-out;
       }
-      /* 滾動方向：往上滾 -> 從上方進場 */
-      .intro-card.dir-up,
-      .evolution-card.dir-up {
-        transform: translateY(-14px);
-      }
-      /* 滾動方向：往下滾 -> 從下方進場（與預設一致，保底） */
-      .intro-card.dir-down,
-      .evolution-card.dir-down {
-        transform: translateY(14px);
-      }
-
       /* 顯示狀態：完全可見、歸位、陰影加深 */
       .intro-card.reveal,
       .evolution-card.reveal {
@@ -438,10 +451,23 @@
         opacity: 0.55;
         z-index: -1;
       }
-      .intro-icon svg { width: 22px; height: 22px; display: block; }
-      .intro-card:nth-child(1) .intro-icon { --g1:#58a6ff; --g2:#7c3aed; }
-      .intro-card:nth-child(2) .intro-icon { --g1:#22c55e; --g2:#58a6ff; }
-      .intro-card:nth-child(3) .intro-icon { --g1:#f59e0b; --g2:#22c55e; }
+      .intro-icon svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+      .intro-card:nth-child(1) .intro-icon {
+        --g1: #58a6ff;
+        --g2: #7c3aed;
+      }
+      .intro-card:nth-child(2) .intro-icon {
+        --g1: #22c55e;
+        --g2: #58a6ff;
+      }
+      .intro-card:nth-child(3) .intro-icon {
+        --g1: #f59e0b;
+        --g2: #22c55e;
+      }
 
       /* === Agricultural Evolution Section (ALL ENGLISH) === */
       .evolution-section {
@@ -482,16 +508,17 @@
         width: 100%;
         height: 6px;
         border-radius: 6px;
-        background:
-          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
+        background: linear-gradient(90deg, var(--brand), var(--accent))
+            no-repeat,
           linear-gradient(
-            90deg,
-            var(--shine-3) 0%,
-            var(--shine-2) 44%,
-            var(--shine-1) 50%,
-            var(--shine-2) 56%,
-            var(--shine-3) 100%
-          ) no-repeat;
+              90deg,
+              var(--shine-3) 0%,
+              var(--shine-2) 44%,
+              var(--shine-1) 50%,
+              var(--shine-2) 56%,
+              var(--shine-3) 100%
+            )
+            no-repeat;
         background-size: 100% 100%, 240% 100%;
         background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
@@ -530,7 +557,9 @@
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 24px;
       }
-      .evolution-card { padding: 28px; }
+      .evolution-card {
+        padding: 28px;
+      }
       .evolution-card h3 {
         font-size: 20px;
         margin: 0;
@@ -572,7 +601,10 @@
           0 10px 26px rgba(88, 166, 255, 0.36), 0 2px 8px rgba(0, 0, 0, 0.26);
       }
       .evolution-icon svg,
-      .evo-icon svg { width: 24px; height: 24px; }
+      .evo-icon svg {
+        width: 24px;
+        height: 24px;
+      }
 
       /* Accessibility: focus visible for intro cards too */
       .intro-card:focus-visible {
@@ -582,16 +614,22 @@
 
       /* 減少動效偏好 */
       @media (prefers-reduced-motion: reduce) {
-        .stars, .orb { animation: none !important; }
+        .stars,
+        .orb {
+          animation: none !important;
+        }
 
-        .intro-card, .evolution-card {
+        .intro-card,
+        .evolution-card {
           transform: none !important;
           opacity: 1 !important;
           transition: none !important;
-          box-shadow: 0 24px 48px rgba(0,0,0,0.38) !important;
+          box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38) !important;
         }
 
-        .intro-icon::before { display: none !important; }
+        .intro-icon::before {
+          display: none !important;
+        }
 
         /* 保留掃光區塊的靜態底線 */
         .intro-title::after,
@@ -612,36 +650,73 @@
         }
       }
       @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        .container { padding: 32px 20px 32px 44px; }
-        .video-wrap { transform: translateX(-6px); }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          padding-left: 12px;
+        }
+        .container {
+          padding: 32px 20px 32px 44px;
+        }
+        .video-wrap {
+          transform: translateX(-6px);
+        }
       }
       @media (max-width: 768px) {
         .intro-title::after,
-        .evolution-title::after { height: 4px; }
-        .intro-subtitle { font-size: 16px; }
+        .evolution-title::after {
+          height: 4px;
+        }
+        .intro-subtitle {
+          font-size: 16px;
+        }
         .intro-card h3,
-        .evolution-card h3 { font-size: 18px; }
+        .evolution-card h3 {
+          font-size: 18px;
+        }
         .intro-card p,
-        .evolution-card p { font-size: 15px; }
+        .evolution-card p {
+          font-size: 15px;
+        }
       }
       @media (max-width: 480px) {
-        .orb { filter: blur(28px); }
+        .orb {
+          filter: blur(28px);
+        }
       }
 
       /* Intro/Evolution 掃光的動畫（Hero 已不使用） */
       @keyframes shimmer {
-        0%   { background-position: 0 0, -160% 0; }
-        50%  { background-position: 0 0, 80% 0; }
-        100% { background-position: 0 0, -160% 0; }
+        0% {
+          background-position: 0 0, -160% 0;
+        }
+        50% {
+          background-position: 0 0, 80% 0;
+        }
+        100% {
+          background-position: 0 0, -160% 0;
+        }
       }
       @keyframes gloss-sweep {
-        0%   { left: -18%; opacity: 0; }
-        12%  { opacity: 0.55; }
-        50%  { left: 68%; opacity: 0.9; }
-        88%  { opacity: 0.4; }
-        100% { left: 118%; opacity: 0; }
+        0% {
+          left: -18%;
+          opacity: 0;
+        }
+        12% {
+          opacity: 0.55;
+        }
+        50% {
+          left: 68%;
+          opacity: 0.9;
+        }
+        88% {
+          opacity: 0.4;
+        }
+        100% {
+          left: 118%;
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -702,7 +777,7 @@
                       stroke-width="1.6"
                     />
                     <path
-                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c。28。2。55。43。8。68l2.2-.54 1.8 3.12-1.83 1.4c。03。31。05。63。05。96s-。02。65-。05。96l1.83 1.4-1.8 3.12-2.2-.54c-。25。25-。52。48-。8。68l-。1 2.27h-3.6l-。1-2.27c-。27-。2-。54-。43-。79-。68l-2.21。54-1.8-3.12 1.84-1.4c-。04-。31-。06-。63-。06-。96Z"
+                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05.63.05.96s-.02.65-.05.96l1.83 1.4-1.8 3.12-2.2-.54c-.25.25-.52.48-.8.68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21.54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
                       stroke="currentColor"
                       stroke-width="1.6"
                       stroke-linejoin="round"
@@ -803,44 +878,74 @@
             tool—it represents a true breakthrough in agriculture.
           </p>
 
-        <div class="evolution-grid">
-          <!-- Core -->
-          <article class="evolution-card" tabindex="0" aria-labelledby="core-title">
-            <div class="evo-card-head">
-              <span class="evo-icon" aria-hidden="true">
-                <!-- Core Icon: synergy -->
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 12a5 5 0 1 1 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                  <path d="M17 12a5 5 0 1 1-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
-                </svg>
-              </span>
-              <h3 id="core-title">Core</h3>
-            </div>
-            <p>
-              Empowering people to achieve more with less—revitalizing
-              depleted land, boosting crop yields, reducing reliance on
-              pesticides, and fostering ecological balance.
-            </p>
-          </article>
+          <div class="evolution-grid">
+            <!-- Core -->
+            <article
+              class="evolution-card reveal"
+              tabindex="0"
+              aria-labelledby="core-title"
+            >
+              <div class="evo-card-head">
+                <span class="evo-icon" aria-hidden="true">
+                  <!-- Core Icon: synergy -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M7 12a5 5 0 1 1 5 5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M17 12a5 5 0 1 1-5-5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      opacity=".85"
+                    />
+                  </svg>
+                </span>
+                <h3 id="core-title">Core</h3>
+              </div>
+              <p>
+                Empowering people to achieve more with less—revitalizing
+                depleted land, boosting crop yields, reducing reliance on
+                pesticides, and fostering ecological balance.
+              </p>
+            </article>
 
-          <!-- Application -->
-          <article class="evolution-card" tabindex="0" aria-labelledby="application-title">
-            <div class="evo-card-head">
-              <span class="evo-icon" aria-hidden="true">
-                <!-- Application Icon: growth route -->
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 18c4-6 6-6 8-6s4 0 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                  <path d="M18 4l2 2-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <h3 id="application-title">Application</h3>
-            </div>
-            <p>
-              Ideal for natural farming, organic agriculture, regenerative
-              farms, and diverse plant growth environments.
-            </p>
-          </article>
-        </div>
+            <!-- Application -->
+            <article
+              class="evolution-card reveal"
+              tabindex="0"
+              aria-labelledby="application-title"
+            >
+              <div class="evo-card-head">
+                <span class="evo-icon" aria-hidden="true">
+                  <!-- Application Icon: growth route -->
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 18c4-6 6-6 8-6s4 0 8-6"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M18 4l2 2-2 2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <h3 id="application-title">Application</h3>
+              </div>
+              <p>
+                Ideal for natural farming, organic agriculture, regenerative
+                farms, and diverse plant growth environments.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -850,36 +955,15 @@
     </main>
 
     <script>
-      // === 滾動方向感知（down/up） ===
-      let lastY = window.pageYOffset || document.documentElement.scrollTop || 0;
-      let scrollDir = 'down'; // 預設往下
-      const SCROLL_EPS = 2;   // 去抖小幅度抖動
+      // Reveal helper
+      const reveal = (el) => el.classList.add("reveal");
 
-      const updateScrollDir = () => {
-        const y = window.pageYOffset || document.documentElement.scrollTop || 0;
-        if (y > lastY + SCROLL_EPS) {
-          scrollDir = 'down';
-        } else if (y < lastY - SCROLL_EPS) {
-          scrollDir = 'up';
-        }
-        lastY = y;
-      };
+      // Observe both intro cards and evolution cards
+      const revealTargets = document.querySelectorAll(
+        ".intro-card, .evolution-card"
+      );
 
-      // 初始化一次，並監聽滾動
-      updateScrollDir();
-      window.addEventListener('scroll', updateScrollDir, { passive: true });
-
-      // === Reveal helper ===
-      const setDirClass = (el, dir) => {
-        el.classList.remove('dir-up', 'dir-down');
-        el.classList.add(dir === 'up' ? 'dir-up' : 'dir-down');
-      };
-      const reveal = (el) => el.classList.add('reveal');
-
-      // 目標卡片
-      const revealTargets = document.querySelectorAll('.intro-card, .evolution-card');
-
-      // Stagger 延遲依 DOM 順序（避免 IO entries 順序不穩）
+      // 依 DOM 順序產生 Stagger 延遲，避免 IO entries 順序不固定
       const getIndexDelay = (el) => {
         const list = Array.from(revealTargets);
         const idx = list.indexOf(el);
@@ -887,47 +971,37 @@
         return Math.max(0, idx) * base;
       };
 
-      if ('IntersectionObserver' in window) {
+      if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver(
           (entries, obs) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                // 在 reveal 前先根據目前滾動方向設定進場方向
-                setDirClass(entry.target, scrollDir);
-
                 const delay = getIndexDelay(entry.target);
+                // 使用 requestAnimationFrame 確保更順暢
                 setTimeout(() => {
-                  // 使用 rAF 確保在同一 frame 應用 class，避免 layout 抖動
                   requestAnimationFrame(() => reveal(entry.target));
                 }, delay);
-
-                obs.unobserve(entry.target); // 一次性
+                obs.unobserve(entry.target); // reduce callbacks once revealed
               }
             });
           },
-          { threshold: 0.06, rootMargin: '0px 0px -10% 0px' }
+          { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
         );
-
         revealTargets.forEach((c) => io.observe(c));
 
-        // Fallback：若 IO 沒及時觸發，載入後保證顯示
-        window.addEventListener('load', () => {
+        // Fallback: ensure content is visible even if IO doesn't trigger promptly
+        window.addEventListener("load", () => {
           setTimeout(() => {
-            revealTargets.forEach((c) => {
-              if (!c.classList.contains('reveal')) {
-                setDirClass(c, scrollDir); // 依當下方向給個合理的進場方向
-                reveal(c);
-              }
-            });
+            revealTargets.forEach(
+              (c) => c.classList.contains("reveal") || reveal(c)
+            );
           }, 1000);
         });
       } else {
-        // 老舊瀏覽器：直接顯示
-        revealTargets.forEach((c) => {
-          setDirClass(c, 'down');
-          reveal(c);
-        });
+        // Older browsers: reveal immediately
+        revealTargets.forEach(reveal);
       }
     </script>
   </body>
 </html>
+``
