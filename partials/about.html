@@ -48,16 +48,22 @@
         --shine-1: rgba(255, 255, 255, 0.75);
         --shine-2: rgba(255, 255, 255, 0.35);
         --shine-3: rgba(255, 255, 255, 0);
-        --shimmer-duration: 3.8s; /* 掃光 */
-        --gloss-duration: 2.6s;   /* 窄光束 */
+
+        /* Fullpage 轉場時間（CSS） */
+        --fp-duration: 700ms;
       }
 
       html,
       body { height: 100%; }
       * { box-sizing: border-box; }
 
-      body {
+      /* 關閉原生捲動，交由 JS 控制整屏切換 */
+      html, body {
         margin: 0;
+        overflow: hidden;
+      }
+
+      body {
         color: var(--text);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI,
           Noto Sans, Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
@@ -77,7 +83,6 @@
             var(--bg-1) 40%,
             var(--bg-0) 100%
           );
-        overflow-x: hidden;
       }
 
       .stars {
@@ -138,14 +143,30 @@
         100% { transform: translate3d(-6vw, 4vh, 0) scale(1.06); }
       }
 
-      /* Layout */
+      /* ===== Fullpage 容器 ===== */
+      .fp-wrapper {
+        position: relative;
+        height: 100vh;
+        overflow: hidden; /* 再保險一層（避免子容器溢出） */
+      }
+      .fp-container {
+        height: 100%;
+        will-change: transform;
+        transition: transform var(--fp-duration) ease;
+      }
+
+      /* 原 layout 容器（保留你的 padding） */
       .container {
         width: 100vw;
         max-width: 100vw;
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
-      .section { width: 100%; }
+      .section {
+        width: 100%;
+        height: 100vh; /* 每個 section 佔滿一屏 */
+        display: block;
+      }
 
       .hero {
         display: grid;
@@ -185,18 +206,16 @@
         border-radius: 8px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
         box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
-        /* 從 0 → 1 的展開與淡入 */
         transform-origin: left;
         transform: scaleX(0);
         opacity: 0;
         animation: underline-reveal 900ms ease-out 220ms both;
       }
-      /* Hero 不要窄光束層，確保是「由無到有」的純粹顯現 */
       .title h1 .underline::before { content: none; }
 
       @keyframes underline-reveal {
         0%   { transform: scaleX(0); opacity: 0; }
-        55%  { transform: scaleX(1.05); opacity: 1; } /* 輕微超伸，更有生動感 */
+        55%  { transform: scaleX(1.05); opacity: 1; }
         100% { transform: scaleX(1); opacity: 1; }
       }
 
@@ -236,28 +255,6 @@
         padding: 30px 24px;
       }
 
-      /* 減少動效偏好 */
-      @media (prefers-reduced-motion: reduce) {
-        .card {
-          transform: none;
-          opacity: 1 !important;
-          transition: none;
-        }
-        /* Hero 底線改為靜態呈現 */
-        .title h1 .underline::after {
-          animation: none !important;
-          transform: none !important;
-          opacity: 1 !important;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .hero { grid-template-columns: 1fr; }
-        .title { padding-left: 12px; }
-        .container { padding: 32px 20px 32px 44px; }
-        .video-wrap { transform: translateX(-6px); }
-      }
-
       /* Nature Power - Intro section */
       .intro-section {
         padding: 60px 24px;
@@ -290,7 +287,6 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
-      /* === Intro 標題掃光（保留原掃光效果） === */
       .intro-title::after {
         content: "";
         position: absolute;
@@ -312,7 +308,7 @@
         background-size: 100% 100%, 240% 100%;
         background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
-        animation: shimmer var(--shimmer-duration) ease-in-out infinite;
+        animation: shimmer 3.8s ease-in-out infinite;
       }
       .intro-title::before {
         content: "";
@@ -332,7 +328,7 @@
         );
         filter: blur(3.5px);
         transform: skewX(-12deg);
-        animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
+        animation: gloss-sweep 2.6s ease-in-out infinite;
       }
 
       .intro-subtitle {
@@ -366,19 +362,6 @@
         box-shadow: var(--shadow-hover);
       }
       .intro-card.reveal { opacity: 1; transform: none; }
-
-      .intro-card h3 {
-        font-size: 20px;
-        margin: 0;
-        color: var(--accent);
-        font-weight: 800;
-      }
-      .intro-card p {
-        font-size: 16px;
-        color: var(--muted);
-        line-height: 1.65;
-        margin: 10px 0 0;
-      }
 
       .card-head {
         display: flex;
@@ -435,7 +418,7 @@
       .intro-card:nth-child(2) .intro-icon { --g1:#22c55e; --g2:#58a6ff; }
       .intro-card:nth-child(3) .intro-icon { --g1:#f59e0b; --g2:#22c55e; }
 
-      /* === Agricultural Evolution Section (ALL ENGLISH) === */
+      /* === Agricultural Evolution Section === */
       .evolution-section {
         padding: 80px 24px;
         background: radial-gradient(
@@ -465,7 +448,6 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
-      /* === Evolution 標題掃光（保留原掃光效果） === */
       .evolution-title::after {
         content: "";
         position: absolute;
@@ -487,7 +469,7 @@
         background-size: 100% 100%, 240% 100%;
         background-position: 0 0, -150% 0;
         box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
-        animation: shimmer var(--shimmer-duration) ease-in-out infinite;
+        animation: shimmer 3.8s ease-in-out infinite;
       }
       .evolution-title::before {
         content: "";
@@ -507,7 +489,7 @@
         );
         filter: blur(3.5px);
         transform: skewX(-12deg);
-        animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
+        animation: gloss-sweep 2.6s ease-in-out infinite;
       }
 
       .evolution-lead {
@@ -558,32 +540,12 @@
         outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
         outline-offset: 4px;
       }
-      .evolution-card .card-head,
-      .evo-card-head {
+      .evolution-card .card-head {
         display: flex;
         align-items: center;
         gap: 12px;
         margin-bottom: 10px;
       }
-      .evolution-icon,
-      .evo-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        display: grid;
-        place-items: center;
-        color: #eef4ff;
-        background: radial-gradient(
-            circle at 30% 30%,
-            var(--accent),
-            transparent 60%
-          ),
-          radial-gradient(circle at 70% 70%, var(--brand), transparent 60%);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
-          0 10px 26px rgba(88, 166, 255, 0.36), 0 2px 8px rgba(0, 0, 0, 0.26);
-      }
-      .evolution-icon svg,
-      .evo-icon svg { width: 24px; height: 24px; }
 
       /* Accessibility: focus visible for intro cards too */
       .intro-card:focus-visible {
@@ -591,7 +553,7 @@
         outline-offset: 4px;
       }
 
-      /* 掃光與卡片運動的 Reduced motion */
+      /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
         .stars, .orb { animation: none !important; }
         .intro-card, .evolution-card {
@@ -600,7 +562,6 @@
           transition: none !important;
         }
         .intro-icon::before { display: none !important; }
-        /* 保留掃光區塊的靜態底線 */
         .intro-title::after,
         .evolution-title::after {
           animation: none !important;
@@ -609,6 +570,9 @@
         .intro-title::before,
         .evolution-title::before {
           display: none !important;
+        }
+        .fp-container {
+          transition: none !important;
         }
       }
 
@@ -637,7 +601,7 @@
         .orb { filter: blur(28px); }
       }
 
-      /* Intro/Evolution 掃光的動畫（Hero 已不使用） */
+      /* 掃光動畫（Intro/Evo） */
       @keyframes shimmer {
         0%   { background-position: 0 0, -160% 0; }
         50%  { background-position: 0 0, 80% 0; }
@@ -656,244 +620,170 @@
     <div class="stars" aria-hidden="true"></div>
     <div class="orb" aria-hidden="true"></div>
 
-    <main class="container">
-      <!-- Hero -->
-      <section class="section" aria-labelledby="hero-title">
-        <div class="hero">
-          <div class="title">
-            <h1 id="hero-title"><span class="underline">VermaVibe</span></h1>
-            <h2>Quantum Farming</h2>
-            <p class="slogan">Achieve Harvests with Quantum Power</p>
-          </div>
-          <div class="video-wrap" aria-label="Intro video">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
-              title="Intro video"
+    <!-- Fullpage 外層：負責裁切與高度控制 -->
+    <div class="fp-wrapper" id="fp-wrapper">
+      <!-- 內層容器：用 transform 切換整屏 -->
+      <main class="container fp-container" id="fp-container" role="main" aria-label="VermaVibe sections">
+        <!-- Hero -->
+        <section class="section" aria-labelledby="hero-title">
+          <div class="hero">
+            <div class="title">
+              <h1 id="hero-title"><span class="underline">VermaVibe</span></h1>
+              <h2>Quantum Farming</h2>
+              <p class="slogan">Achieve Harvests with Quantum Power</p>
+            </div>
+            <div class="video-wrap" aria-label="Intro video">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
+                title="Intro video"
               allow="autoplay; encrypted-media; picture-in-picture"
               allowfullscreen
             ></iframe>
           </div>
         </div>
       </section>
+               ure's Force Intro -->
+        <section id="nature-power" class="section intro-section" aria-label="Nature's Force Intro">
+          <div class="intro-container">
+            <h2 class="intro-title">
+              Where Nature's Force Becomes Your Strength
+            </h2>
+            <p class="intro-subtitle">
+              Quantum farming activates nature's inherent energy to enrich the
+              soil, enabling crops to thrive naturally, reducing pest intrusion,
+              and suppressing pathogens. Minimize pesticide use and create a
+              healthy, safe agricultural environment.
+            </p>
 
-      <section
-        id="nature-power"
-        class="intro-section"
-        aria-label="Nature's Force Intro"
-      >
-        <div class="intro-container">
-          <h2 class="intro-title">
-            Where Nature's Force Becomes Your Strength
-          </h2>
-          <p class="intro-subtitle">
-            Quantum farming activates nature's inherent energy to enrich the
-            soil, enabling crops to thrive naturally, reducing pest intrusion,
-            and suppressing pathogens. Minimize pesticide use and create a
-            healthy, safe agricultural environment.
-          </p>
+            <div class="intro-grid">
+              <!-- Mechanism -->
+              <article class="intro-card reveal" tabindex="0" aria-labelledby="np-mechanism-title">
+                <div class="card-head">
+                  <span class="intro-icon" aria-hidden="true">
+                    <!-- Gear / Mechanism -->
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" stroke="currentColor" stroke-width="1.6" />
+                      <path d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05.63.05.96s-.02.65-.05.96l1.83 1.4-1.8 3.12-2.2-.54c-.25.25-.52.48-.8.68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21.54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  <h3 id="np-mechanism-title">Mechanism</h3>
+                </div>
+                <p>
+                  By leveraging <strong>Scalar Waves</strong> and
+                  <strong>Intrinsic Data Fields</strong>, we adjust the target's
+                  developmental state, guiding it toward a positive and balanced
+                  trajectory.
+                </p>
+              </article>
 
-          <div class="intro-grid">
-            <!-- Mechanism -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-mechanism-title"
-            >
-              <div class="card-head">
-                <span class="intro-icon" aria-hidden="true">
-                  <!-- Gear / Mechanism -->
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                    />
-                    <path
-                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05.63.05.96s-.02.65-.05.96l1.83 1.4-1.8 3.12-2.2-.54c-.25.25-.52.48-.8.68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21.54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <h3 id="np-mechanism-title">Mechanism</h3>
-              </div>
-              <p>
-                By leveraging <strong>Scalar Waves</strong> and
-                <strong>Intrinsic Data Fields</strong>, we adjust the target's
-                developmental state, guiding it toward a positive and balanced
-                trajectory.
-              </p>
-            </article>
+              <!-- Target -->
+              <article class="intro-card reveal" tabindex="0" aria-labelledby="np-target-title">
+                <div class="card-head">
+                  <span class="intro-icon" aria-hidden="true">
+                    <!-- Target / Aim -->
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" />
+                      <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6" />
+                      <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+                    </svg>
+                  </span>
+                  <h3 id="np-target-title">Target</h3>
+                </div>
+                <p>
+                  Using quantum adjustment technology, we fine-tune the
+                  <strong>Information Fields</strong> of soil, water, air, and
+                  crops to create optimal growth conditions. This customized
+                  approach ensures fertile soil and supports crops in achieving
+                  their golden growth state.
+                </p>
+              </article>
 
-            <!-- Target -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-target-title"
-            >
-              <div class="card-head">
-                <span class="intro-icon" aria-hidden="true">
-                  <!-- Target / Aim -->
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="8"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                    />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="4.5"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                    />
-                    <circle cx="12" cy="12" r="1.8" fill="currentColor" />
-                  </svg>
-                </span>
-                <h3 id="np-target-title">Target</h3>
-              </div>
-              <p>
-                Using quantum adjustment technology, we fine-tune the
-                <strong>Information Fields</strong> of soil, water, air, and
-                crops to create optimal growth conditions. This customized
-                approach ensures fertile soil and supports crops in achieving
-                their golden growth state.
-              </p>
-            </article>
-
-            <!-- Effects -->
-            <article
-              class="intro-card reveal"
-              tabindex="0"
-              aria-labelledby="np-effects-title"
-            >
-              <div class="card-head">
-                <span class="intro-icon" aria-hidden="true">
-                  <!-- Leaf / Growth -->
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-                <h3 id="np-effects-title">Effects</h3>
-              </div>
-              <p>
-                It awakens plant vitality, enriches soil nutrients, repels
-                pests, activates beneficial microorganisms, boosts harvests,
-                reduces pesticide use, and enhances overall crop efficiency.
-              </p>
-            </article>
+              <!-- Effects -->
+              <article class="intro-card reveal" tabindex="0" aria-labelledby="np-effects-title">
+                <div class="card-head">
+                  <span class="intro-icon" aria-hidden="true">
+                    <!-- Leaf / Growth -->
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                      <path d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                    </svg>
+                  </span>
+                  <h3 id="np-effects-title">Effects</h3>
+                </div>
+                <p>
+                  It awakens plant vitality, enriches soil nutrients, repels
+                  pests, activates beneficial microorganisms, boosts harvests,
+                  reduces pesticide use, and enhances overall crop efficiency.
+                </p>
+              </article>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- === Agricultural Evolution (ALL ENGLISH) — placed AFTER #nature-power === -->
-      <section class="evolution-section" aria-label="Agricultural Evolution">
-        <div class="evolution-container">
-          <h2 class="evolution-title">Agricultural Evolution</h2>
-          <p class="evolution-lead">
-            When quantum technology harmonizes with the wisdom of nature,
-            <strong>VermaVibe Quantum Farming</strong> becomes more than a
-            tool—it represents a true breakthrough in agriculture.
-          </p>
+        <!-- Agricultural Evolution -->
+        <section class="section evolution-section" aria-label="Agricultural Evolution">
+          <div class="evolution-container">
+            <h2 class="evolution-title">Agricultural Evolution</h2>
+            <p class="evolution-lead">
+              When quantum technology harmonizes with the wisdom of nature,
+              <strong>VermaVibe Quantum Farming</strong> becomes more than a
+              tool—it represents a true breakthrough in agriculture.
+            </p>
 
-          <div class="evolution-grid">
-            <!-- Core -->
-            <article
-              class="evolution-card reveal"
-              tabindex="0"
-              aria-labelledby="core-title"
-            >
-              <div class="evo-card-head">
-                <span class="evo-icon" aria-hidden="true">
-                  <!-- Core Icon: synergy -->
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M7 12a5 5 0 1 1 5 5"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M17 12a5 5 0 1 1-5-5"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      opacity=".85"
-                    />
-                  </svg>
-                </span>
-                <h3 id="core-title">Core</h3>
-              </div>
-              <p>
-                Empowering people to achieve more with less—revitalizing
-                depleted land, boosting crop yields, reducing reliance on
-                pesticides, and fostering ecological balance.
-              </p>
-            </article>
+            <div class="evolution-grid">
+              <!-- Core -->
+              <article class="evolution-card reveal" tabindex="0" aria-labelledby="core-title">
+                <div class="card-head">
+                  <span class="evo-icon evolution-icon" aria-hidden="true">
+                    <!-- Core Icon: synergy -->
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M7 12a5 5 0 1 1 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M17 12a5 5 0 1 1-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".85" />
+                    </svg>
+                  </span>
+                  <h3 id="core-title">Core</h3>
+                </div>
+                <p>
+                  Empowering people to achieve more with less—revitalizing
+                  depleted land, boosting crop yields, reducing reliance on
+                  pesticides, and fostering ecological balance.
+                </p>
+              </article>
 
-            <!-- Application -->
-            <article
-              class="evolution-card reveal"
-              tabindex="0"
-              aria-labelledby="application-title"
-            >
-              <div class="evo-card-head">
-                <span class="evo-icon" aria-hidden="true">
-                  <!-- Application Icon: growth route -->
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M4 18c4-6 6-6 8-6s4 0 8-6"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M18 4l2 2-2 2"
-                      stroke="currentColor"
-                      stroke-width="1.8"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <h3 id="application-title">Application</h3>
-              </div>
-              <p>
-                Ideal for natural farming, organic agriculture, regenerative
-                farms, and diverse plant growth environments.
-              </p>
-            </article>
+              <!-- Application -->
+              <article class="evolution-card reveal" tabindex="0" aria-labelledby="application-title">
+                <div class="card-head">
+                  <span class="evo-icon evolution-icon" aria-hidden="true">
+                    <!-- Application Icon: growth route -->
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M4 18c4-6 6-6 8-6s4 0 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M18 4l2 2-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                  <h3 id="application-title">Application</h3>
+                </div>
+                <p>
+                  Ideal for natural farming, organic agriculture, regenerative
+                  farms, and diverse plant growth environments.
+                </p>
+              </article>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <footer>
-        <small>© 2026 VermaVibe · Quantum Farming</small>
-      </footer>
-    </main>
+        <!-- 以一屏呈現的結尾區（含 footer） -->
+        <section class="section" aria-label="Footer">
+          <footer>
+            <small>© 2026 VermaVibe · Quantum Farming</small>
+          </footer>
+        </section>
+      </main>
+    </div>
 
     <script>
-      // Reveal helper
+      // Reveal helper（保留你的卡片 reveal）
       const reveal = (el) => el.classList.add("reveal");
-
-      // Observe both intro cards and evolution cards
-      const revealTargets = document.querySelectorAll(
-        ".intro-card, .evolution-card"
-      );
+      const revealTargets = document.querySelectorAll(".intro-card, .evolution-card");
 
       if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver(
@@ -901,7 +791,7 @@
             entries.forEach((e) => {
               if (e.isIntersecting) {
                 reveal(e.target);
-                obs.unobserve(e.target); // reduce callbacks once revealed
+                obs.unobserve(e.target);
               }
             });
           },
@@ -909,18 +799,113 @@
         );
         revealTargets.forEach((c) => io.observe(c));
 
-        // Fallback: ensure content is visible even if IO doesn't trigger promptly
         window.addEventListener("load", () => {
           setTimeout(() => {
-            revealTargets.forEach(
-              (c) => c.classList.contains("reveal") || reveal(c)
-            );
+            revealTargets.forEach((c) => c.classList.contains("reveal") || reveal(c));
           }, 800);
         });
       } else {
-        // Older browsers: reveal immediately
         revealTargets.forEach(reveal);
       }
+
+      // ===== Fullpage 切屏控制 =====
+      (function () {
+        const container = document.getElementById('fp-container');
+        const sections = Array.from(container.querySelectorAll('.section'));
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const TRANSITION_MS = 700;     // 與 CSS --fp-duration 對應
+        const LOCK_EXTRA = 120;        // 安全緩衝
+        const WHEEL_THRESHOLD = 10;    // 滾輪方向判定最低門檻
+        const SWIPE_THRESHOLD = 40;    // 觸控滑動距離門檻(px)
+
+        let index = 0;
+        let locked = false;
+        let touchStartY = null;
+
+        function clamp(i) {
+          return Math.max(0, Math.min(i, sections.length - 1));
+        }
+
+        function goTo(i) {
+          const target = clamp(i);
+          if (target === index) return;
+          if (locked) return;
+          locked = true;
+          index = target;
+
+          // 使用 transform 進行平滑切換
+          container.style.transform = `translateY(-${index * 100}vh)`;
+
+          setTimeout(() => { locked = false; }, prefersReduced ? 0 : (TRANSITION_MS + LOCK_EXTRA));
+        }
+
+        // 初始化位置（避免 FOUC）
+        container.style.transform = 'translateY(0)';
+
+        // 滾輪事件
+        window.addEventListener('wheel', (e) => {
+          // 若已在動畫中，忽略
+          if (locked) return;
+          // 防止瀏覽器預設滾動
+          e.preventDefault();
+
+          const dy = e.deltaY || 0;
+          if (dy > WHEEL_THRESHOLD) {
+            goTo(index + 1);
+          } else if (dy < -WHEEL_THRESHOLD) {
+            goTo(index - 1);
+          }
+        }, { passive: false });
+
+        // 鍵盤事件
+        window.addEventListener('keydown', (e) => {
+          const k = e.key;
+          if (k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) {
+            e.preventDefault();
+            goTo(index + 1);
+          } else if (k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey)) {
+            e.preventDefault();
+            goTo(index - 1);
+          } else if (k === 'Home') {
+            e.preventDefault();
+            goTo(0);
+          } else if (k === 'End') {
+            e.preventDefault();
+            goTo(sections.length - 1);
+          }
+        });
+
+        // 觸控事件（手機/平板）
+        window.addEventListener('touchstart', (e) => {
+          if (e.touches.length === 1) {
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+          // 阻止原生滾動，以免與全屏切換衝突
+          if (e.touches.length === 1) e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchend', (e) => {
+          if (touchStartY == null || locked) return;
+          const endY = (e.changedTouches[0] || {}).clientY || touchStartY;
+          const delta = touchStartY - endY;
+
+          if (delta > SWIPE_THRESHOLD) {
+            goTo(index + 1);
+          } else if (delta < -SWIPE_THRESHOLD) {
+            goTo(index - 1);
+          }
+          touchStartY = null;
+        });
+
+        // 視窗尺寸改變時，維持目前索引位置
+        window.addEventListener('resize', () => {
+          container.style.transform = `translateY(-${index * 100}vh)`;
+        });
+      })();
     </script>
   </body>
 </html>
