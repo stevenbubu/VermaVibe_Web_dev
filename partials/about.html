@@ -3,7 +3,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- Use full available viewport including notches on iOS -->
+    <!-- Ensure JS detection happens before CSS applies -->
+    <script>
+      // Progressive enhancement: only apply "hidden before reveal" when JS is available
+      document.documentElement.classList.add('js');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>VermaVibe</title>
     <meta name="description" content="VermaVibe Quantum Farming" />
@@ -11,10 +15,7 @@
     <!-- Open Graph / Twitter Cards -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="VermaVibe — Quantum Farming" />
-    <meta
-      property="og:description"
-      content="Create Harvests With Less Input. Where Nature's Force Becomes Your Strength."
-    />
+    <meta property="og:description" content="Create Harvests With Less Input. Where Nature's Force Becomes Your Strength." />
     <meta property="og:image" content="https://example.com/og-cover.jpg" />
     <meta property="og:url" content="https://example.com/" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -38,7 +39,7 @@
 
         /* animation timing */
         --ease: cubic-bezier(.22,.61,.36,1);
-        --dur-fast: .5s;
+        --dur-fast: .45s;
         --dur: .8s;
         --dur-slow: 1.1s;
       }
@@ -90,13 +91,24 @@
       }
       .section { width: 100%; }
 
-      /* Universal centered section utility */
+      /* Centered section utility */
       .is-centered .section-inner {
         max-width: 1200px;
         margin-inline: auto;
         text-align: center;
         padding-inline: 8px;
       }
+
+      /* Progressive enhancement:
+         Only hide elements before reveal WHEN JS is present (html.js).
+         If JS fails, content stays visible (no "blank page" issue). */
+      html.js .reveal { opacity: 0; transform: translateY(6px); }
+      html.js .intro-card,
+      html.js .evolution-card {
+        opacity: 0;
+        transform: translateY(12px) scale(.985);
+      }
+      .reveal.reveal { opacity: 1; transform: none; transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
 
       /* Hero */
       .hero {
@@ -133,15 +145,12 @@
         will-change: transform;
       }
       .video-wrap:hover {
-        transform: translateX(-12px) translateY(-2px) rotate3d(0,1,0, .6deg);
+        transform: translateX(-12px) translateY(-2px) rotate3d(0,1,0,.6deg);
         box-shadow: 0 40px 80px rgba(0,0,0,.55);
       }
       .video-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-	  
-        color: var(--muted);
-        text-align: center;
-        padding: 30px 24px;
-      }
+
+      footer { color: var(--muted); text-align: center; padding: 30px 24px; }
 
       /* 減少動效偏好：直接顯示，避免看不到 */
       @media (prefers-reduced-motion: reduce) {
@@ -149,21 +158,6 @@
           transform: none;
           opacity: 1 !important;
           transition: none;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .hero {
-          grid-template-columns: 1fr;
-        }
-        .title {
-          padding-left: 12px;
-        }
-        .container {
-          padding: 32px 20px 32px 44px;
-        } /* 手機端也稍微往右靠 */
-        .video-wrap {
-          transform: translateX(-6px);
         }
       }
 
@@ -175,9 +169,6 @@
           radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 60%),
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text);
-      }
-      .intro-container.section-inner { /* gets centered by is-centered */
-        /* already centered via .section-inner */
       }
 
       .intro-title {
@@ -192,25 +183,23 @@
         transform: scaleX(0); transform-origin: left;
         transition: transform var(--dur) var(--ease);
       }
-      /* will toggle in .reveal state */
       .intro-container.reveal .intro-title::after { transform: scaleX(1); }
 
       .intro-subtitle {
         font-size: clamp(16px, 2.4vw, 20px); color: var(--muted);
         max-width: 70ch; margin: 0 auto 40px; line-height: 1.65;
       }
+
       .intro-grid {
         display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
       }
+
       .intro-card {
         background: var(--card); border: 1px solid var(--border);
         border-radius: 16px; padding: 24px; text-align: left;
         backdrop-filter: blur(8px); box-shadow: 0 24px 48px rgba(0,0,0,.4);
         outline: none;
-
-        /* animation base */
-        opacity: 0; transform: translateY(12px) scale(.98);
-        transition: transform .35s var(--ease), box-shadow .35s var(--ease), opacity .5s var(--ease);
+        transition: transform .35s var(--ease), box-shadow .35s var(--ease), opacity .55s var(--ease);
       }
       .intro-card:hover, .intro-card:focus-visible {
         transform: translateY(-2px) scale(1);
@@ -223,9 +212,7 @@
       .intro-card h3 { font-size: 20px; margin: 0; color: var(--accent); font-weight: 800; }
       .intro-card p { font-size: 16px; color: var(--muted); line-height: 1.65; margin: 10px 0 0; }
 
-      .card-head {
-        display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
-      }
+      .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
       .intro-icon {
         --g1: #58a6ff; --g2: #20c05b; --ring: rgba(255,255,255,.18);
         position: relative; width: 36px; height: 36px; border-radius: 10px;
@@ -257,7 +244,7 @@
       .intro-card:nth-child(2) .intro-icon { --g1: #22c55e; --g2: #58a6ff; }
       .intro-card:nth-child(3) .intro-icon { --g1: #f59e0b; --g2: #22c55e; }
 
-      /* === Agricultural Evolution Section === */
+      /* Agricultural Evolution */
       .evolution-section {
         padding: 80px 24px;
         background:
@@ -266,7 +253,6 @@
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text);
       }
-      .evolution-container.section-inner { /* centered by is-centered */ }
 
       .evolution-title {
         font-size: clamp(32px, 5vw, 52px); font-weight: 900; margin-bottom: 16px;
@@ -285,10 +271,7 @@
       .evolution-lead {
         font-size: clamp(18px, 2.6vw, 22px); color: var(--muted);
         max-width: 70ch; margin: 0 auto 48px; line-height: 1.65;
-        opacity: 0; transform: translateY(10px);
-        transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
       }
-      .evolution-container.reveal .evolution-lead { opacity: 1; transform: none; }
 
       .evolution-grid {
         display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -298,7 +281,6 @@
         background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: left;
         backdrop-filter: blur(8px); box-shadow: 0 24px 48px rgba(0,0,0,.4);
         outline: none;
-        opacity: 0; transform: translateY(14px) scale(.985);
         transition: transform .35s var(--ease), box-shadow .35s var(--ease), opacity .55s var(--ease);
       }
       .evolution-card:hover, .evolution-card:focus-visible {
@@ -340,8 +322,7 @@
       }
 
       /* Accessibility: focus visible */
-      .intro-card:focus-visible,
-      .evolution-card:focus-visible {
+      .intro-card:focus-visible, .evolution-card:focus-visible {
         outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
         outline-offset: 4px;
       }
@@ -349,13 +330,8 @@
       /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
         .stars, .orb { animation: none !important; }
-        .intro-card, .evolution-card,
-        .evolution-lead {
-          transform: none !important;
-          opacity: 1 !important;
-          transition: none !important;
-          animation: none !important;
-        }
+        /* Reveal content immediately without motion */
+        .reveal, .intro-card, .evolution-card { opacity: 1 !important; transform: none !important; transition: none !important; animation: none !important; }
         .intro-icon::before { display: none !important; }
       }
 
@@ -398,7 +374,8 @@
               src="https://www.youtube-nocookie.com/embed/vk_kLr14Obg?rel=0&autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&playsinline=1"
               title="Intro video"
               allow="autoplay; encrypted-media; picture-in-picture"
-             lass="intro-section is-centered" aria-label="Nature's Force Intro">
+              allowfullscreen
+             d" aria-label="Nature's Force Intro">
         <div class="intro-container section-inner reveal">
           <h2 class="intro-title">Where Nature's Force Becomes Your Strength</h2>
           <p class="intro-subtitle">
@@ -527,54 +504,54 @@
     </main>
 
     <script>
-      // Reveal & animation helper
+      // IntersectionObserver-based reveal with safeguards
       (function () {
-        const toReveal = document.querySelectorAll(
-          ".reveal, .intro-card, .evolution-card"
-        );
-
-        const reveal = (el) => {
-          // add reveal
-          el.classList.add("reveal");
-
-          // if it's a section container with title/lead underline sweep
-          if (el.classList.contains("section-inner")) {
-            el.classList.add("reveal");
-          }
-
-          // Handle per-card stagger via data-delay
-          const delay = parseFloat(el.getAttribute("data-delay") || "0");
-          if (!isNaN(delay)) {
-            el.style.transitionDelay = `${delay}s`;
-            el.style.animationDelay = `${delay + 0.15}s`;
-          }
-        };
-
-        if ("IntersectionObserver" in window) {
-          const io = new IntersectionObserver(
-            (entries, obs) => {
-              entries.forEach((e) => {
-                if (e.isIntersecting) {
-                  reveal(e.target);
-                  obs.unobserve(e.target);
-                }
-              });
-            },
-            { threshold: 0.08, rootMargin: "0px 0px -10% 0px" }
+        try {
+          const candidates = document.querySelectorAll(
+            ".section-inner.reveal, .intro-card.reveal, .evolution-card.reveal"
           );
-          toReveal.forEach((el) => io.observe(el));
 
-          // Safety: ensure content visible soon after load
-          window.addEventListener("load", () => {
-            setTimeout(() => {
-              toReveal.forEach((el) => el.classList.contains("reveal") || reveal(el));
-            }, 900);
-          });
-        } else {
-          toReveal.forEach(reveal);
+          const reveal = (el) => {
+            // apply stagger if any
+            const delay = parseFloat(el.getAttribute("data-delay") || "0");
+            if (!isNaN(delay)) {
+              el.style.transitionDelay = `${delay}s`;
+              el.style.animationDelay = `${delay + 0.15}s`;
+            }
+            el.classList.add("reveal");
+          };
+
+          if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver(
+              (entries, obs) => {
+                entries.forEach((e) => {
+                  if (e.isIntersecting) {
+                    reveal(e.target);
+                    obs.unobserve(e.target);
+                  }
+                });
+              },
+              { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
+            );
+            candidates.forEach((el) => io.observe(el));
+
+            // Fallback: ensure content visible if IO doesn't trigger promptly
+            window.addEventListener("load", () => {
+              setTimeout(() => {
+                candidates.forEach((el) => el.classList.contains("reveal") || reveal(el));
+              }, 1000);
+            });
+          } else {
+            // No IO support: reveal immediately
+            candidates.forEach(reveal);
+          }
+        } catch (err) {
+          console.error("Reveal script error:", err);
+          // On error, force everything visible
+          document.querySelectorAll(".section-inner, .intro-card, .evolution-card").forEach((el) => el.classList.add("reveal"));
         }
       })();
     </script>
   </body>
 </html>
-
+``
