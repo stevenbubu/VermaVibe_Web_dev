@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,7 +36,7 @@
         --bg-0: #0a0f1e;
         --bg-1: #0f172a;
         --text: #eef4ff;
-        --muted: #b9c5da; /* brighter for contrast */
+        --muted: #b9c5da;
         --brand: #20c05b;
         --accent: #58a6ff;
         --card: rgba(255, 255, 255, 0.09);
@@ -47,8 +48,8 @@
         --shine-1: rgba(255, 255, 255, 0.75);
         --shine-2: rgba(255, 255, 255, 0.35);
         --shine-3: rgba(255, 255, 255, 0);
-        --shimmer-duration: 3.8s; /* 掃光 */
-        --gloss-duration: 2.6s; /* 窄光束 */
+        --shimmer-duration: 3.8s;
+        --gloss-duration: 2.6s;
       }
 
       html,
@@ -80,7 +81,8 @@
             var(--bg-1) 40%,
             var(--bg-0) 100%
           );
-        overflow: hidden; /* 使 main 成為唯一的捲動容器 */
+        /* ✅ 讓整個頁面自然捲動（移除內部捲動） */
+        overflow-x: hidden; /* 避免偶發橫向捲動 */
       }
 
       .stars {
@@ -151,8 +153,9 @@
 
       /* Layout */
       .container {
-        width: 100vw;
-        max-width: 100vw;
+        /* ✅ 使用 100% 以自適應瀏覽器寬度，避免 100vw 帶來的橫向捲動 */
+        width: 100%;
+        max-width: none;
         margin: 0;
         padding: 40px 24px 40px 52px;
       }
@@ -160,13 +163,12 @@
         width: 100%;
       }
 
-      /* ====== 專屬 Hero 區塊一屏置中 ====== */
+      /* ====== Hero 區塊置中與往下 ====== */
       .hero-section {
         display: grid;
         place-items: center; /* 垂直 + 水平置中該屏內容 */
         padding-block: 24px;
-        /* Hero 整體往下 */
-        padding-top: 120px;
+        padding-top: 120px; /* Hero 整體往下 */
       }
 
       .hero {
@@ -174,17 +176,17 @@
         grid-template-columns: 0.9fr 1.4fr;
         gap: 28px;
         align-items: center;
-        justify-items: center; /* 讓兩欄內容各自水平置中 */
+        justify-items: center;
         width: 100%;
-        max-width: 1280px;     /* 控制 Hero 寬度 */
-        margin: 0 auto;        /* 置中 */
+        max-width: 1280px; /* 控制 Hero 寬度 */
+        margin: 0 auto; /* 置中 */
       }
 
       .title {
         display: flex;
         flex-direction: column;
         gap: 14px;
-        padding-left: 0; /* 原本的額外左內距移除，避免視覺偏移 */
+        padding-left: 0;
       }
 
       .title h1 {
@@ -201,7 +203,7 @@
         display: inline-block;
       }
 
-      /* ===== Hero 底線：由消失到出現（一次性） ===== */
+      /* ===== Hero 底線動畫 ===== */
       .title h1 .underline::after {
         content: "";
         position: absolute;
@@ -212,13 +214,11 @@
         border-radius: 8px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
         box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
-        /* 從 0 → 1 的展開與淡入 */
         transform-origin: left;
         transform: scaleX(0);
         opacity: 0;
         animation: underline-reveal 900ms ease-out 220ms both;
       }
-      /* Hero 不要窄光束層，確保是「由無到有」的純粹顯現 */
       .title h1 .underline::before {
         content: none;
       }
@@ -231,7 +231,7 @@
         55% {
           transform: scaleX(1.05);
           opacity: 1;
-        } /* 輕微超伸，更有生動感 */
+        }
         100% {
           transform: scaleX(1);
           opacity: 1;
@@ -259,7 +259,7 @@
         border-radius: 18px;
         overflow: hidden;
         box-shadow: var(--shadow);
-        transform: none; /* 移除位移，確保置中 */
+        transform: none;
       }
       .video-wrap iframe {
         width: 100%;
@@ -306,7 +306,6 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
-      /* === Intro 標題掃光（保留原掃光效果） === */
       .intro-title::after {
         content: "";
         position: absolute;
@@ -365,7 +364,7 @@
         gap: 20px;
       }
 
-      /* ====== 卡片動畫（初始、顯示、互動）====== */
+      /* 卡片動畫 */
       .intro-card,
       .evolution-card {
         background: var(--card);
@@ -376,16 +375,13 @@
         backdrop-filter: blur(8px);
         outline: none;
 
-        /* 初始狀態：淡、下移、陰影輕 */
         opacity: 0;
         transform: translateY(14px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
 
-        /* 進場過渡：透明、位移、陰影一起變化 */
         transition: opacity 0.6s ease-out, transform 0.6s ease-out,
           box-shadow 0.6s ease-out;
       }
-      /* 顯示狀態：完全可見、歸位、陰影加深 */
       .intro-card.reveal,
       .evolution-card.reveal {
         opacity: 1;
@@ -393,7 +389,6 @@
         box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38);
       }
 
-      /* Hover / Focus：細微上浮 + 陰影加深 */
       .intro-card:hover,
       .intro-card:focus-visible,
       .evolution-card:hover,
@@ -483,7 +478,7 @@
         --g2: #22c55e;
       }
 
-      /* === Agricultural Evolution Section (ALL ENGLISH) === */
+      /* Evolution */
       .evolution-section {
         padding: 80px 24px;
         background: radial-gradient(
@@ -513,7 +508,6 @@
         display: inline-block;
         letter-spacing: 0.2px;
       }
-      /* === Evolution 標題掃光（保留原掃光效果） === */
       .evolution-title::after {
         content: "";
         position: absolute;
@@ -620,7 +614,7 @@
         height: 24px;
       }
 
-      /* Accessibility: focus visible for intro cards too */
+      /* Accessibility */
       .intro-card:focus-visible {
         outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
         outline-offset: 4px;
@@ -645,7 +639,6 @@
           display: none !important;
         }
 
-        /* 保留掃光區塊的靜態底線 */
         .intro-title::after,
         .evolution-title::after {
           animation: none !important;
@@ -668,7 +661,7 @@
           grid-template-columns: 1fr;
         }
         .title {
-          text-align: center; /* 小尺寸時讓文字群組置中 */
+          text-align: center;
         }
         .container {
           padding: 32px 20px 32px 44px;
@@ -693,13 +686,13 @@
       }
       @media (max-width: 480px) {
         .video-wrap {
-            width: 100%;
-            max-width: none;
-            aspect-ratio: 16/9;
-          }
+          width: 100%;
+          max-width: none;
+          aspect-ratio: 16/9;
+        }
       }
 
-      /* Intro/Evolution 掃光的動畫（Hero 已不使用） */
+      /* Intro/Evolution 掃光動畫 */
       @keyframes shimmer {
         0% {
           background-position: 0 0, -160% 0;
@@ -732,43 +725,24 @@
         }
       }
 
-      /* === Full-screen Sections + Scroll Snap（新增/覆寫） === */
+      /* === 重要：移除內部捲動與 Snap，改為自然頁面捲動 === */
 
-      /* 使 main 成為唯一的垂直捲動容器，並啟用吸附 */
+      /* 讓 main 不再當獨立捲動容器 */
       main.container {
-        height: 100svh;
-        /* 僅保留左右 padding，避免影響每屏實際高度 */
+        /* 移除：height, overflow, scroll-snap 相關；保留左右 padding */
         padding: 0 24px 0 52px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        scroll-snap-type: y mandatory;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior-y: contain;
       }
 
-      /* 每個區塊一屏高 + 作為吸附錨點 */
+      /* 讓各 section 使用自然高度（移除滿版一屏設定與 snap） */
       .section,
       .intro-section,
       .evolution-section,
       footer {
-        min-height: 100svh;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
+        /* 移除：min-height: 100svh; scroll-snap-align; scroll-snap-stop; */
         display: block;
       }
 
-      /* 移除原本的 intro-section 外距，避免破壞吸附 */
-      .intro-section {
-        margin-top: 0 !important;
-      }
-
-      /* 讓 Footer 在整屏中置中顯示 */
-      footer {
-        display: grid;
-        place-items: center;
-      }
-
-      /* 平滑滾動（對錨點/程式化滾動） */
+      /* 平滑滾動（可保留） */
       html {
         scroll-behavior: smooth;
       }
@@ -831,7 +805,7 @@
                       stroke-width="1.6"
                     />
                     <path
-                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03.31.05 .63.05 .96s-.02 .65-.05 .96l1.83 1.4-1.8 3.12-2.2-.54c-.25 .25-.52 .48-.8 .68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21 .54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
+                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03 .31.05 .63.05 .96s-.02 .65-.05 .96l1.83 1.4-1.8 3.12-2.2-.54c-.25 .25-.52 .48-.8 .68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21 .54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
                       stroke="currentColor"
                       stroke-width="1.6"
                       stroke-linejoin="round"
@@ -1056,9 +1030,9 @@
         revealTargets.forEach(reveal);
       }
 
-      // === 可選：鍵盤控制單屏吸附（PageUp/PageDown/Space） ===
+      // 鍵盤快速跳段（原有功能可保留）
       (function () {
-        const scroller = document.querySelector("main.container");
+        const scroller = document.documentElement; // 改為整頁
         const sections = Array.from(
           document.querySelectorAll(
             ".section, .intro-section, .evolution-section, footer"
@@ -1075,10 +1049,9 @@
         function currentSectionIndex() {
           let idx = 0;
           let minDist = Infinity;
-          const rect = scroller.getBoundingClientRect();
           sections.forEach((sec, i) => {
             const r = sec.getBoundingClientRect();
-            const dist = Math.abs(r.top - rect.top);
+            const dist = Math.abs(r.top);
             if (dist < minDist) {
               minDist = dist;
               idx = i;
