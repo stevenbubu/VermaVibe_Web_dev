@@ -266,6 +266,11 @@
         border: 0;
         display: block;
       }
+      .video-mask {
+        position: absolute; inset: 0;
+        pointer-events: auto; /* 吃掉所有點擊 */
+        background: transparent;
+      }
 
       footer {
         color: var(--muted);
@@ -768,6 +773,7 @@
               referrerpolicy="strict-origin-when-cross-origin"
               oncontextmenu="return false"
             ></iframe>
+            <span class="video-mask" aria-hidden="true"></span>
           </div>
         </div>
       </section>
