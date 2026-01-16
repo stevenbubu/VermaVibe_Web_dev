@@ -171,12 +171,12 @@
 
       .hero {
         display: grid;
-        grid-template-columns: 1.05fr 1.2fr;
+        grid-template-columns: 0.9fr 1.4fr;
         gap: 28px;
         align-items: center;
         justify-items: center; /* 讓兩欄內容各自水平置中 */
         width: 100%;
-        max-width: 1200px;     /* 控制 Hero 寬度 */
+        max-width: 1280px;     /* 控制 Hero 寬度 */
         margin: 0 auto;        /* 置中 */
       }
 
@@ -692,9 +692,11 @@
         }
       }
       @media (max-width: 480px) {
-        .orb {
-          filter: blur(28px);
-        }
+        .video-wrap {
+            width: 100%;
+            max-width: none;
+            aspect-ratio: 16/9;
+          }
       }
 
       /* Intro/Evolution 掃光的動畫（Hero 已不使用） */
