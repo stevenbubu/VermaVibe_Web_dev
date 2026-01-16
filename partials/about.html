@@ -267,26 +267,25 @@
         display: block;
       }
       .video-mask {
-        position: absolute; inset: 0;
+        position: absolute;
+        inset: 0;
         pointer-events: auto; /* 吃掉所有點擊 */
         background: transparent;
       }
+
       
-      /* 遮罩：覆蓋左上或右下常見的 YouTube 浮水印區域 */
-      .yt-mask {
-        position: absolute;
-        /* 視情況調角落，常見在右下角；若出現在左上，改為 top:0; left:0; */
-        right: 0; 
-        bottom: 0;
-        width: clamp(48px, 8vw, 90px);
-        height: clamp(20px, 3vw, 36px);
-        /* 用背景色或輕微漸層遮蓋，避免突兀 */
-        background: linear-gradient(135deg, rgba(10,15,30,0.85), rgba(10,15,30,0.2));
-        pointer-events: none;
-        /* 如果你想完全看不出遮罩，可改成 background: rgba(0,0,0,0); 搭配模糊 */
-        /* filter: blur(0.5px); */
-        /* 需要更大範圍就把 width/height 調大一些 */
-      }
+/* 預設覆蓋右下角（YouTube 浮水印常見位置） */
+.yt-mask {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: clamp(48px, 8vw, 90px);
+  height: clamp(20px, 3vw, 36px);
+  background: linear-gradient(135deg, rgba(10,15,30,0.85), rgba(10,15,30,0.2));
+  pointer-events: none;         /* 不擋點擊/操作（若想完全不互動再另說） */
+  z-index: 2;                   /* 確保在 iframe 上層 */
+  /* 若你的 .video-wrap 有圓角，遮罩會跟著被裁切，不用額外處理 */
+}
 
 
       footer {
@@ -791,7 +790,7 @@
               oncontextmenu="return false"
             ></iframe>
             <span class="video-mask" aria-hidden="true"></span>
-            <span class="yt-mask"></span>
+            <span class="yt-mask" aria-hidden="true"></span>
           </div>
         </div>
       </section>
