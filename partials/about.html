@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -760,18 +761,24 @@
       .cf-viewport {
         overflow: hidden;
         padding: 10px 4px 12px;
+        /* 讓手機能用水平手勢，但仍可垂直捲動頁面 */
+        touch-action: pan-y;
       }
       .cf-track {
         display: flex;
         gap: 22px;
         will-change: transform;
         transition: transform 0.45s ease-out;
+        user-select: none;
+      }
+      .cf-track.grabbing {
+        cursor: grabbing;
       }
 
       /* Slide style */
       .cf-slide {
         position: relative;
-        display: flex; /* 讓標題區與內容列上下排列 */
+        display: flex;
         flex-direction: column;
         user-select: none;
         text-align: left;
@@ -781,7 +788,7 @@
         padding: 22px;
         box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
         transition: transform 0.25s ease, box-shadow 0.25s ease;
-        flex: 0 0 min(50%, 480px); /* 更緊湊的卡片寬度 */
+        flex: 0 0 min(50%, 480px);
       }
       .cf-slide::before {
         content: "";
@@ -822,8 +829,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 2px; /* ← 若你也想縮小圖示與標題距離，可從原本 10px 改成 6px */
-        margin-top: 0; /* ← 標題區域與卡片上緣的距離縮小 */
+        gap: 2px;
+        margin-top: 0;
         padding-top: 0;
         margin-bottom: 0px;
         text-align: center;
@@ -834,25 +841,24 @@
         color: var(--accent);
         font-weight: 900;
         letter-spacing: 0.2px;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-        text-align: center; /* 標題文字置中 */
+        text-align: center;
       }
 
-      /* 圖片在方框高度中央（內容列佔滿剩餘高度並置中） */
+      /* 內容列 */
       .cf-row {
         display: flex;
-        align-items: center; /* 圖片與文字垂直置中 */
+        align-items: center;
         gap: 14px;
-        flex: 1; /* 佔滿卡片剩餘高度，使置中「針對整個方框」 */
-        min-height: 8rem; /* 視覺基準高度，與縮圖基準一致 */
+        flex: 1;
+        min-height: 8rem;
       }
 
       /* 左圖（縮圖） */
       .cf-thumb {
-        align-self: center; /* 保險：個別元素也置中（若父層被覆寫時） */
+        align-self: center;
         flex: 0 0 auto;
-        width: 8rem; /* 8rem 基準（JS 會再壓到 ≤ 文字高度） */
-        aspect-ratio: 1; /* 正方形 */
+        width: 8rem;
+        aspect-ratio: 1;
         height: auto;
         overflow: hidden;
         border: 1px solid var(--border);
@@ -1233,6 +1239,7 @@
             role="region"
             aria-roledescription="carousel"
             aria-label="Essential Core Functions"
+            aria-live="off"
           >
             <!-- Prev / Next Buttons -->
             <button class="cf-nav prev" aria-label="Previous item">
@@ -1313,10 +1320,10 @@
                   </div>
                   <div class="cf-row">
                     <div class="cf-thumb">
-                      https://picsum.photos/seed/soil/800/800
-                    </div>
-                    <div class="cf-copy">
-                      <ul class="cf-bullets">
+                      <img
+                        src="https://picsum.photos/seed/soil/800/800"
+                        alt="Soil vitality"
+                       cf-bullets">
                         <li>Rebuilds soil structure and porosity</li>
                         <li>Activates beneficial microbiomes</li>
                         <li>Improves nutrient and moisture retention</li>
@@ -1376,10 +1383,10 @@
                   </div>
                   <div class="cf-row">
                     <div class="cf-thumb">
-                      https://picsum.photos/seed/pest/800/800
-                    </div>
-                    <div class="cf-copy">
-                      <ul class="cf-bullets">
+                      <img
+                        src="https://picsum.photos/seed/pest/800/800"
+                        alt="Pest control"
+                       "cf-bullets">
                         <li>
                           Balances field conditions to reduce pest pressure
                         </li>
@@ -1431,9 +1438,9 @@
                   </div>
                   <div class="cf-row">
                     <div class="cf-thumb">
-                      https://picsum.photos/seed/disease/800/800
-                    </div>
-                    <div class="cf-copy">
+                      <img
+                        src="https://picsum.photos/seed/disease/800/800"
+                       "cf-copy">
                       <ul class="cf-bullets">
                         <li>Supports innate plant immunity</li>
                         <li>Suppresses pathogen activity and spread</li>
@@ -1494,9 +1501,9 @@
                   </div>
                   <div class="cf-row">
                     <div class="cf-thumb">
-                      <imgs://picsum.photos/seed/growth/800/800
-                    </div>
-                    <div class="cf-copy">
+                      <img
+                        src="https://picsum.photos/seed/growth/800/800"
+                        alt="py">
                       <ul class="cf-bullets">
                         <li>Fine‑tunes developmental rhythms</li>
                         <li>Aligns growth phases with optimal windows</li>
@@ -1615,14 +1622,14 @@
           const thumb = row.querySelector(".cf-thumb");
           const copy = row.querySelector(".cf-copy");
           if (!thumb || !copy) return;
-          const copyH = copy.getBoundingClientRect().height || 0; // measure text block height
+          const copyH = copy.getBoundingClientRect().height || 0;
           const size = Math.max(0, Math.min(base, copyH));
           thumb.style.width = size + "px";
           thumb.style.height = size + "px";
         });
       }
 
-      // ===== Essential Core Functions slider（自動輪播 + 無回彈循環） =====
+      // ===== Essential Core Functions slider（自動輪播 + 無回彈循環 + 手勢滑動） =====
       (function () {
         const slider = document.querySelector(
           ".core-functions-section .cf-slider"
@@ -1648,9 +1655,7 @@
           );
           return el;
         }
-        const beforeClones = originals
-          .map((s) => markClone(s.cloneNode(true)))
-          .reverse();
+        const beforeClones = originals.map((s) => markClone(s.cloneNode(true))).reverse();
         beforeClones.forEach((s) => track.insertBefore(s, track.firstChild));
         const afterClones = originals.map((s) => markClone(s.cloneNode(true)));
         afterClones.forEach((s) => track.appendChild(s));
@@ -1663,12 +1668,12 @@
           const anchor = all[beforeClones.length];
           const next = all[beforeClones.length + 1];
           if (!anchor || !next) {
-            STEP = viewport.clientWidth;
+            STEP = viewport.clientWidth || 0;
             return;
           }
           const r0 = anchor.getBoundingClientRect();
           const r1 = next.getBoundingClientRect();
-          STEP = r1.left - r0.left;
+          STEP = Math.max(1, r1.left - r0.left); // 防止 0 導致無法移動
         }
 
         function setTransform(px, withTransition) {
@@ -1721,6 +1726,72 @@
         nextBtn?.addEventListener("click", () => {
           go(1);
         });
+
+        // ===== 手勢滑動（滑鼠拖曳 / 觸控） =====
+        let dragging = false;
+        let startX = 0;
+        let lastX = 0;
+
+        function getClientX(e) {
+          if (e.touches && e.touches[0]) return e.touches[0].clientX;
+          if (e.changedTouches && e.changedTouches[0]) return e.changedTouches[0].clientX;
+          return e.clientX;
+        }
+
+        function onPointerDown(e) {
+          dragging = true;
+          startX = getClientX(e);
+          lastX = startX;
+          track.classList.add("grabbing");
+          // 暫停自動播放
+          pauseAuto();
+          // 禁止文字選取
+          document.body.style.userSelect = "none";
+        }
+
+        function onPointerMove(e) {
+          if (!dragging) return;
+          const x = getClientX(e);
+          const dx = x - startX;
+          // 依目前基準位移 + 拖拉距離，立即呈現
+          setTransform(currentPX() - dx, false);
+          lastX = x;
+          e.preventDefault(); // 阻止頁面選取或不必要的行為
+        }
+
+        function onPointerUp(e) {
+          if (!dragging) return;
+          const total = lastX - startX;
+          const THRESHOLD = Math.max(40, STEP * 0.25);
+          if (Math.abs(total) > THRESHOLD) {
+            go(total < 0 ? 1 : -1);
+          } else {
+            // 回彈到原位
+            setTransform(currentPX(), true);
+          }
+          dragging = false;
+          track.classList.remove("grabbing");
+          document.body.style.userSelect = "";
+          // 稍後恢復自動播放
+          resumeAutoLater();
+        }
+
+        // 使用 Pointer Events（新瀏覽器），並兼容 mouse/touch
+        // 在 viewport 綁定，避免點到左右按鈕時誤觸手勢
+        viewport.addEventListener("pointerdown", onPointerDown);
+        window.addEventListener("pointermove", onPointerMove, { passive: false });
+        window.addEventListener("pointerup", onPointerUp);
+        window.addEventListener("pointercancel", onPointerUp);
+
+        // iOS/Safari 兼容（若 pointer 不可用，使用 touch/mouse 後援）
+        if (!("PointerEvent" in window)) {
+          viewport.addEventListener("touchstart", onPointerDown, { passive: true });
+          window.addEventListener("touchmove", onPointerMove, { passive: false });
+          window.addEventListener("touchend", onPointerUp);
+          viewport.addEventListener("mousedown", onPointerDown);
+          window.addEventListener("mousemove", onPointerMove);
+          window.addEventListener("mouseup", onPointerUp);
+        }
 
         // ===== Autoplay =====
         const prefersReduced = window.matchMedia(
@@ -1822,3 +1893,4 @@
     </script>
   </body>
 </html>
+``
