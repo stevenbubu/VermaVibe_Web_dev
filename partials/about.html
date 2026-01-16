@@ -1,10 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <!-- Use full available viewport including notches on iOS -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>VermaVibe</title>
     <meta name="description" content="VermaVibe Quantum Farming" />
 
@@ -22,7 +24,10 @@
     <meta property="og:url" content="https://example.com/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="VermaVibe — Quantum Farming" />
-    <meta name="twitter:description" content="Achieve Harvests with Quantum Power." />
+    <meta
+      name="twitter:description"
+      content="Achieve Harvests with Quantum Power."
+    />
     <meta name="twitter:image" content="https://example.com/og-cover.jpg" />
 
     <style>
@@ -46,373 +51,948 @@
         --gloss-duration: 2.6s;
       }
 
-      html, body { height: 100%; }
-      * { box-sizing: border-box; }
+      html,
+      body {
+        height: 100%;
+      }
+      * {
+        box-sizing: border-box;
+      }
 
       body {
         margin: 0;
         color: var(--text);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI,
           Noto Sans, Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif;
-        background:
-          radial-gradient(1100px 560px at 14% -10%, rgba(88, 166, 255, 0.22), transparent 60%),
-          radial-gradient(900px 460px at 90% 110%, rgba(32, 192, 91, 0.22), transparent 62%),
-          linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 40%, var(--bg-0) 100%);
+        background: radial-gradient(
+            1100px 560px at 14% -10%,
+            rgba(88, 166, 255, 0.22),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 460px at 90% 110%,
+            rgba(32, 192, 91, 0.22),
+            transparent 62%
+          ),
+          linear-gradient(
+            180deg,
+            var(--bg-0) 0%,
+            var(--bg-1) 40%,
+            var(--bg-0) 100%
+          );
         overflow-x: hidden;
       }
 
       .stars {
-        position: fixed; inset: 0; z-index: -2; pointer-events: none;
-        background:
-          radial-gradient(1px 1px at 14% 28%, rgba(255,255,255,.9), transparent 2px),
-          radial-gradient(1px 1px at 42% 82%, rgba(255,255,255,.7), transparent 2px),
-          radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,.7), transparent 2px),
-          radial-gradient(1px 1px at 85% 58%, rgba(255,255,255,.6), transparent 2px);
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background: radial-gradient(
+            1px 1px at 14% 28%,
+            rgba(255, 255, 255, 0.9),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 42% 82%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 70% 30%,
+            rgba(255, 255, 255, 0.7),
+            transparent 2px
+          ),
+          radial-gradient(
+            1px 1px at 85% 58%,
+            rgba(255, 255, 255, 0.6),
+            transparent 2px
+          );
         animation: twinkle 6s linear infinite;
       }
-      @keyframes twinkle { 50% { opacity: .6; } }
+      @keyframes twinkle {
+        50% {
+          opacity: 0.6;
+        }
+      }
 
       .orb {
-        position: fixed; inset: -20vh -10vw auto auto; width: 60vw; height: 60vh; z-index: -3;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(88,166,255,.32), transparent 50%),
-          radial-gradient(circle at 70% 60%, rgba(32,192,91,.24), transparent 60%),
-          radial-gradient(circle at 10% 80%, rgba(245, 158, 11, .18), transparent 55%);
+        position: fixed;
+        inset: -20vh -10vw auto auto;
+        width: 60vw;
+        height: 60vh;
+        z-index: -3;
+        background: radial-gradient(
+            circle at 30% 30%,
+            rgba(88, 166, 255, 0.32),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 70% 60%,
+            rgba(32, 192, 91, 0.24),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 10% 80%,
+            rgba(245, 158, 11, 0.18),
+            transparent 55%
+          );
         filter: blur(42px);
         animation: drift 28s ease-in-out infinite alternate;
       }
       @keyframes drift {
-        0% { transform: translate3d(0,0,0) scale(1); }
-        100%{ transform: translate3d(-6vw,4vh,0) scale(1.06); }
+        0% {
+          transform: translate3d(0, 0, 0) scale(1);
+        }
+        100% {
+          transform: translate3d(-6vw, 4vh, 0) scale(1.06);
+        }
       }
 
-      .container { width: 100%; max-width: none; margin: 0; padding: 40px 24px 40px 52px; }
-      .section { width: 100%; }
+      .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 40px 24px 40px 52px;
+      }
+      .section {
+        width: 100%;
+      }
 
       /* Hero */
-      .hero-section { display: grid; place-items: center; padding-block: 24px; padding-top: 80px; }
-      .hero { display: grid; grid-template-columns: 0.9fr 1.4fr; gap: 28px; align-items: center; justify-items: center; width: 100%; max-width: 1280px; margin: 0 auto; }
-      .title { display: flex; flex-direction: column; gap: 14px; padding-left: 0; }
-      .title h1 { position: relative; font-size: clamp(40px, 7.4vw, 86px); line-height: 1.02; margin: 0; font-weight: 900; letter-spacing: .3px; display: inline-block; }
-      .title h1 .underline { position: relative; display: inline-block; }
-      .title h1 .underline::after{
-        content:""; position:absolute; left:0; bottom:-10px; width:100%; height:8px; border-radius:8px;
+      .hero-section {
+        display: grid;
+        place-items: center;
+        padding-block: 24px;
+        padding-top: 80px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 0.9fr 1.4fr;
+        gap: 28px;
+        align-items: center;
+        justify-items: center;
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .title {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding-left: 0;
+      }
+      .title h1 {
+        position: relative;
+        font-size: clamp(40px, 7.4vw, 86px);
+        line-height: 1.02;
+        margin: 0;
+        font-weight: 900;
+        letter-spacing: 0.3px;
+        display: inline-block;
+      }
+      .title h1 .underline {
+        position: relative;
+        display: inline-block;
+      }
+      .title h1 .underline::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100%;
+        height: 8px;
+        border-radius: 8px;
         background: linear-gradient(90deg, var(--brand), var(--accent));
-        box-shadow: 0 10px 22px rgba(88,166,255,.3);
-        transform-origin:left; transform: scaleX(0); opacity:0;
+        box-shadow: 0 10px 22px rgba(88, 166, 255, 0.3);
+        transform-origin: left;
+        transform: scaleX(0);
+        opacity: 0;
         animation: underline-reveal 900ms ease-out 220ms both;
       }
       @keyframes underline-reveal {
-        0%{ transform:scaleX(0); opacity:0; }
-        55%{ transform:scaleX(1.05); opacity:1; }
-        100%{ transform:scaleX(1); opacity:1; }
+        0% {
+          transform: scaleX(0);
+          opacity: 0;
+        }
+        55% {
+          transform: scaleX(1.05);
+          opacity: 1;
+        }
+        100% {
+          transform: scaleX(1);
+          opacity: 1;
+        }
       }
-      .title h2 { font-size: clamp(24px, 4.2vw, 36px); margin: 0; color: var(--accent); font-weight: 800; }
-      .title p.slogan { margin: 10px 0 0; color: var(--muted); font-size: clamp(18px, 2.8vw, 22px); max-width: 50ch; }
+      .title h2 {
+        font-size: clamp(24px, 4.2vw, 36px);
+        margin: 0;
+        color: var(--accent);
+        font-weight: 800;
+      }
+      .title p.slogan {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: clamp(18px, 2.8vw, 22px);
+        max-width: 50ch;
+      }
 
-      .video-wrap { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); transform: none; }
-      .video-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
-      .video-mask { position: absolute; inset: 0; pointer-events: auto; background: transparent; }
+      .video-wrap {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: #000;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transform: none;
+      }
+      .video-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+      .video-mask {
+        position: absolute;
+        inset: 0;
+        pointer-events: auto;
+        background: transparent;
+      }
 
-      footer { color: var(--muted); text-align: center; padding: 30px 24px; }
+      footer {
+        color: var(--muted);
+        text-align: center;
+        padding: 30px 24px;
+      }
 
       /* Intro */
-      .intro-section{
-        padding:60px 24px; margin-top:60px;
-        background:
-          radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--accent) 30%, transparent), transparent 60%),
-          radial-gradient(circle at 80% 80%, color-mix(in oklab, var(--brand) 30%, transparent), transparent 60%),
+      .intro-section {
+        padding: 60px 24px;
+        margin-top: 60px;
+        background: radial-gradient(
+            circle at 20% 20%,
+            color-mix(in oklab, var(--accent) 30%, transparent),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            color-mix(in oklab, var(--brand) 30%, transparent),
+            transparent 60%
+          ),
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text);
       }
-      .intro-container{ max-width:1200px; margin:0 auto; text-align:center; padding-inline:8px; }
-      .intro-title{ font-size:clamp(28px,5vw,48px); font-weight:900; margin:0 0 16px; position:relative; display:inline-block; letter-spacing:.2px; }
-      .intro-title::after{
-        content:""; position:absolute; left:0; bottom:-8px; width:100%; height:6px; border-radius:6px;
-        background:
-          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
-          linear-gradient(90deg, var(--shine-3) 0%, var(--shine-2) 44%, var(--shine-1) 50%, var(--shine-2) 56%, var(--shine-3) 100%) no-repeat;
-        background-size:100% 100%, 240% 100%; background-position:0 0, -150% 0;
-        box-shadow:0 6px 16px rgba(88,166,255,.3);
+      .intro-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-inline: 8px;
+      }
+      .intro-title {
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 900;
+        margin: 0 0 16px;
+        position: relative;
+        display: inline-block;
+        letter-spacing: 0.2px;
+      }
+      .intro-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 6px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--accent))
+            no-repeat,
+          linear-gradient(
+              90deg,
+              var(--shine-3) 0%,
+              var(--shine-2) 44%,
+              var(--shine-1) 50%,
+              var(--shine-2) 56%,
+              var(--shine-3) 100%
+            )
+            no-repeat;
+        background-size: 100% 100%, 240% 100%;
+        background-position: 0 0, -150% 0;
+        box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
         animation: shimmer var(--shimmer-duration) ease-in-out infinite;
       }
-      .intro-title::before{
-        content:""; position:absolute; left:-18%; bottom:-10px; width:16%; height:10px; border-radius:10px;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.45) 45%, rgba(255,255,255,.85) 50%, rgba(255,255,255,.45) 55%, transparent 100%);
-        filter: blur(3.5px); transform: skewX(-12deg);
+      .intro-title::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        bottom: -10px;
+        width: 16%;
+        height: 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.45) 45%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0.45) 55%,
+          transparent 100%
+        );
+        filter: blur(3.5px);
+        transform: skewX(-12deg);
         animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
       }
-      .intro-subtitle{ font-size:clamp(16px,2.4vw,20px); color:var(--muted); max-width:70ch; margin:0 auto 40px; line-height:1.65; }
-      .intro-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-
-      .intro-card, .evolution-card{
-        background: var(--card); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:left; backdrop-filter: blur(8px); outline:none;
-        opacity:0; transform: translateY(14px); box-shadow: 0 12px 24px rgba(0,0,0,.22);
-        transition: opacity .6s ease-out, transform .6s ease-out, box-shadow .6s ease-out;
+      .intro-subtitle {
+        font-size: clamp(16px, 2.4vw, 20px);
+        color: var(--muted);
+        max-width: 70ch;
+        margin: 0 auto 40px;
+        line-height: 1.65;
       }
-      .intro-card.reveal, .evolution-card.reveal { opacity:1; transform: translateY(0); box-shadow: 0 24px 48px rgba(0,0,0,.38); }
-      .intro-card:hover, .intro-card:focus-visible, .evolution-card:hover, .evolution-card:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-      .intro-card h3, .evolution-card h3 { font-size:20px; margin:0; color: var(--accent); font-weight:800; }
-      .intro-card p, .evolution-card p { font-size:16px; color: var(--muted); line-height:1.65; margin:10px 0 0; }
+      .intro-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
 
-      .card-head { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
-      .intro-icon{ --g1:#58a6ff; --g2:#20c05b; --ring:rgba(255,255,255,.18); position:relative; width:36px; height:36px; border-radius:10px; display:inline-grid; place-items:center; color:#eef4ff;
-        background:
-          radial-gradient(60% 60% at 30% 30%, color-mix(in oklab, var(--g1) 90%, transparent), transparent 60%),
-          radial-gradient(60% 60% at 70% 70%, color-mix(in oklab, var(--g2) 90%, transparent), transparent 60%),
-          rgba(255,255,255,.06);
-        box-shadow: inset 0 0 0 1px var(--ring), 0 10px 26px color-mix(in oklab, var(--g1) 36%, transparent), 0 2px 8px rgba(0,0,0,.26);
+      .intro-card,
+      .evolution-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        text-align: left;
+        backdrop-filter: blur(8px);
+        outline: none;
+        opacity: 0;
+        transform: translateY(14px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out,
+          box-shadow 0.6s ease-out;
+      }
+      .intro-card.reveal,
+      .evolution-card.reveal {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.38);
+      }
+      .intro-card:hover,
+      .intro-card:focus-visible,
+      .evolution-card:hover,
+      .evolution-card:focus-visible {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+      }
+      .intro-card h3,
+      .evolution-card h3 {
+        font-size: 20px;
+        margin: 0;
+        color: var(--accent);
+        font-weight: 800;
+      }
+      .intro-card p,
+      .evolution-card p {
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.65;
+        margin: 10px 0 0;
+      }
+
+      .card-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+      .intro-icon {
+        --g1: #58a6ff;
+        --g2: #20c05b;
+        --ring: rgba(255, 255, 255, 0.18);
+        position: relative;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: inline-grid;
+        place-items: center;
+        color: #eef4ff;
+        background: radial-gradient(
+            60% 60% at 30% 30%,
+            color-mix(in oklab, var(--g1) 90%, transparent),
+            transparent 60%
+          ),
+          radial-gradient(
+            60% 60% at 70% 70%,
+            color-mix(in oklab, var(--g2) 90%, transparent),
+            transparent 60%
+          ),
+          rgba(255, 255, 255, 0.06);
+        box-shadow: inset 0 0 0 1px var(--ring),
+          0 10px 26px color-mix(in oklab, var(--g1) 36%, transparent),
+          0 2px 8px rgba(0, 0, 0, 0.26);
         backdrop-filter: blur(4px);
       }
-      .intro-icon::before{
-        content:""; position:absolute; inset:-8px; border-radius:inherit;
-        background: conic-gradient(from 0deg, color-mix(in oklab, var(--g1) 60%, transparent), color-mix(in oklab, var(--g2) 60%, transparent), color-mix(in oklab, var(--g1) 60%, transparent));
-        filter: blur(14px); opacity:.55; z-index:-1;
+      .intro-icon::before {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border-radius: inherit;
+        background: conic-gradient(
+          from 0deg,
+          color-mix(in oklab, var(--g1) 60%, transparent),
+          color-mix(in oklab, var(--g2) 60%, transparent),
+          color-mix(in oklab, var(--g1) 60%, transparent)
+        );
+        filter: blur(14px);
+        opacity: 0.55;
+        z-index: -1;
       }
 
       /* Evolution */
-      .evolution-section{
-        padding:80px 24px;
-        background:
-          radial-gradient(circle at 20% 20%, rgba(88,166,255,.18), transparent 60%),
-          radial-gradient(circle at 80% 80%, rgba(32,192,91,.18), transparent 60%),
+      .evolution-section {
+        padding: 80px 24px;
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(88, 166, 255, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(32, 192, 91, 0.18),
+            transparent 60%
+          ),
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text);
       }
-      .evolution-container{ max-width:1200px; margin:0 auto; text-align:center; padding-inline:8px; }
-      .evolution-title{ font-size: clamp(32px, 5vw, 52px); font-weight:900; margin-bottom:16px; position:relative; display:inline-block; letter-spacing:.2px; }
-      .evolution-title::after{
-        content:""; position:absolute; left:0; bottom:-8px; width:100%; height:6px; border-radius:6px;
-        background:
-          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
-          linear-gradient(90deg, var(--shine-3) 0%, var(--shine-2) 44%, var(--shine-1) 50%, var(--shine-2) 56%, var(--shine-3) 100%) no-repeat;
-        background-size:100% 100%, 240% 100%; background-position:0 0, -150% 0;
-        box-shadow:0 6px 16px rgba(88,166,255,.3);
+      .evolution-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-inline: 8px;
+      }
+      .evolution-title {
+        font-size: clamp(32px, 5vw, 52px);
+        font-weight: 900;
+        margin-bottom: 16px;
+        position: relative;
+        display: inline-block;
+        letter-spacing: 0.2px;
+      }
+      .evolution-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 6px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--accent))
+            no-repeat,
+          linear-gradient(
+              90deg,
+              var(--shine-3) 0%,
+              var(--shine-2) 44%,
+              var(--shine-1) 50%,
+              var(--shine-2) 56%,
+              var(--shine-3) 100%
+            )
+            no-repeat;
+        background-size: 100% 100%, 240% 100%;
+        background-position: 0 0, -150% 0;
+        box-shadow: 0 6px 16px rgba(88, 166, 255, 0.3);
         animation: shimmer var(--shimmer-duration) ease-in-out infinite;
       }
-      .evolution-title::before{
-        content:""; position:absolute; left:-18%; bottom:-10px; width:16%; height:10px; border-radius:10px;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.45) 45%, rgba(255,255,255,.85) 50%, rgba(255,255,255,.45) 55%, transparent 100%);
-        filter: blur(3.5px); transform: skewX(-12deg);
+      .evolution-title::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        bottom: -10px;
+        width: 16%;
+        height: 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.45) 45%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0.45) 55%,
+          transparent 100%
+        );
+        filter: blur(3.5px);
+        transform: skewX(-12deg);
         animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
       }
-      .evolution-lead{ font-size:clamp(18px,2.6vw,22px); color:var(--muted); max-width:70ch; margin:0 auto 48px; line-height:1.65; }
-      .evolution-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px; }
-      .evolution-card{ padding:28px; }
-      .evolution-card:focus-visible{ outline:2px solid color-mix(in oklab, var(--accent) 70%, white); outline-offset:4px; }
-      .evo-card-head{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-      .evo-icon{ width:40px; height:40px; border-radius:12px; display:grid; place-items:center; color:#eef4ff;
-        background:
-          radial-gradient(circle at 30% 30%, var(--accent), transparent 60%),
-          radial-gradient(circle at 70% 70%, var(--brand), transparent 60%);
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.18), 0 10px 26px rgba(88,166,255,.36), 0 2px 8px rgba(0,0,0,.26);
+      .evolution-lead {
+        font-size: clamp(18px, 2.6vw, 22px);
+        color: var(--muted);
+        max-width: 70ch;
+        margin: 0 auto 48px;
+        line-height: 1.65;
       }
-      .evo-icon svg{ width:24px; height:24px; }
+      .evolution-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 24px;
+      }
+      .evolution-card {
+        padding: 28px;
+      }
+      .evolution-card:focus-visible {
+        outline: 2px solid color-mix(in oklab, var(--accent) 70%, white);
+        outline-offset: 4px;
+      }
+      .evo-card-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .evo-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        color: #eef4ff;
+        background: radial-gradient(
+            circle at 30% 30%,
+            var(--accent),
+            transparent 60%
+          ),
+          radial-gradient(circle at 70% 70%, var(--brand), transparent 60%);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+          0 10px 26px rgba(88, 166, 255, 0.36), 0 2px 8px rgba(0, 0, 0, 0.26);
+      }
+      .evo-icon svg {
+        width: 24px;
+        height: 24px;
+      }
 
       /* Natural page scroll */
-      main.container { padding: 0 24px 0 52px; }
-      .section, .intro-section, .evolution-section, footer { display:block; }
-      html { scroll-behavior: smooth; }
+      main.container {
+        padding: 0 24px 0 52px;
+      }
+      .section,
+      .intro-section,
+      .evolution-section,
+      footer {
+        display: block;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
 
       /* Shimmer / gloss */
       @keyframes shimmer {
-        0%{ background-position: 0 0, -160% 0; }
-        50%{ background-position: 0 0, 80% 0; }
-        100%{ background-position: 0 0, -160% 0; }
+        0% {
+          background-position: 0 0, -160% 0;
+        }
+        50% {
+          background-position: 0 0, 80% 0;
+        }
+        100% {
+          background-position: 0 0, -160% 0;
+        }
       }
       @keyframes gloss-sweep {
-        0%{ left:-18%; opacity:0; }
-        12%{ opacity:.55; }
-        50%{ left:68%; opacity:.9; }
-        88%{ opacity:.4; }
-        100%{ left:118%; opacity:0; }
+        0% {
+          left: -18%;
+          opacity: 0;
+        }
+        12% {
+          opacity: 0.55;
+        }
+        50% {
+          left: 68%;
+          opacity: 0.9;
+        }
+        88% {
+          opacity: 0.4;
+        }
+        100% {
+          left: 118%;
+          opacity: 0;
+        }
       }
 
-      /* Responsive */
-      @media (max-width:1024px){ .intro-grid{ grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); } }
-      @media (max-width:900px){
-        .hero{ grid-template-columns:1fr; }
-        .title{ text-align:center; }
-        .container{ padding: 32px 20px 32px 44px; }
+      /* Responsive (global) */
+      @media (max-width: 1024px) {
+        .intro-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
       }
-      @media (max-width:768px){
-        .intro-title::after, .evolution-title::after { height:4px; }
-        .intro-subtitle{ font-size:16px; }
-        .intro-card h3, .evolution-card h3{ font-size:18px; }
-        .intro-card p, .evolution-card p{ font-size:15px; }
+      @media (max-width: 900px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          text-align: center;
+        }
+        .container {
+          padding: 32px 20px 32px 44px;
+        }
       }
-      @media (max-width:480px){
-        .video-wrap{ width:100%; max-width:none; aspect-ratio:16/9; }
+      @media (max-width: 768px) {
+        .intro-title::after,
+        .evolution-title::after {
+          height: 4px;
+        }
+        .intro-subtitle {
+          font-size: 16px;
+        }
+        .intro-card h3,
+        .evolution-card h3 {
+          font-size: 18px;
+        }
+        .intro-card p,
+        .evolution-card p {
+          font-size: 15px;
+        }
+      }
+      @media (max-width: 480px) {
+        .video-wrap {
+          width: 100%;
+          max-width: none;
+          aspect-ratio: 16/9;
+        }
       }
 
       /* =========================
          Essential Core Functions
-         (改為 transform 輪播：取消回彈、直接循環、箭頭常顯、每張含圖片位)
+         (transform 輪播：自動播放 + 無回彈循環)
          ========================= */
-      .core-functions-section{
+      .core-functions-section {
         position: relative;
         padding: 84px 24px;
         color: var(--text);
-        background:
-          radial-gradient(48rem 28rem at 8% 6%, rgba(88,166,255,.16), transparent 55%),
-          radial-gradient(42rem 24rem at 92% 94%, rgba(32,192,91,.16), transparent 60%),
-          conic-gradient(from 210deg at 20% 10%, rgba(88,166,255,.08), transparent 25%, rgba(32,192,91,.08) 50%, transparent 75%, rgba(245,158,11,.06) 100%),
+        background: radial-gradient(
+            48rem 28rem at 8% 6%,
+            rgba(88, 166, 255, 0.16),
+            transparent 55%
+          ),
+          radial-gradient(
+            42rem 24rem at 92% 94%,
+            rgba(32, 192, 91, 0.16),
+            transparent 60%
+          ),
+          conic-gradient(
+            from 210deg at 20% 10%,
+            rgba(88, 166, 255, 0.08),
+            transparent 25%,
+            rgba(32, 192, 91, 0.08) 50%,
+            transparent 75%,
+            rgba(245, 158, 11, 0.06) 100%
+          ),
           linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
       }
-      .cf-container{ max-width:1200px; margin:0 auto; text-align:center; padding-inline:8px; }
-      .cf-title{
-        font-size:clamp(28px,5vw,48px); font-weight:900; margin-bottom:16px; position:relative; display:inline-block; letter-spacing:.2px;
+      .cf-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-inline: 8px;
+      }
+      .cf-title {
+        font-size: clamp(28px, 5vw, 48px);
+        font-weight: 900;
+        margin-bottom: 16px;
+        position: relative;
+        display: inline-block;
+        letter-spacing: 0.2px;
         animation: cf-wobble 6s ease-in-out infinite;
       }
-      .cf-title::after{
-        content:""; position:absolute; left:0; bottom:-8px; width:100%; height:6px; border-radius:6px;
-        background:
-          linear-gradient(90deg, var(--brand), var(--accent)) no-repeat,
-          linear-gradient(90deg, var(--shine-3) 0%, var(--shine-2) 44%, var(--shine-1) 50%, var(--shine-2) 56%, var(--shine-3) 100%) no-repeat;
-        background-size:100% 100%, 240% 100%; background-position:0 0, -150% 0;
-        box-shadow:0 6px 16px rgba(88,166,255,.35);
+      .cf-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 6px;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--accent))
+            no-repeat,
+          linear-gradient(
+              90deg,
+              var(--shine-3) 0%,
+              var(--shine-2) 44%,
+              var(--shine-1) 50%,
+              var(--shine-2) 56%,
+              var(--shine-3) 100%
+            )
+            no-repeat;
+        background-size: 100% 100%, 240% 100%;
+        background-position: 0 0, -150% 0;
+        box-shadow: 0 6px 16px rgba(88, 166, 255, 0.35);
         animation: shimmer var(--shimmer-duration) ease-in-out infinite;
       }
-      @keyframes cf-wobble{
-        0%,100%{ transform: translateY(0); }
-        50%{ transform: translateY(-2px); }
+      .cf-title::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        bottom: -10px;
+        width: 16%;
+        height: 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.45) 45%,
+          rgba(255, 255, 255, 0.85) 50%,
+          rgba(255, 255, 255, 0.45) 55%,
+          transparent 100%
+        );
+        filter: blur(3.5px);
+        transform: skewX(-12deg);
+        animation: gloss-sweep var(--gloss-duration) ease-in-out infinite;
+      }
+      @keyframes cf-wobble {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-2px);
+        }
       }
 
       /* Slider shell */
-      .cf-slider{ position:relative; margin-top: 12px; }
-      .cf-viewport{
-        overflow: hidden;           /* 改為隱藏捲動，使用 transform 控制 */
+      .cf-slider {
+        position: relative;
+        margin-top: 12px;
+      }
+      .cf-viewport {
+        overflow: hidden;
         padding: 10px 4px 12px;
       }
-      .cf-track{
-        display: flex;              /* 改為 flex */
-        gap: 22px;                  /* 取代 grid gap */
+      .cf-track {
+        display: flex;
+        gap: 22px;
         will-change: transform;
-        transition: transform .45s ease-out; /* 平滑切換，無回彈 */
+        transition: transform 0.45s ease-out;
       }
 
       /* Slide style */
-      .cf-slide{
+      .cf-slide {
         position: relative;
+        display: flex; /* 讓標題區與內容列上下排列 */
+        flex-direction: column;
         user-select: none;
         text-align: left;
         background: color-mix(in oklab, white 6%, transparent);
         border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
         border-radius: 18px;
-        padding: 26px 24px 24px;
-        box-shadow: 0 10px 26px rgba(0,0,0,.28);
-        transition: transform .25s ease, box-shadow .25s ease;
-        flex: 0 0 min(85%, 440px);  /* 取代原 grid-auto-columns 行為 */
+        padding: 22px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        flex: 0 0 min(50%, 480px); /* 更緊湊的卡片寬度 */
       }
-      .cf-slide::before{
-        content:""; position:absolute; inset:-1px; border-radius: 19px;
+      .cf-slide::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 19px;
         padding: 1px;
-        background: linear-gradient(120deg, rgba(88,166,255,.75), rgba(32,192,91,.75), rgba(245,158,11,.65)) border-box;
-        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-        -webkit-mask-composite: xor; mask-composite: exclude;
+        background: linear-gradient(
+            120deg,
+            rgba(88, 166, 255, 0.75),
+            rgba(32, 192, 91, 0.75),
+            rgba(245, 158, 11, 0.65)
+          )
+          border-box;
+        -webkit-mask: linear-gradient(#000 0 0) content-box,
+          linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
         animation: cf-border-rotate 7.5s linear infinite;
-        opacity: .65;
+        opacity: 0.65;
       }
-      @keyframes cf-border-rotate{
-        0%{ filter: hue-rotate(0deg); }
-        100%{ filter: hue-rotate(360deg); }
+      @keyframes cf-border-rotate {
+        0% {
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          filter: hue-rotate(360deg);
+        }
       }
-      .cf-slide:hover{ transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 44px rgba(0,0,0,.35); }
+      .cf-slide:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+      }
 
-      .cf-head{ display:flex; align-items:center; gap:14px; margin-bottom: 12px; }
-      .cf-slide h3{ font-size:20px; margin:0; color: var(--accent); font-weight: 900; letter-spacing:.2px; text-shadow: 0 1px 0 rgba(0,0,0,.25); }
+      /* 項目標題置中（圖示 + 標題） */
+      .cf-head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px; /* ← 若你也想縮小圖示與標題距離，可從原本 10px 改成 6px */
+        margin-top: 0; /* ← 標題區域與卡片上緣的距離縮小 */
+        padding-top: 0;
+        margin-bottom: 0px;
+        text-align: center;
+      }
+      .cf-slide h3 {
+        font-size: 22px;
+        margin: 0;
+        color: var(--accent);
+        font-weight: 900;
+        letter-spacing: 0.2px;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+        text-align: center; /* 標題文字置中 */
+      }
 
-      /* Playful icon */
-      .cf-icon{
-        position: relative; width: 50px; height: 50px; border-radius: 14px; display:grid; place-items:center; color:#eef4ff;
-        background:
-          radial-gradient(circle at 30% 30%, rgba(88,166,255,.9), transparent 60%),
-          radial-gradient(circle at 70% 70%, rgba(32,192,91,.9), transparent 60%),
-          rgba(255,255,255,.06);
-        box-shadow:
-          inset 0 0 0 1px rgba(255,255,255,.22),
-          0 10px 26px rgba(88,166,255,.42), 0 2px 8px rgba(0,0,0,.28);
+      /* 圖片在方框高度中央（內容列佔滿剩餘高度並置中） */
+      .cf-row {
+        display: flex;
+        align-items: center; /* 圖片與文字垂直置中 */
+        gap: 14px;
+        flex: 1; /* 佔滿卡片剩餘高度，使置中「針對整個方框」 */
+        min-height: 8rem; /* 視覺基準高度，與縮圖基準一致 */
+      }
+
+      /* 左圖（縮圖） */
+      .cf-thumb {
+        align-self: center; /* 保險：個別元素也置中（若父層被覆寫時） */
+        flex: 0 0 auto;
+        width: 8rem; /* 8rem 基準（JS 會再壓到 ≤ 文字高度） */
+        aspect-ratio: 1; /* 正方形 */
+        height: auto;
         overflow: hidden;
-      }
-      .cf-icon::after{
-        content:""; position:absolute; inset:-40% -20% auto auto; width: 140%; height: 60%;
-        background: linear-gradient(90deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.45) 50%, rgba(255,255,255,.0) 100%);
-        transform: rotate(15deg) translateX(-120%);
-        animation: cf-gloss 3.2s ease-in-out infinite;
-      }
-      @keyframes cf-gloss{
-        0%{ transform: rotate(15deg) translateX(-120%); opacity: .0; }
-        30%{ opacity:.8; }
-        60%{ opacity:.3; }
-        100%{ transform: rotate(15deg) translateX(40%); opacity: 0; }
-      }
-      .cf-icon svg{ width: 30px; height: 30px; display: block; filter: drop-shadow(0 2px 6px rgba(88,166,255,.35)); }
-
-      /* Bullets */
-      .cf-bullets{ margin: 10px 0 0; padding-left: 20px; color: var(--muted); }
-      .cf-bullets li{ line-height: 1.65; margin: 6px 0; }
-
-      /* Image placeholder block (每張 slide 的圖片位) */
-      .cf-img{
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        background: rgba(255,255,255,.08);
         border: 1px solid var(--border);
-        border-radius: 12px;
-        margin: 6px 0 12px;
-        display: grid;
-        place-items: center;
-        color: var(--muted);
-        font-size: 14px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.08);
       }
-      .cf-img img{
+      .cf-thumb img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 12px;
         display: block;
       }
 
+      /* 右文 */
+      .cf-copy {
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 8rem;
+      }
+
+      /* Bullets */
+      .cf-bullets {
+        margin: 8px 0 0;
+        padding-left: 20px;
+        color: var(--muted);
+      }
+      .cf-bullets li {
+        line-height: 1.65;
+        margin: 6px 0;
+      }
+
       /* Nav buttons: 永遠顯示（手機也顯示） */
-      .cf-nav{
-        position:absolute; top:50%; transform: translateY(-50%);
-        width: 46px; height: 46px; border: 1px solid var(--border); border-radius: 14px;
+      .cf-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
         background: color-mix(in oklab, white 6%, transparent);
-        color: var(--text); display:grid; place-items:center;
-        box-shadow: var(--shadow); cursor:pointer; backdrop-filter: blur(8px);
-        transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        backdrop-filter: blur(8px);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease,
+          background 0.2s ease;
         z-index: 1;
       }
-      .cf-nav:hover, .cf-nav:focus-visible{
+      .cf-nav:hover,
+      .cf-nav:focus-visible {
         transform: translateY(-50%) scale(1.05);
         background: color-mix(in oklab, white 10%, transparent);
         box-shadow: var(--shadow-hover);
       }
-      .cf-nav svg{ width: 22px; height: 22px; }
-      .cf-nav.prev{ left: -2px; }
-      .cf-nav.next{ right: -2px; }
-
-      /* Responsive for slider width */
-      @media (max-width: 900px){
-        .cf-slide{ flex-basis: 88%; }
-        .cf-nav.prev{ left: 4px; }
-        .cf-nav.next{ right: 4px; }
+      .cf-nav svg {
+        width: 22px;
+        height: 22px;
       }
-      @media (max-width: 540px){
-        .cf-slide{ flex-basis: 92%; }
-        /* 不再隱藏箭頭 */
+      .cf-nav.prev {
+        left: -2px;
+      }
+      .cf-nav.next {
+        right: -2px;
+      }
+
+      /* Responsive (carousel) */
+      @media (max-width: 900px) {
+        .cf-slide {
+          flex-basis: 92%;
+        }
+        .cf-nav.prev {
+          left: 4px;
+        }
+        .cf-nav.next {
+          right: 4px;
+        }
+        .cf-thumb {
+          width: 7rem;
+        }
+        .cf-copy {
+          min-height: 7rem;
+        }
+        .cf-row {
+          min-height: 7rem;
+        }
+      }
+      @media (max-width: 700px) {
+        .cf-slide {
+          flex-basis: 96%;
+        }
+        .cf-thumb {
+          width: 6rem;
+        }
+        .cf-copy {
+          min-height: 6rem;
+        }
+        .cf-row {
+          min-height: 6rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .cf-thumb {
+          width: 5.5rem;
+        }
+        .cf-copy {
+          min-height: 5.5rem;
+        }
+        .cf-row {
+          min-height: 5.5rem;
+        }
       }
 
       /* Reduced motion */
-      @media (prefers-reduced-motion: reduce){
-        .cf-title{ animation: none !important; }
-        .cf-title::after { animation: none !important; background-position: 0 0, 0 0 !important; }
-        .cf-icon::after{ animation: none !important; display: none !important; }
+      @media (prefers-reduced-motion: reduce) {
+        .cf-title {
+          animation: none !important;
+        }
+        .cf-title::after {
+          animation: none !important;
+          background-position: 0 0, 0 0 !important;
+        }
+        .cf-title::before {
+          animation: none !important;
+        }
       }
 
       /* SR only */
-      .sr-only{
-        position: absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+      .sr-only {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
     </style>
   </head>
@@ -431,10 +1011,10 @@
           </div>
           <div class="video-wrap" aria-label="Intro video">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/AJ9Sz9rhgkU?autoplay=1&mute=1&loop=1&playlist=vk_kLr14Obg&controls=0&rel=0&fs=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1"
+              src="https://www.youtube-nocookie.com/embed/AJ9Sz9rhgkU?autoplay=1&mute=1&loop=1&playlist=AJ9Sz9rhgkU&controls=0&rel=0&fs=0&modestbranding=1&iv_load_policy=3&disablekb=1&playsinline=1"
               title="Intro video"
               allow="autoplay; encrypted-media; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-originn"
+              referrerpolicy="strict-origin-when-cross-origin"
               oncontextmenu="return false"
             ></iframe>
             <span class="video-mask" aria-hidden="true"></span>
@@ -448,63 +1028,115 @@
         aria-label="Nature's Force Intro"
       >
         <div class="intro-container">
-          <h2 class="intro-title">Where Nature's Force Becomes Your Strength</h2>
+          <h2 class="intro-title">
+            Where Nature's Force Becomes Your Strength
+          </h2>
           <p class="intro-subtitle">
-            Quantum farming activates nature's inherent energy to enrich the soil, enabling crops to thrive naturally,
-            reducing pest intrusion, and suppressing pathogens. Minimize pesticide use and create a healthy, safe agricultural environment.
+            Quantum farming activates nature's inherent energy to enrich the
+            soil, enabling crops to thrive naturally, reducing pest intrusion,
+            and suppressing pathogens. Minimize pesticide use and create a
+            healthy, safe agricultural environment.
           </p>
 
           <div class="intro-grid">
             <!-- Mechanism -->
-            <article class="intro-card reveal" tabindex="0" aria-labelledby="np-mechanism-title">
+            <article
+              class="intro-card reveal"
+              tabindex="0"
+              aria-labelledby="np-mechanism-title"
+            >
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" stroke="currentColor" stroke-width="1.6"/>
-                    <path d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03 .31.05 .63.05 .96s-.02 .65-.05 .96l1.83 1.4-1.8 3.12-2.2-.54c-.25 .25-.52 .48-.8 .68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21 .54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path
+                      d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                    <path
+                      d="M4.8 12a7.2 7.2 0 0 1 .06-.96l-1.84-1.4 1.8-3.12 2.21.54c.25-.25.52-.48.79-.68l.1-2.27h3.6l.1 2.27c.28.2.55.43.8.68l2.2-.54 1.8 3.12-1.83 1.4c.03 .31.05 .63.05 .96s-.02 .65-.05 .96l1.83 1.4-1.8 3.12-2.2-.54c-.25 .25-.52 .48-.8 .68l-.1 2.27h-3.6l-.1-2.27c-.27-.2-.54-.43-.79-.68l-2.21 .54-1.8-3.12 1.84-1.4c-.04-.31-.06-.63-.06-.96Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
                 <h3 id="np-mechanism-title">Mechanism</h3>
               </div>
               <p>
-                By leveraging <strong>Scalar Waves</strong> and <strong>Intrinsic Data Fields</strong>, we adjust the target's
-                developmental state, guiding it toward a positive and balanced trajectory.
+                By leveraging <strong>Scalar Waves</strong> and
+                <strong>Intrinsic Data Fields</strong>, we adjust the target's
+                developmental state, guiding it toward a positive and balanced
+                trajectory.
               </p>
             </article>
 
             <!-- Target -->
-            <article class="intro-card reveal" tabindex="0" aria-labelledby="np-target-title">
+            <article
+              class="intro-card reveal"
+              tabindex="0"
+              aria-labelledby="np-target-title"
+            >
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" />
-                    <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6" />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="8"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="4.5"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
                     <circle cx="12" cy="12" r="1.8" fill="currentColor" />
                   </svg>
                 </span>
                 <h3 id="np-target-title">Target</h3>
               </div>
               <p>
-                Using quantum adjustment technology, we fine-tune the <strong>Information Fields</strong> of soil, water, air, and
-                crops to create optimal growth conditions. This customized approach ensures fertile soil and supports crops in achieving
+                Using quantum adjustment technology, we fine-tune the
+                <strong>Information Fields</strong> of soil, water, air, and
+                crops to create optimal growth conditions. This customized
+                approach ensures fertile soil and supports crops in achieving
                 their golden growth state.
               </p>
             </article>
 
             <!-- Effects -->
-            <article class="intro-card reveal" tabindex="0" aria-labelledby="np-effects-title">
+            <article
+              class="intro-card reveal"
+              tabindex="0"
+              aria-labelledby="np-effects-title"
+            >
               <div class="card-head">
                 <span class="intro-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                    <path d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                    <path
+                      d="M19.6 4.4S12.1 4 8.3 7.8C5 11.1 5 16.5 5 16.5s5.4 0 8.7-3.3C17.5 9.4 19.6 4.4 19.6 4.4Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M9 10.5c.9 1.9 2.6 3.6 4.6 4.6"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
                   </svg>
                 </span>
                 <h3 id="np-effects-title">Effects</h3>
               </div>
               <p>
-                It awakens plant vitality, enriches soil nutrients, repels pests, activates beneficial microorganisms,
-                boosts harvests, reduces pesticide use, and enhances overall crop efficiency.
+                It awakens plant vitality, enriches soil nutrients, repels
+                pests, activates beneficial microorganisms, boosts harvests,
+                reduces pesticide use, and enhances overall crop efficiency.
               </p>
             </article>
           </div>
@@ -517,151 +1149,361 @@
           <h2 class="evolution-title">Agricultural Evolution</h2>
           <p class="evolution-lead">
             When quantum technology harmonizes with the wisdom of nature,
-            <strong>VermaVibe Quantum Farming</strong> becomes more than a tool—it represents a true breakthrough in agriculture.
+            <strong>VermaVibe Quantum Farming</strong> becomes more than a
+            tool—it represents a true breakthrough in agriculture.
           </p>
 
           <div class="evolution-grid">
-            <article class="evolution-card reveal" tabindex="0" aria-labelledby="core-title">
+            <article
+              class="evolution-card reveal"
+              tabindex="0"
+              aria-labelledby="core-title"
+            >
               <div class="evo-card-head">
                 <span class="evo-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M7 12a5 5 0 1 1 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M17 12a5 5 0 1 1-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".85"/>
+                    <path
+                      d="M7 12a5 5 0 1 1 5 5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M17 12a5 5 0 1 1-5-5"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      opacity=".85"
+                    />
                   </svg>
                 </span>
                 <h3 id="core-title">Core</h3>
               </div>
               <p>
-                Empowering people to achieve more with less—revitalizing depleted land, boosting crop yields,
-                reducing reliance on pesticides, and fostering ecological balance.
+                Empowering people to achieve more with less—revitalizing
+                depleted land, boosting crop yields, reducing reliance on
+                pesticides, and fostering ecological balance.
               </p>
             </article>
 
-            <article class="evolution-card reveal" tabindex="0" aria-labelledby="application-title">
+            <article
+              class="evolution-card reveal"
+              tabindex="0"
+              aria-labelledby="application-title"
+            >
               <div class="evo-card-head">
                 <span class="evo-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 18c4-6 6-6 8-6s4 0 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                    <path d="M18 4l2 2-2 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path
+                      d="M4 18c4-6 6-6 8-6s4 0 8-6"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M18 4l2 2-2 2"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
                 </span>
                 <h3 id="application-title">Application</h3>
               </div>
-              <p>Ideal for natural farming, organic agriculture, regenerative farms, and diverse plant growth environments.</p>
+              <p>
+                Ideal for natural farming, organic agriculture, regenerative
+                farms, and diverse plant growth environments.
+              </p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ===== Essential Core Functions (改版後：無回彈 transform 輪播 + 圖片位 + 箭頭常顯) ===== -->
-      <section class="core-functions-section" aria-label="Essential Core Functions">
+      <!-- ===== Essential Core Functions ===== -->
+      <section
+        class="core-functions-section"
+        aria-label="Essential Core Functions"
+      >
         <div class="cf-container">
           <h2 class="cf-title">Essential Core Functions</h2>
 
-          <div class="cf-slider" role="region" aria-roledescription="carousel" aria-label="Essential Core Functions">
+          <div
+            class="cf-slider"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Essential Core Functions"
+          >
             <!-- Prev / Next Buttons -->
             <button class="cf-nav prev" aria-label="Previous item">
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M15 4l-8 8 8 8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
             <button class="cf-nav next" aria-label="Next item">
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M9 4l8 8-8 8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
 
-            <!-- Viewport + Track (transform 控制；首尾各克隆一組 originals) -->
+            <!-- Viewport + Track -->
             <div class="cf-viewport">
               <div class="cf-track" tabindex="0">
                 <!-- Slide 1 -->
-                <article class="cf-slide evolution-card reveal" role="group" aria-roledescription="slide" aria-label="Soil vitality">
+                <article
+                  class="cf-slide evolution-card reveal"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label="Soil vitality"
+                >
                   <div class="cf-head">
                     <span class="cf-icon" aria-hidden="true">
-                      <!-- Soil vitality: layers + sprout -->
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <defs><linearGradient id="grad-soil" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--accent)"/><stop offset="100%" stop-color="var(--brand)"/></linearGradient></defs>
-                        <path d="M3 15h18M5 18h14" stroke="url(#grad-soil)" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M12 16V10" stroke="url(#grad-soil)" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M12 10c0-2.5 2.2-4 4.6-4-1.1 2.2-2.3 3.4-4.6 4Z" fill="url(#grad-soil)" opacity=".95"/>
-                        <path d="M12 10c0-2.2-2-3.7-4.6-3.7 1.1 2 2.1 3.2 4.6 3.7Z" fill="url(#grad-soil)" opacity=".75"/>
+                        <defs>
+                          <linearGradient
+                            id="grad-soil"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                          >
+                            <stop offset="0%" stop-color="var(--accent)" />
+                            <stop offset="100%" stop-color="var(--brand)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M3 15h18M5 18h14"
+                          stroke="url(#grad-soil)"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M12 16V10"
+                          stroke="url(#grad-soil)"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M12 10c0-2.5 2.2-4 4.6-4-1.1 2.2-2.3 3.4-4.6 4Z"
+                          fill="url(#grad-soil)"
+                          opacity=".95"
+                        />
+                        <path
+                          d="M12 10c0-2.2-2-3.7-4.6-3.7 1.1 2 2.1 3.2 4.6 3.7Z"
+                          fill="url(#grad-soil)"
+                          opacity=".75"
+                        />
                       </svg>
                     </span>
                     <h3>Soil vitality</h3>
                   </div>
-                  <div class="cf-img">Image Placeholder</div>
-                  <ul class="cf-bullets">
-                    <li>Rebuilds soil structure and porosity</li>
-                    <li>Activates beneficial microbiomes</li>
-                    <li>Improves nutrient and moisture retention</li>
-                  </ul>
+                  <div class="cf-row">
+                    <div class="cf-thumb">
+                      https://picsum.photos/seed/soil/800/800
+                    </div>
+                    <div class="cf-copy">
+                      <ul class="cf-bullets">
+                        <li>Rebuilds soil structure and porosity</li>
+                        <li>Activates beneficial microbiomes</li>
+                        <li>Improves nutrient and moisture retention</li>
+                      </ul>
+                    </div>
+                  </div>
                 </article>
 
                 <!-- Slide 2 -->
-                <article class="cf-slide evolution-card reveal" role="group" aria-roledescription="slide" aria-label="Pest control">
+                <article
+                  class="cf-slide evolution-card reveal"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label="Pest control"
+                >
                   <div class="cf-head">
                     <span class="cf-icon" aria-hidden="true">
-                      <!-- Pest control: bug + shield cross -->
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <defs><linearGradient id="grad-pest" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--brand)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
-                        <path d="M12 3l7 3v5.4c0 4-3 6.6-7 8-4-1.4-7-4-7-8V6l7-3Z" stroke="url(#grad-pest)" stroke-width="1.7" stroke-linejoin="round"/>
-                        <path d="M12 9a3 3 0 0 1 3 3v2a3 3 0 0 1-6 0v-2a3 3 0 0 1 3-3Z" stroke="url(#grad-pest)" stroke-width="1.6"/>
-                        <path d="M9 8l1.5 1.5M15 8l-1.5 1.5M6.5 12H9m6 0h2.5" stroke="url(#grad-pest)" stroke-width="1.6" stroke-linecap="round"/>
-                        <path d="M10 12h4M12 10v4" stroke="url(#grad-pest)" stroke-width="1.8" stroke-linecap="round"/>
+                        <defs>
+                          <linearGradient
+                            id="grad-pest"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                          >
+                            <stop offset="0%" stop-color="var(--brand)" />
+                            <stop offset="100%" stop-color="var(--accent)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M12 3l7 3v5.4c0 4-3 6.6-7 8-4-1.4-7-4-7-8V6l7-3Z"
+                          stroke="url(#grad-pest)"
+                          stroke-width="1.7"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M12 9a3 3 0 0 1 3 3v2a3 3 0 0 1-6 0v-2a3 3 0 0 1 3-3Z"
+                          stroke="url(#grad-pest)"
+                          stroke-width="1.6"
+                        />
+                        <path
+                          d="M9 8l1.5 1.5M15 8l-1.5 1.5M6.5 12H9m6 0h2.5"
+                          stroke="url(#grad-pest)"
+                          stroke-width="1.6"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M10 12h4M12 10v4"
+                          stroke="url(#grad-pest)"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                        />
                       </svg>
                     </span>
                     <h3>Pest control</h3>
                   </div>
-                  <div class="cf-img">Image Placeholder</div>
-                  <ul class="cf-bullets">
-                    <li>Balances field conditions to reduce pest pressure</li>
-                    <li>Diminishes habitat advantages for common pests</li>
-                    <li>Supports non-chemical integrated management</li>
-                  </ul>
+                  <div class="cf-row">
+                    <div class="cf-thumb">
+                      https://picsum.photos/seed/pest/800/800
+                    </div>
+                    <div class="cf-copy">
+                      <ul class="cf-bullets">
+                        <li>
+                          Balances field conditions to reduce pest pressure
+                        </li>
+                        <li>Diminishes habitat advantages for common pests</li>
+                        <li>Supports non-chemical integrated management</li>
+                      </ul>
+                    </div>
+                  </div>
                 </article>
 
                 <!-- Slide 3 -->
-                <article class="cf-slide evolution-card reveal" role="group" aria-roledescription="slide" aria-label="Avoid diseases">
+                <article
+                  class="cf-slide evolution-card reveal"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label="Avoid diseases"
+                >
                   <div class="cf-head">
                     <span class="cf-icon" aria-hidden="true">
-                      <!-- Avoid diseases: shield + check -->
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <defs><linearGradient id="grad-disease" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--accent)"/><stop offset="100%" stop-color="var(--brand)"/></linearGradient></defs>
-                        <path d="M12 3l7 3v5.6c0 4.2-3 6.9-7 8.4-4-1.5-7-4.2-7-8.4V6l7-3Z" stroke="url(#grad-disease)" stroke-width="1.7" stroke-linejoin="round"/>
-                        <path d="M8.8 12.4l2.2 2.2 4.4-4.4" stroke="url(#grad-disease)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                          <linearGradient
+                            id="grad-disease"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                          >
+                            <stop offset="0%" stop-color="var(--accent)" />
+                            <stop offset="100%" stop-color="var(--brand)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M12 3l7 3v5.6c0 4.2-3 6.9-7 8.4-4-1.5-7-4.2-7-8.4V6l7-3Z"
+                          stroke="url(#grad-disease)"
+                          stroke-width="1.7"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M8.8 12.4l2.2 2.2 4.4-4.4"
+                          stroke="url(#grad-disease)"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
                       </svg>
                     </span>
                     <h3>Avoid diseases</h3>
                   </div>
-                  <div class="cf-img">Image Placeholder</div>
-                  <ul class="cf-bullets">
-                    <li>Supports innate plant immunity</li>
-                    <li>Suppresses pathogen activity and spread</li>
-                    <li>Lowers reliance on heavy chemical inputs</li>
-                  </ul>
+                  <div class="cf-row">
+                    <div class="cf-thumb">
+                      https://picsum.photos/seed/disease/800/800
+                    </div>
+                    <div class="cf-copy">
+                      <ul class="cf-bullets">
+                        <li>Supports innate plant immunity</li>
+                        <li>Suppresses pathogen activity and spread</li>
+                        <li>Lowers reliance on heavy chemical inputs</li>
+                      </ul>
+                    </div>
+                  </div>
                 </article>
 
                 <!-- Slide 4 -->
-                <article class="cf-slide evolution-card reveal" role="group" aria-roledescription="slide" aria-label="Growth frequency adjustment">
+                <article
+                  class="cf-slide evolution-card reveal"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label="Growth frequency adjustment"
+                >
                   <div class="cf-head">
                     <span class="cf-icon" aria-hidden="true">
-                      <!-- Growth frequency adjustment: plant + sine -->
                       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <defs><linearGradient id="grad-growth" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--brand)"/><stop offset="100%" stop-color="var(--accent)"/></linearGradient></defs>
-                        <path d="M3 14c2.5 0 2.5-4 5-4s2.5 4 5 4 2.5-4 5-4 2.5 4 3 4" stroke="url(#grad-growth)" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>
-                        <path d="M12 20v-5" stroke="url(#grad-growth)" stroke-width="1.8" stroke-linecap="round"/>
-                        <path d="M12 10c0-2.5 2.2-4 4.6-4-1.1 2.2-2.3 3.4-4.6 4Z" fill="url(#grad-growth)" opacity=".95"/>
-                        <path d="M12 10c0-2.2-2-3.7-4.6-3.7 1.1 2 2.1 3.2 4.6 3.7Z" fill="url(#grad-growth)" opacity=".75"/>
+                        <defs>
+                          <linearGradient
+                            id="grad-growth"
+                            x1="0"
+                            y1="0"
+                            x2="1"
+                            y2="1"
+                          >
+                            <stop offset="0%" stop-color="var(--brand)" />
+                            <stop offset="100%" stop-color="var(--accent)" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M3 14c2.5 0 2.5-4 5-4s2.5 4 5 4 2.5-4 5-4 2.5 4 3 4"
+                          stroke="url(#grad-growth)"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          opacity=".9"
+                        />
+                        <path
+                          d="M12 20v-5"
+                          stroke="url(#grad-growth)"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M12 10c0-2.5 2.2-4 4.6-4-1.1 2.2-2.3 3.4-4.6 4Z"
+                          fill="url(#grad-growth)"
+                          opacity=".95"
+                        />
+                        <path
+                          d="M12 10c0-2.2-2-3.7-4.6-3.7 1.1 2 2.1 3.2 4.6 3.7Z"
+                          fill="url(#grad-growth)"
+                          opacity=".75"
+                        />
                       </svg>
                     </span>
                     <h3>Growth frequency adjustment</h3>
                   </div>
-                  <div class="cf-img">Image Placeholder</div>
-                  <ul class="cf-bullets">
-                    <li>Fine‑tunes developmental rhythms</li>
-                    <li>Aligns growth phases with optimal windows</li>
-                    <li>Improves consistency of yield and quality</li>
-                  </ul>
+                  <div class="cf-row">
+                    <div class="cf-thumb">
+                      <imgs://picsum.photos/seed/growth/800/800
+                    </div>
+                    <div class="cf-copy">
+                      <ul class="cf-bullets">
+                        <li>Fine‑tunes developmental rhythms</li>
+                        <li>Aligns growth phases with optimal windows</li>
+                        <li>Improves consistency of yield and quality</li>
+                      </ul>
+                    </div>
+                  </div>
                 </article>
               </div>
             </div>
@@ -677,88 +1519,150 @@
       const reveal = (el) => el.classList.add("reveal");
 
       // Observe intro/evolution/cf cards
-      const revealTargets = document.querySelectorAll(".intro-card, .evolution-card, .cf-slide");
+      const revealTargets = document.querySelectorAll(
+        ".intro-card, .evolution-card, .cf-slide"
+      );
       const getIndexDelay = (el) => {
-        const list = Array.from(revealTargets); const idx = list.indexOf(el); const base = 120; return Math.max(0, idx) * base;
+        const list = Array.from(revealTargets);
+        const idx = list.indexOf(el);
+        const base = 120;
+        return Math.max(0, idx) * base;
       };
 
       if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver((entries, obs) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const delay = getIndexDelay(entry.target);
-              setTimeout(() => { requestAnimationFrame(() => reveal(entry.target)); }, delay);
-              obs.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.06, rootMargin: "0px 0px -10% 0px" });
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const delay = getIndexDelay(entry.target);
+                setTimeout(() => {
+                  requestAnimationFrame(() => reveal(entry.target));
+                }, delay);
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.06, rootMargin: "0px 0px -10% 0px" }
+        );
         revealTargets.forEach((c) => io.observe(c));
         window.addEventListener("load", () => {
-          setTimeout(() => { revealTargets.forEach((c) => c.classList.contains("reveal") || reveal(c)); }, 1000);
+          setTimeout(() => {
+            revealTargets.forEach(
+              (c) => c.classList.contains("reveal") || reveal(c)
+            );
+          }, 1000);
         });
-      } else { revealTargets.forEach(reveal); }
+      } else {
+        revealTargets.forEach(reveal);
+      }
 
-      // Section page up/down keyboard nav（維持原行為）
+      // Section page up/down keyboard nav（沿用現有行為）
       (function () {
-        const sections = Array.from(document.querySelectorAll(".section, .intro-section, .evolution-section, .core-functions-section, footer"));
+        const sections = Array.from(
+          document.querySelectorAll(
+            ".section, .intro-section, .evolution-section, .core-functions-section, footer"
+          )
+        );
         function snapToSection(index) {
-          const target = sections[Math.max(0, Math.min(index, sections.length - 1))];
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          const target =
+            sections[Math.max(0, Math.min(index, sections.length - 1))];
+          if (target)
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
         function currentSectionIndex() {
-          let idx = 0, minDist = Infinity;
+          let idx = 0,
+            minDist = Infinity;
           sections.forEach((sec, i) => {
             const r = sec.getBoundingClientRect();
             const dist = Math.abs(r.top);
-            if (dist < minDist) { minDist = dist; idx = i; }
+            if (dist < minDist) {
+              minDist = dist;
+              idx = i;
+            }
           });
           return idx;
         }
-        window.addEventListener("keydown", (e) => {
-          const isTyping = e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable;
-          if (isTyping) return;
-          const idx = currentSectionIndex();
-          if (e.code === "PageDown" || (e.code === "Space" && !e.shiftKey)) { e.preventDefault(); snapToSection(idx + 1); }
-          else if (e.code === "PageUp" || (e.code === "Space" && e.shiftKey)) { e.preventDefault(); snapToSection(idx - 1); }
-        }, { passive: false });
+        window.addEventListener(
+          "keydown",
+          (e) => {
+            const isTyping =
+              e.target.tagName === "INPUT" ||
+              e.target.tagName === "TEXTAREA" ||
+              e.target.isContentEditable;
+            if (isTyping) return;
+            const idx = currentSectionIndex();
+            if (e.code === "PageDown" || (e.code === "Space" && !e.shiftKey)) {
+              e.preventDefault();
+              snapToSection(idx + 1);
+            } else if (
+              e.code === "PageUp" ||
+              (e.code === "Space" && e.shiftKey)
+            ) {
+              e.preventDefault();
+              snapToSection(idx - 1);
+            }
+          },
+          { passive: false }
+        );
       })();
 
-      /* ===== Essential Core Functions slider（改版：transform + clones，無回彈直接循環） ===== */
+      // ====== Helper: keep thumbnails <= text height, centered (8rem max) ======
+      function applyThumbSizing() {
+        const rootFontSize =
+          parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        const base = 8 * rootFontSize; // 8rem in px
+        document.querySelectorAll(".cf-row").forEach((row) => {
+          const thumb = row.querySelector(".cf-thumb");
+          const copy = row.querySelector(".cf-copy");
+          if (!thumb || !copy) return;
+          const copyH = copy.getBoundingClientRect().height || 0; // measure text block height
+          const size = Math.max(0, Math.min(base, copyH));
+          thumb.style.width = size + "px";
+          thumb.style.height = size + "px";
+        });
+      }
+
+      // ===== Essential Core Functions slider（自動輪播 + 無回彈循環） =====
       (function () {
-        const slider = document.querySelector('.core-functions-section .cf-slider');
+        const slider = document.querySelector(
+          ".core-functions-section .cf-slider"
+        );
         if (!slider) return;
 
-        const viewport = slider.querySelector('.cf-viewport');
-        const track = slider.querySelector('.cf-track');
-        const prevBtn = slider.querySelector('.cf-nav.prev');
-        const nextBtn = slider.querySelector('.cf-nav.next');
+        const viewport = slider.querySelector(".cf-viewport");
+        const track = slider.querySelector(".cf-track");
+        const prevBtn = slider.querySelector(".cf-nav.prev");
+        const nextBtn = slider.querySelector(".cf-nav.next");
 
-        // 只取 originals（尚未克隆前）
+        // 取得 originals（未克隆前）
         const originals = Array.from(track.children);
         const N = originals.length;
 
-        // 建立前後各一組克隆，實現無縫循環，且從可及性樹移除
-        function markClone(el){
-          el.setAttribute('data-clone','');
-          el.setAttribute('aria-hidden','true');
+        // 建立前後各一輪克隆，從可及性樹移除
+        function markClone(el) {
+          el.setAttribute("data-clone", "");
+          el.setAttribute("aria-hidden", "true");
           el.tabIndex = -1;
-          el.querySelectorAll('a,button,[tabindex="0"]').forEach(f => f.tabIndex = -1);
+          el.querySelectorAll('a,button,[tabindex="0"]').forEach(
+            (f) => (f.tabIndex = -1)
+          );
           return el;
         }
-        const beforeClones = originals.map(s => markClone(s.cloneNode(true))).reverse();
-        beforeClones.forEach(s => track.insertBefore(s, track.firstChild));
-        const afterClones  = originals.map(s => markClone(s.cloneNode(true)));
-        afterClones.forEach(s => track.appendChild(s));
+        const beforeClones = originals
+          .map((s) => markClone(s.cloneNode(true)))
+          .reverse();
+        beforeClones.forEach((s) => track.insertBefore(s, track.firstChild));
+        const afterClones = originals.map((s) => markClone(s.cloneNode(true)));
+        afterClones.forEach((s) => track.appendChild(s));
 
-        let index = 0;   // 以 originals 為基準的邏輯索引（0..N-1）
-        let STEP = 0;    // 每次移動一張的距離（含 gap）
+        let index = 0; // 以 originals 為基準（0..N-1）
+        let STEP = 0; // 一張的距離（含 gap）
 
-        function measureStep(){
-          // 以第一張 original 與其右側相鄰元素，量出寬度+gap
+        function measureStep() {
           const all = Array.from(track.children);
           const anchor = all[beforeClones.length];
           const next = all[beforeClones.length + 1];
-          if (!anchor || !next){
+          if (!anchor || !next) {
             STEP = viewport.clientWidth;
             return;
           }
@@ -767,48 +1671,154 @@
           STEP = r1.left - r0.left;
         }
 
-        function setTransform(px, withTransition){
-          track.style.transition = withTransition ? 'transform .45s ease-out' : 'none';
+        function setTransform(px, withTransition) {
+          track.style.transition = withTransition
+            ? "transform .45s ease-out"
+            : "none";
           track.style.transform = `translateX(${-px}px)`;
         }
 
-        function currentPX(){
+        function currentPX() {
           return (beforeClones.length + index) * STEP;
         }
 
-        function jumpIfNeeded(){
-          // 超出 originals 範圍就瞬移（無回彈）
-          if (index >= N){
+        function jumpIfNeeded() {
+          if (index >= N) {
             index -= N;
             setTransform(currentPX(), false);
-          } else if (index < 0){
+          } else if (index < 0) {
             index += N;
             setTransform(currentPX(), false);
           }
         }
 
-        function go(delta){
+        function go(delta) {
           measureStep();
           index += delta;
           setTransform(currentPX(), true);
         }
 
-        track.addEventListener('transitionend', jumpIfNeeded);
-
-        function init(){
-          measureStep();
-          setTransform(currentPX(), false);
-        }
-        window.addEventListener('load', init);
-        window.addEventListener('resize', () => {
-          const keep = index;
-          measureStep();
-          setTransform(currentPX(), false);
+        track.addEventListener("transitionend", () => {
+          jumpIfNeeded();
+          applyThumbSizing();
         });
 
-        prevBtn?.addEventListener('click', () => go(-1));
-        nextBtn?.addEventListener('click', () => go(1));
+        function init() {
+          measureStep();
+          setTransform(currentPX(), false);
+          applyThumbSizing();
+        }
+        window.addEventListener("load", init);
+        window.addEventListener("resize", () => {
+          measureStep();
+          setTransform(currentPX(), false);
+          applyThumbSizing();
+        });
+
+        prevBtn?.addEventListener("click", () => {
+          go(-1);
+        });
+        nextBtn?.addEventListener("click", () => {
+          go(1);
+        });
+
+        // ===== Autoplay =====
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+        const AUTO_MS = 3500;
+        let autoTimer = null;
+        let autoPaused = false;
+
+        function startAuto() {
+          if (prefersReduced) return;
+          if (autoTimer) return;
+          autoTimer = setInterval(() => {
+            if (!document.hidden) go(1);
+          }, AUTO_MS);
+        }
+        function stopAuto() {
+          if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+          }
+        }
+        function pauseAuto() {
+          autoPaused = true;
+          stopAuto();
+        }
+        function resumeAutoLater(delay = 1600) {
+          autoPaused = false;
+          stopAuto();
+          setTimeout(() => startAuto(), delay);
+        }
+
+        // 互動暫停
+        slider.addEventListener("mouseenter", () => pauseAuto());
+        slider.addEventListener("mouseleave", () => resumeAutoLater());
+        slider.addEventListener("focusin", () => pauseAuto());
+        slider.addEventListener("focusout", () => resumeAutoLater());
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden) stopAuto();
+          else startAuto();
+        });
+
+        // 當前可見時啟動
+        if ("IntersectionObserver" in window) {
+          const visibleIO = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) {
+                  if (!autoPaused) startAuto();
+                  applyThumbSizing();
+                } else {
+                  stopAuto();
+                }
+              });
+            },
+            { threshold: 0.35 }
+          );
+          visibleIO.observe(slider);
+        } else {
+          startAuto();
+        }
+
+        // 鍵盤左右鍵（當滑鼠在 slider 上或元素聚焦）
+        let sliderActive = false;
+        slider.addEventListener("mouseenter", () => (sliderActive = true));
+        slider.addEventListener("mouseleave", () => (sliderActive = false));
+        slider.addEventListener("focusin", () => (sliderActive = true));
+        slider.addEventListener("focusout", () => (sliderActive = false));
+
+        document.addEventListener("keydown", (e) => {
+          if (!sliderActive) return;
+          const isTyping =
+            e.target.tagName === "INPUT" ||
+            e.target.tagName === "TEXTAREA" ||
+            e.target.isContentEditable;
+          if (isTyping) return;
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            go(1);
+            pauseAuto();
+            resumeAutoLater();
+          }
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            go(-1);
+            pauseAuto();
+            resumeAutoLater();
+          }
+        });
       })();
+
+      // ResizeObserver：動態字型或版面變動時重新計算縮圖
+      if ("ResizeObserver" in window) {
+        const ro = new ResizeObserver(() => applyThumbSizing());
+        document.querySelectorAll(".cf-copy").forEach((el) => ro.observe(el));
+      }
+      window.addEventListener("load", applyThumbSizing);
+      window.addEventListener("resize", applyThumbSizing);
     </script>
   </body>
 </html>
